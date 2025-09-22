@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGARD | РЕГАРД</title>
+    <link rel="stylesheet" href="css/upper_logo.css">
+    <link rel="stylesheet" href="css/main_info.css">
+    <link rel="stylesheet" href="css/object_section.css">
+    <link rel="stylesheet" href="css/contacts_secrion.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="container">
+            <nav>
+                <ul>
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="">О нас</a></li>
+                    <li><a href="">Портфолио</a></li>
+                    <li><a href="">Новости</a></li>
+                    <li class="btn"><a href="">Контакты</a></li>
+                </ul>
+            </nav>
+            <span class="logo">
+                <img src="JPG/logo.jpg" alt="" class="logotype-img">
+                <h1 class="logo">ООО «Регард»</h1>
+            </span>
+
+        </header>
+
+        <div class="hero container">
+            <div class="hero--info">
+                <h2>ЗНАНИЯ И ОПЫТ В ОБЛАСТИ МОНИТОРИНГА И ОБЩЕСТРОИТЕЛЬНЫХ РАБОТ</h2>
+                <p>ООО "РЕГАРД" выполняет работы в сфере геодезического сопровождения строительства (геодезический мониторинг), а также общестроительные работы</p>
+            </div>
+            <div class="sertif">
+                <button class="btn_sert">
+                    <img class="sert" src="JPG/regard_sro.png" alt="">
+                </button>
+                <button class="btn_sert">
+                    <img class="sert" src="JPG/regard_sro1.png" alt="">
+                </button>
+                <button class="btn_sert">
+                    <img class="sert" src="JPG/regard_sro1.png" alt="">
+                </button>
+            </div>
+        </div>
+
+        <div class="container trending">
+            <h3>Наши объекты</h3>
+
+            <div class="games">
+                <div class="image-frame">
+                    <img src="JPG/OBJ-Logolovo.png" alt="" class="framed-image">
+                    <div class="image-text">
+                        <h3>Лаголово А101</h3>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <img src="JPG/OBJ-Logolovo.png" alt="" class="framed-image">
+                    <div class="image-text">
+                        <h3>Живи в Песочном!</h3>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <img src="JPG/OBJ-Logolovo.png" alt="" class="framed-image">
+                    <div class="image-text">
+                        <h3>Новые Лаврики</h3>
+                    </div>
+                </div>
+                <div class="image-frame">
+                    <img src="JPG/OBJ-Logolovo.png" alt="" class="framed-image">
+                    <div class="image-text">
+                        <h3>UP-Квартал Воронцовский</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Для открытия картинок на сайте -->
+        <div class="modal-overlay" id="imageModal">
+            <div class="modal-content">
+                <button class="close-modal" id="closeModal">&times;</button>
+                <img class="modal-image" id="modalImage" src="" alt="Увеличенное изображение">
+                <div class="zoom-indicator">Увеличение 180%</div>
+                <div class="zoom-hint">Кликните для увеличения • Двойной клик для зума</div>
+                <div class="zoom-controls">
+                    <button class="zoom-btn" id="zoomIn">+</button>
+                    <button class="zoom-btn" id="zoomOut">-</button>
+                    <button class="zoom-btn" id="zoomReset">↺</button>
+                </div>
+            </div>
+        </div>
+        <!-- Код для карты + контакты -->
+    <section class="contacts-section">
+        <div class="container">
+            <h1 class="section-title">Контакты</h1>
+            
+            <div class="contacts-grid">
+                <!-- Контактная информация -->
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <p>197110, г. Санкт-Петербург, улица Большая Зеленина, 24</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <p>+7 (495) 123-45-67</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <p>project@regard-spb.ru</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-details">
+                            <p>Пн-Пт: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карта -->
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=562b26dd-47cf-42b4-8264-083d74ed910d
+&lang=ru_RU" type="text/javascript"></script>
+    <script src="javascript/contact_section.js"></script>
+    </div>
+</body>
+
+</html>

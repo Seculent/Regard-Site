@@ -1,0 +1,294 @@
+/* Стили для секции контактов */
+.contacts-section {
+    padding: 60px 0;
+    background: rgba(0, 0, 0, 0.8);
+    margin-top: 50px;
+    border-top: 3px solid #ee9393;
+}
+
+.contacts-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    font-weight: 600;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #ee9393;
+    border-radius: 2px;
+}
+
+.contacts-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    align-items: start;
+    width: 100%; /* Добавляем */
+    box-sizing: border-box; /* Добавляем */
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.contact-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+    border-color: rgba(238, 147, 147, 0.3);
+}
+
+.contact-icon {
+    font-size: 24px;
+    margin-right: 20px;
+    min-width: 30px;
+    background: linear-gradient(135deg, #ee9393, #bb0d0d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.contact-details p {
+    color: #fff;
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.map-container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    height: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+}
+
+/* Адаптивность */
+/* Улучшенная адаптивность для контактов */
+@media (max-width: 1400px) {
+    .contacts-section .container {
+        width: 95%;
+        max-width: 1200px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .contacts-section .container {
+        width: 100%;
+        padding: 0 30px;
+    }
+    
+    .contacts-grid {
+        gap: 30px;
+    }
+    
+    .map-container {
+        height: 350px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .contacts-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .map-container {
+        height: 300px;
+        order: -1;
+        padding: 20px;
+    }
+    
+    .contact-info {
+        order: 1;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .contacts-section {
+        padding: 30px 15px;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+    }
+    
+    .map-container {
+        height: 250px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .contact-item {
+        padding: 12px 15px;
+        flex-direction: row; /* Иконки и текст в строку */
+        align-items: center;
+    }
+    
+    .contact-icon {
+        font-size: 18px;
+        margin-right: 12px;
+        min-width: 22px;
+        flex-shrink: 0; /* Предотвращает сжатие иконок */
+    }
+    
+    .contact-details p {
+        font-size: 0.9rem;
+        word-break: break-word; /* Перенос длинного текста */
+    }
+    
+    /* Улучшаем внешний вид на очень маленьких экранах */
+    .contact-item:hover {
+        transform: translateX(5px); /* Уменьшаем анимацию */
+    }
+}
+
+@media (max-width: 360px) {
+    .contacts-section {
+        padding: 25px 10px;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .map-container {
+        height: 220px;
+        padding: 12px;
+    }
+    
+    .contact-item {
+        padding: 10px 12px;
+    }
+    
+    .contact-icon {
+        font-size: 16px;
+        margin-right: 10px;
+    }
+    
+    .contact-details p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Фикс для карты на мобильных */
+@media (max-width: 768px) {
+    #map {
+        border-radius: 6px;
+    }
+    
+    /* Улучшаем кнопки управления на мобильных */
+    .ymaps-2-1-79-controls__control {
+        transform: scale(0.8);
+        transform-origin: center;
+    }
+}
+@media (max-width: 480px) {
+    .contacts-section {
+        padding: 30px 15px;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+    }
+    
+    .map-container {
+        height: 250px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .contact-item {
+        padding: 12px 15px;
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    .contact-icon {
+        font-size: 18px;
+        margin-bottom: 5px;
+        min-width: 22px;
+    }
+    
+    .contact-details p {
+        font-size: 0.9rem;
+        word-break: break-word;
+        line-height: 1.4;
+    }
+    
+    .contact-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    .contact-info {
+        gap: 12px;
+    }
+}
+
+
+/* Гарантируем, что ничего не вылазит за пределы */
+.contacts-section {
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Фиксим проблему с Яндекс.Картами */
+.ymaps-2-1-79-map {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ymaps-2-1-79-inner-panes {
+    width: 100% !important;
+    height: 100% !important;
+}
