@@ -3,7 +3,9 @@
     padding: 60px 0;
     background: rgba(0, 0, 0, 0.5);
     margin-top: 50px;
-    border-top: 3px solid #ee9393;
+    border-top: 3px solid;
+    border-image: linear-gradient(circle, rgba(218, 143, 65, 1) 0%, rgba(119, 80, 36, 1) 100%) 1;/* Градиент */
+    border-image-slice: 1;
 }
 
 .contacts-section .container {
