@@ -17,7 +17,7 @@
                 <ul>
                     <li class="active"><a href="#">Home</a></li>
                     <li><a href="">О нас</a></li>
-                    <li class="btn"><a href="">Брошюра</a></li>
+                    <li class="btn"><a href="#" id="brochureBtn">Брошюра</a></li>
                     <li class="btn"><a href="">Контакты</a></li>
                 </ul>
             </nav>
@@ -90,6 +90,15 @@
                 </div>
             </div>
         </div>
+        <!-- Модальное окно для PDF -->
+        <div class="modal-overlay-pdf" id="pdfModal">
+            <div class="modal-content-pdf">
+                <button class="close-modal-pdf" id="closePdfModal">&times;</button>
+                <div class="pdf-container">
+                    <iframe id="pdfViewer" src="" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
         <!-- Код для карты + контакты -->
     <section class="contacts-section">
         <div class="container">
@@ -138,6 +147,7 @@
     <script src="https://api-maps.yandex.ru/2.1/?apikey=562b26dd-47cf-42b4-8264-083d74ed910d
 &lang=ru_RU" type="text/javascript"></script>
     <script src="javascript/contact_section.js"></script>
+    <script src="javascript/pdf_viewer.js"></script>
     </div>
 </body>
 
