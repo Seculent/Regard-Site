@@ -1,7 +1,7 @@
 /* Стили для секции контактов */
 .contacts-section {
     padding: 60px 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.5);
     margin-top: 50px;
     border-top: 3px solid #ee9393;
 }
