@@ -1,131 +1,143 @@
-// Управление просмотрщиком сертификатов
-document.addEventListener('DOMContentLoaded', function() {
-    const certificateImage = document.querySelector('.certificate-image-wrapper .sert');
-    const thumbButtons = document.querySelectorAll('.thumb-btn');
-    const zoomInBtn = document.getElementById('certZoomIn');
-    const zoomOutBtn = document.getElementById('certZoomOut');
-    const zoomResetBtn = document.getElementById('certZoomReset');
-    const zoomIndicator = document.querySelector('.certificate-controls .zoom-indicator');
+// Функция для открытия модального окна
+function openModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
     
-    let currentScale = 1;
-    let isDragging = false;
-    let startX, startY, scrollLeft, scrollTop;
+    modalImage.src = imageSrc;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
     
-    // Функция для обновления индикатора зума
-    function updateZoomIndicator() {
+    // Сбрасываем состояние при открытии нового изображения
+    resetZoom();
+}
+
+// Функция для закрытия модального окна
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    resetZoom();
+}
+
+// Переменные для управления зумом
+let currentScale = 1;
+const minScale = 0.5;
+const maxScale = 3;
+const scaleStep = 0.2;
+
+// Функция для увеличения изображения
+function zoomIn() {
+    currentScale = Math.min(currentScale + scaleStep, maxScale);
+    applyZoom();
+}
+
+// Функция для уменьшения изображения
+function zoomOut() {
+    currentScale = Math.max(currentScale - scaleStep, minScale);
+    applyZoom();
+}
+
+// Функция для сброса зума
+function resetZoom() {
+    currentScale = 1;
+    applyZoom();
+    
+    // Сбрасываем скролл к центру
+    const imageContainer = document.querySelector('.modal-image-container');
+    imageContainer.scrollLeft = imageContainer.scrollWidth / 2 - imageContainer.clientWidth / 2;
+    imageContainer.scrollTop = imageContainer.scrollHeight / 2 - imageContainer.clientHeight / 2;
+}
+
+// Функция для применения масштаба
+function applyZoom() {
+    const modalImage = document.getElementById('modalImage');
+    const imageContainer = document.querySelector('.modal-image-container');
+    
+    modalImage.style.transform = `scale(${currentScale})`;
+    updateZoomIndicator();
+    
+    // Добавляем/убираем класс для курсора
+    if (currentScale > 1) {
+        modalImage.classList.add('zoomed');
+    } else {
+        modalImage.classList.remove('zoomed');
+    }
+}
+
+// Функция для обновления индикатора зума
+function updateZoomIndicator() {
+    const zoomIndicator = document.querySelector('.zoom-indicator');
+    if (zoomIndicator) {
         zoomIndicator.textContent = `Увеличение ${Math.round(currentScale * 100)}%`;
     }
+}
+
+// Инициализация после загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Добавляем обработчики на все кнопки сертификатов
+    const certButtons = document.querySelectorAll('.btn_sert');
     
-    // Функция для применения масштаба
-    function applyScale() {
-        certificateImage.style.transform = `scale(${currentScale})`;
-        updateZoomIndicator();
-    }
-    
-    // Увеличение
-    zoomInBtn.addEventListener('click', function() {
-        currentScale = Math.min(currentScale + 0.2, 3);
-        applyScale();
-    });
-    
-    // Уменьшение
-    zoomOutBtn.addEventListener('click', function() {
-        currentScale = Math.max(currentScale - 0.2, 1);
-        applyScale();
-        
-        // Если масштаб 1x, сбрасываем позицию
-        if (currentScale === 1) {
-            certificateImage.parentElement.scrollLeft = 0;
-            certificateImage.parentElement.scrollTop = 0;
-        }
-    });
-    
-    // Сброс зума
-    zoomResetBtn.addEventListener('click', function() {
-        currentScale = 1;
-        applyScale();
-        certificateImage.parentElement.scrollLeft = 0;
-        certificateImage.parentElement.scrollTop = 0;
-    });
-    
-    // Переключение между сертификатами
-    thumbButtons.forEach(button => {
+    certButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const imageSrc = this.getAttribute('data-src');
-            
-            // Обновляем активную кнопку
-            thumbButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Меняем изображение
-            certificateImage.src = imageSrc;
-            
-            // Сбрасываем масштаб
-            currentScale = 1;
-            applyScale();
-            certificateImage.parentElement.scrollLeft = 0;
-            certificateImage.parentElement.scrollTop = 0;
+            const imageSrc = this.querySelector('.sert').src;
+            openModal(imageSrc);
         });
     });
     
-    // Перетаскивание изображения при увеличении
-    certificateImage.addEventListener('mousedown', startDrag);
+    // Обработчики для кнопок управления зумом
+    document.getElementById('zoomIn').addEventListener('click', zoomIn);
+    document.getElementById('zoomOut').addEventListener('click', zoomOut);
+    document.getElementById('zoomReset').addEventListener('click', resetZoom);
     
-    function startDrag(e) {
-        if (currentScale > 1) {
-            isDragging = true;
-            startX = e.pageX - certificateImage.parentElement.offsetLeft;
-            startY = e.pageY - certificateImage.parentElement.offsetTop;
-            scrollLeft = certificateImage.parentElement.scrollLeft;
-            scrollTop = certificateImage.parentElement.scrollTop;
-            
-            certificateImage.style.cursor = 'grabbing';
-            
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDrag);
-        }
-    }
+    // Закрытие по клику на крестик
+    document.getElementById('closeModal').addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeModal();
+    });
     
-    function drag(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        
-        const x = e.pageX - certificateImage.parentElement.offsetLeft;
-        const y = e.pageY - certificateImage.parentElement.offsetTop;
-        const walkX = (x - startX) * 2;
-        const walkY = (y - startY) * 2;
-        
-        certificateImage.parentElement.scrollLeft = scrollLeft - walkX;
-        certificateImage.parentElement.scrollTop = scrollTop - walkY;
-    }
-    
-    function stopDrag() {
-        isDragging = false;
-        certificateImage.style.cursor = 'grab';
-        document.removeEventListener('mousemove', drag);
-        document.removeEventListener('mouseup', stopDrag);
-    }
-    
-    // Скролл колесом мыши при увеличении
-    certificateImage.parentElement.addEventListener('wheel', function(e) {
-        if (currentScale > 1) {
-            e.preventDefault();
-            this.scrollLeft += e.deltaY;
+    // Закрытие по клику вне изображения
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
         }
     });
     
-    // Двойной клик для переключения зума
-    certificateImage.addEventListener('dblclick', function(e) {
-        e.preventDefault();
+    // Закрытие по клавише Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+    
+    // Двойной клик по изображению для переключения зума
+    document.getElementById('modalImage').addEventListener('dblclick', function(e) {
+        e.stopPropagation();
         
         if (currentScale === 1) {
             currentScale = 2;
         } else {
             currentScale = 1;
-            certificateImage.parentElement.scrollLeft = 0;
-            certificateImage.parentElement.scrollTop = 0;
         }
         
-        applyScale();
+        applyZoom();
+    });
+    
+    // Обработка колесика мыши для скролла увеличенного изображения
+    const imageContainer = document.querySelector('.modal-image-container');
+    
+    imageContainer.addEventListener('wheel', function(e) {
+        // Если изображение увеличено, разрешаем скролл
+        if (currentScale > 1) {
+            // Позволяем естественное поведение скролла
+            return;
+        } else {
+            // Если не увеличено, предотвращаем скролл (можно прокручивать страницу под модалкой)
+            e.preventDefault();
+        }
+    });
+    
+    // Предотвращаем закрытие при клике на само изображение
+    document.getElementById('modalImage').addEventListener('click', function(e) {
+        e.stopPropagation();
     });
 });
