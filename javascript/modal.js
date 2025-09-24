@@ -42,10 +42,12 @@ function resetZoom() {
     currentScale = 1;
     applyZoom();
     
-    // Сбрасываем скролл к центру
-    const imageContainer = document.querySelector('.modal-image-container');
-    imageContainer.scrollLeft = imageContainer.scrollWidth / 2 - imageContainer.clientWidth / 2;
-    imageContainer.scrollTop = imageContainer.scrollHeight / 2 - imageContainer.clientHeight / 2;
+    // Сбрасываем скролл к центру с задержкой для применения трансформации
+    setTimeout(() => {
+        const imageContainer = document.querySelector('.modal-image-container');
+        imageContainer.scrollTop = (imageContainer.scrollHeight - imageContainer.clientHeight) / 2;
+        imageContainer.scrollLeft = (imageContainer.scrollWidth - imageContainer.clientWidth) / 2;
+    }, 10);
 }
 
 // Функция для применения масштаба
@@ -59,8 +61,20 @@ function applyZoom() {
     // Добавляем/убираем класс для курсора
     if (currentScale > 1) {
         modalImage.classList.add('zoomed');
+        
+        // После изменения масштаба прокручиваем к верху изображения
+        setTimeout(() => {
+            imageContainer.scrollTop = 0;
+            imageContainer.scrollLeft = (imageContainer.scrollWidth - imageContainer.clientWidth) / 2;
+        }, 10);
     } else {
         modalImage.classList.remove('zoomed');
+        
+        // Сбрасываем скролл к центру при обычном масштабе
+        setTimeout(() => {
+            imageContainer.scrollTop = (imageContainer.scrollHeight - imageContainer.clientHeight) / 2;
+            imageContainer.scrollLeft = (imageContainer.scrollWidth - imageContainer.clientWidth) / 2;
+        }, 10);
     }
 }
 

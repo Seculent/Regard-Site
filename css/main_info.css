@@ -103,7 +103,7 @@
     overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-start; /* изменено с center на flex-start */
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -117,6 +117,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
     transform-origin: center center;
+    margin: auto; /* добавляем для лучшего центрирования */
 }
 
 .modal-image.zoomed {
