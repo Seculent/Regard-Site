@@ -3,14 +3,53 @@ function openModal(imageSrc) {
     const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     
-    modalImage.src = imageSrc;
+    // Показываем модальное окно сразу, но прозрачным
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Ждем загрузки изображения перед сбросом зума
-    modalImage.onload = function() {
-        resetZoom();
+    // Создаем временное изображение для получения размеров
+    const tempImage = new Image();
+    tempImage.onload = function() {
+        // Устанавливаем источник основному изображению
+        modalImage.src = imageSrc;
+        
+        // Рассчитываем оптимальный размер для модального окна
+        const maxWidth = window.innerWidth - 40; // минус отступы
+        const maxHeight = window.innerHeight - 40;
+        
+        let imageWidth = tempImage.width;
+        let imageHeight = tempImage.height;
+        
+        // Если изображение больше окна - масштабируем
+        if (imageWidth > maxWidth || imageHeight > maxHeight) {
+            const widthRatio = maxWidth / imageWidth;
+            const heightRatio = maxHeight / imageHeight;
+            const scaleRatio = Math.min(widthRatio, heightRatio);
+            
+            imageWidth = imageWidth * scaleRatio;
+            imageHeight = imageHeight * scaleRatio;
+        }
+        
+        // Устанавливаем размеры модального окна
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.style.width = imageWidth + 'px';
+        modalContent.style.height = 'auto'; // Высота будет определяться содержимым
+        
+        // Центрируем модальное окно
+        modalContent.style.margin = 'auto';
     };
+    
+    tempImage.onerror = function() {
+        // Если не удалось загрузить изображение, используем стандартный размер
+        modalImage.src = imageSrc;
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.style.width = 'auto';
+        modalContent.style.height = 'auto';
+        modalContent.style.maxWidth = '90vw';
+        modalContent.style.maxHeight = '90vh';
+    };
+    
+    tempImage.src = imageSrc;
 }
 
 // Функция для закрытия модального окна
@@ -18,90 +57,31 @@ function closeModal() {
     const modal = document.getElementById('imageModal');
     modal.classList.remove('active');
     document.body.style.overflow = '';
-    resetZoom();
-}
-
-// Переменные для управления зумом
-let currentScale = 1;
-const minScale = 0.5;
-const maxScale = 3;
-const scaleStep = 0.2;
-
-// Функция для увеличения изображения
-function zoomIn() {
-    const prevScale = currentScale;
-    currentScale = Math.min(currentScale + scaleStep, maxScale);
-    applyZoom(prevScale);
-}
-
-// Функция для уменьшения изображения
-function zoomOut() {
-    const prevScale = currentScale;
-    currentScale = Math.max(currentScale - scaleStep, minScale);
-    applyZoom(prevScale);
-}
-
-// Функция для сброса зума
-function resetZoom() {
-    const prevScale = currentScale;
-    currentScale = 1;
-    applyZoom(prevScale);
-}
-
-// Функция для применения масштаба с сохранением позиции
-function applyZoom(prevScale) {
-    const modalImage = document.getElementById('modalImage');
-    const imageContainer = document.querySelector('.modal-image-container');
     
-    // Сохраняем текущую позицию скролла относительно центра
-    const containerRect = imageContainer.getBoundingClientRect();
-    const containerCenterX = containerRect.left + containerRect.width / 2;
-    const containerCenterY = containerRect.top + containerRect.height / 2;
+    // Сбрасываем размеры модального окна
+    const modalContent = document.querySelector('.modal-content');
+    modalContent.style.width = '';
+    modalContent.style.height = '';
     
-    const imageRect = modalImage.getBoundingClientRect();
-    const imageCenterX = imageRect.left + imageRect.width / 2;
-    const imageCenterY = imageRect.top + imageRect.height / 2;
-    
-    const relativeX = containerCenterX - imageCenterX;
-    const relativeY = containerCenterY - imageCenterY;
-    
-    modalImage.style.transform = `scale(${currentScale})`;
-    updateZoomIndicator();
-    
-    // Добавляем/убираем класс для курсора
-    if (currentScale > 1) {
-        modalImage.classList.add('zoomed');
-    } else {
-        modalImage.classList.remove('zoomed');
+    // Сбрасываем фокус с активной кнопки
+    if (document.activeElement) {
+        document.activeElement.blur();
     }
-    
-    // Ждем обновления DOM и применяем новый скролл
-    setTimeout(() => {
-        const newImageRect = modalImage.getBoundingClientRect();
-        const scaleRatio = currentScale / prevScale;
-        
-        // Рассчитываем новую позицию скролла
-        const newScrollLeft = imageContainer.scrollLeft + (relativeX * scaleRatio - relativeX);
-        const newScrollTop = imageContainer.scrollTop + (relativeY * scaleRatio - relativeY);
-        
-        imageContainer.scrollLeft = newScrollLeft;
-        imageContainer.scrollTop = newScrollTop;
-        
-        // Если это сброс зума, центрируем изображение
-        if (currentScale === 1) {
-            setTimeout(() => {
-                imageContainer.scrollLeft = (modalImage.scrollWidth - imageContainer.clientWidth) / 2;
-                imageContainer.scrollTop = (modalImage.scrollHeight - imageContainer.clientHeight) / 2;
-            }, 50);
-        }
-    }, 10);
 }
 
-// Функция для обновления индикатора зума
-function updateZoomIndicator() {
-    const zoomIndicator = document.querySelector('.zoom-indicator');
-    if (zoomIndicator) {
-        zoomIndicator.textContent = `Увеличение ${Math.round(currentScale * 100)}%`;
+// Обработчик изменения размера окна
+function handleResize() {
+    const modal = document.getElementById('imageModal');
+    if (modal.classList.contains('active')) {
+        const modalImage = document.getElementById('modalImage');
+        const imageSrc = modalImage.src;
+        
+        // Если модальное окно открыто, пересчитываем размеры
+        if (imageSrc) {
+            // Временно закрываем и открываем модальное окно для перерасчета
+            closeModal();
+            setTimeout(() => openModal(imageSrc), 10);
+        }
     }
 }
 
@@ -116,11 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
             openModal(imageSrc);
         });
     });
-    
-    // Обработчики для кнопок управления зумом
-    document.getElementById('zoomIn').addEventListener('click', zoomIn);
-    document.getElementById('zoomOut').addEventListener('click', zoomOut);
-    document.getElementById('zoomReset').addEventListener('click', resetZoom);
     
     // Закрытие по клику на крестик
     document.getElementById('closeModal').addEventListener('click', function(e) {
@@ -142,35 +117,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Двойной клик по изображению для переключения зума
-    document.getElementById('modalImage').addEventListener('dblclick', function(e) {
-        e.stopPropagation();
-        
-        if (currentScale === 1) {
-            currentScale = 2;
-        } else {
-            currentScale = 1;
-        }
-        
-        applyZoom(1);
-    });
-    
-    // Обработка колесика мыши для скролла увеличенного изображения
-    const imageContainer = document.querySelector('.modal-image-container');
-    
-    imageContainer.addEventListener('wheel', function(e) {
-        // Если изображение увеличено, разрешаем скролл
-        if (currentScale > 1) {
-            // Позволяем естественное поведение скролла
-            return;
-        } else {
-            // Если не увеличено, предотвращаем скролл
-            e.preventDefault();
-        }
-    });
-    
     // Предотвращаем закрытие при клике на само изображение
     document.getElementById('modalImage').addEventListener('click', function(e) {
         e.stopPropagation();
+    });
+    
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', handleResize);
+});
+
+// Убираем обводку при фокусе
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.btn_sert');
+    buttons.forEach(button => {
+        button.addEventListener('focus', function() {
+            this.style.outline = 'none';
+        });
+        button.addEventListener('blur', function() {
+            this.style.outline = '';
+        });
     });
 });

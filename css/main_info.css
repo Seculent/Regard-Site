@@ -71,14 +71,16 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 10000;
     opacity: 0;
     transition: opacity 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal-overlay.active {
@@ -88,51 +90,44 @@
 
 .modal-content {
     position: relative;
-    width: 90vw;
-    height: 90vh;
-    background: rgba(30, 30, 30, 0.95);
-    border-radius: 15px;
-    padding: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(20, 20, 20, 0.3);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+    /* Размер будет устанавливаться JavaScript */
 }
 
 .modal-image-container {
-    flex: 1;
-    overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.5);
     padding: 20px;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .modal-image {
-    max-width: none;
-    max-height: none;
-    width: auto;
-    height: auto;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
-    transform-origin: center center;
-}
-
-.modal-image.zoomed {
-    cursor: move;
+    border-radius: 5px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    /* Размер будет устанавливаться JavaScript */
 }
 
 .close-modal {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.2);
+    top: 10px;
+    right: 10px;
+    background: rgba(238, 147, 147, 0.8);
     border: none;
     color: white;
-    font-size: 30px;
+    font-size: 28px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -145,133 +140,73 @@
 }
 
 .close-modal:hover {
-    background: rgba(238, 147, 147, 0.8);
+    background: rgba(255, 0, 0, 1);
     transform: scale(1.1);
 }
 
-.zoom-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin: 15px 0;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+/* Анимация появления */
+.modal-content {
+    animation: modalAppear 0.3s ease-out;
 }
 
-.zoom-indicator {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    margin-left: 10px;
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-.zoom-hint {
-    text-align: center;
-    color: #ccc;
-    font-size: 12px;
-    margin-bottom: 10px;
-}
-
-.zoom-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
-}
-
-.zoom-btn:hover {
-    background: rgba(238, 147, 147, 0.8);
-    transform: scale(1.1);
-}
-
-/* Стили для скроллбара */
-.modal-image-container::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.modal-image-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-.modal-image-container::-webkit-scrollbar-thumb {
-    background: rgba(238, 147, 147, 0.6);
-    border-radius: 4px;
-}
-
-.modal-image-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(238, 147, 147, 0.8);
-}
-
-/* Адаптивность для модального окна */
+/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+    
     .modal-content {
-        width: 95vw;
-        height: 95vh;
-        padding: 15px;
+        max-width: calc(100vw - 20px);
+        max-height: calc(100vh - 20px);
+    }
+    
+    .modal-image-container {
+        padding: 10px;
     }
     
     .close-modal {
-        top: 10px;
-        right: 10px;
+        top: 5px;
+        right: 5px;
         width: 35px;
         height: 35px;
-        font-size: 25px;
-    }
-    
-    .zoom-controls {
-        gap: 10px;
-    }
-    
-    .zoom-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
+        font-size: 24px;
     }
 }
 
-/* Улучшаем кнопки сертификатов */
+/* Улучшаем кнопки сертификатов на главной странице */
 .btn_sert {
-    transition: all 0.3s ease-out, filter 0.3s ease;
-    filter: sepia(0.3) brightness(0.7);
+    transition: all 0.3s ease;
     cursor: pointer;
     border: none;
     background: none;
     padding: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
+    filter: brightness(0.9);
+    outline: none; /* Убираем стандартную обводку браузера */
 }
 
 .btn_sert:hover {
     transform: scale(1.05);
-    filter: sepia(0) brightness(1);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Стили для скроллбара */
-.modal-image-container::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+.sert {
+    transition: transform 0.3s ease;
 }
 
-.modal-image-container::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-.modal-image-container::-webkit-scrollbar-thumb {
-    background: rgba(238, 147, 147, 0.6);
-    border-radius: 4px;
-}
-
-.modal-image-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(238, 147, 147, 0.8);
+.btn_sert:hover .sert {
+    transform: scale(1.02);
 }
