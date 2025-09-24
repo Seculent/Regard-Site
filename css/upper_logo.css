@@ -7,7 +7,8 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: radial-gradient(circle, rgba(113, 138, 191, 1) 0%, rgba(43, 0, 0, 1) 100%);
+    background: #E1DACF;
+    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(56, 56, 56, 1) 100%);
     padding-top: 0;
 }
 
