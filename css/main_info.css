@@ -88,27 +88,43 @@
 
 .modal-content {
     position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-    background: rgba(255, 255, 255, 0.1);
+    width: 90vw;
+    height: 90vh;
+    background: rgba(30, 30, 30, 0.95);
     border-radius: 15px;
     padding: 20px;
     border: 2px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-image-container {
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: grab;
+}
+
+.modal-image-container:active {
+    cursor: grabbing;
 }
 
 .modal-image {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 100%;
     object-fit: contain;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
     transition: transform 0.3s ease;
+    transform-origin: center center;
 }
 
 .modal-image.zoomed {
-    transform: scale(1.8);
     cursor: zoom-out;
 }
 
@@ -128,9 +144,48 @@
     justify-content: center;
     align-items: center;
     transition: all 0.3s ease;
+    z-index: 10001;
 }
 
 .close-modal:hover {
+    background: rgba(238, 147, 147, 0.8);
+    transform: scale(1.1);
+}
+
+.zoom-indicator {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.zoom-hint {
+    text-align: center;
+    color: #ccc;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.zoom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.zoom-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.zoom-btn:hover {
     background: rgba(238, 147, 147, 0.8);
     transform: scale(1.1);
 }
@@ -143,17 +198,41 @@
     border: none;
     background: none;
     padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .btn_sert:hover {
     transform: scale(1.05);
     filter: sepia(0) brightness(1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для скроллбара */
+.modal-image-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-image-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.modal-image-container::-webkit-scrollbar-thumb {
+    background: rgba(238, 147, 147, 0.6);
+    border-radius: 4px;
+}
+
+.modal-image-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(238, 147, 147, 0.8);
 }
 
 /* Адаптивность для модального окна */
 @media (max-width: 768px) {
     .modal-content {
-        max-width: 95vw;
+        width: 95vw;
+        height: 95vh;
         padding: 15px;
     }
     
@@ -163,6 +242,16 @@
         width: 35px;
         height: 35px;
         font-size: 25px;
+    }
+    
+    .zoom-controls {
+        gap: 5px;
+    }
+    
+    .zoom-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
     }
 }
 
@@ -177,5 +266,9 @@
         width: 30px;
         height: 30px;
         font-size: 20px;
+    }
+    
+    .zoom-hint {
+        font-size: 11px;
     }
 }
