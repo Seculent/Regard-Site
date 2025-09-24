@@ -150,3 +150,8 @@ header nav ul li.btn a:hover {
     border-radius: 15px;
     overflow: hidden;
 }
+
+/* Плавная прокрутка для всей страницы */
+html {
+    scroll-behavior: smooth;
+}

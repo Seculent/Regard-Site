@@ -28,7 +28,7 @@
 }
 
 .hero--info .btn {
-    background: #000;
+    background: #fff;
     color: #fff;
     border-radius: 50px;
     padding: 15px;
@@ -48,7 +48,7 @@
     max-height: 200px;
     object-fit: contain;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(f, f, f, 0.3);
     flex-shrink: 0; /* предотвращает сжатие картинок */
 }
 
@@ -71,7 +71,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     display: none;
     justify-content: center;
@@ -137,7 +137,8 @@
 
 /* Улучшаем кнопки сертификатов */
 .btn_sert {
-    transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out, filter 0.3s ease;
+    filter: sepia(0.3) brightness(0.7);
     cursor: pointer;
     border: none;
     background: none;
@@ -146,7 +147,7 @@
 
 .btn_sert:hover {
     transform: scale(1.05);
-    filter: brightness(1.1);
+    filter: sepia(0) brightness(1);
 }
 
 /* Адаптивность для модального окна */

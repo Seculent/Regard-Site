@@ -114,4 +114,87 @@ function updateMapSize() {
         }, 100);
     }
 }
+// ______________________________________________________________________________________
+// Плавная прокрутка к секции контактов
+document.addEventListener('DOMContentLoaded', function() {
+    const contactsBtn = document.getElementById('contactsBtn');
+    
+    if (contactsBtn) {
+        contactsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const contactsSection = document.getElementById('contacts');
+            if (contactsSection) {
+                // Вычисляем позицию секции с учетом фиксированного header'а
+                const headerHeight = document.querySelector('.container_nav').offsetHeight;
+                const targetPosition = contactsSection.offsetTop - headerHeight - 20; // 20px дополнительный отступ
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+    
+    // Добавляем обработчик для всех внутренних ссылок (опционально)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            
+            // Пропускаем ссылки, которые не ведут на существующие элементы
+            if (href === '#' || href === '') return;
+            
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+                e.preventDefault();
+                
+                const headerHeight = document.querySelector('.container_nav').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
 
+// Функция для проверки видимости элемента в viewport (дополнительно)
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Обновление активного пункта меню при скролле (опционально)
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll('section[id]');
+    
+    window.addEventListener('scroll', function() {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            const headerHeight = document.querySelector('.container_nav').offsetHeight;
+            
+            if (scrollY >= (sectionTop - headerHeight - 100)) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    });
+});
