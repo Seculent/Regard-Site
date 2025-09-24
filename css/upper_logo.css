@@ -26,11 +26,12 @@ a {
     right: 0;
     left:0;
     top: 0;
-    width: 100vw;
+    width: 100%;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    padding: 20px 0;
+    padding: 0 calc(50%-700px);
+    box-sizing: border-box;
 }
 
 header .logo {
@@ -40,8 +41,9 @@ header .logo {
     display: flex; 
     align-items: center; 
     gap: 10px;
-    margin: 0;
+    margin: 20px 0 20px 0;
     padding-left: 253px;
+    max-width: 500px;
 }
 
 .logotype-img {
@@ -52,16 +54,21 @@ header .logo {
 
 header nav {
     float: right;
-    padding: 40px 0 0 0px;
+    padding: 60px 0 0 0px;
     width: 50%;
-    margin-right: 20px;
-    margin-left: 20px;
+    max-width: 500px;
+    margin-right: 253px;
+    margin-left: 0;
 }
 
 header nav ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    gap: 15px;
+    flex-wrap: nowrap;
 }
 
 header nav ul li.active::after {
