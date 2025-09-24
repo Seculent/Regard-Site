@@ -7,8 +7,10 @@ function openModal(imageSrc) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Сбрасываем состояние при открытии нового изображения
-    resetZoom();
+    // Ждем загрузки изображения перед сбросом зума
+    modalImage.onload = function() {
+        resetZoom();
+    };
 }
 
 // Функция для закрытия модального окна
@@ -27,33 +29,41 @@ const scaleStep = 0.2;
 
 // Функция для увеличения изображения
 function zoomIn() {
+    const prevScale = currentScale;
     currentScale = Math.min(currentScale + scaleStep, maxScale);
-    applyZoom();
+    applyZoom(prevScale);
 }
 
 // Функция для уменьшения изображения
 function zoomOut() {
+    const prevScale = currentScale;
     currentScale = Math.max(currentScale - scaleStep, minScale);
-    applyZoom();
+    applyZoom(prevScale);
 }
 
 // Функция для сброса зума
 function resetZoom() {
+    const prevScale = currentScale;
     currentScale = 1;
-    applyZoom();
-    
-    // Сбрасываем скролл к центру с задержкой для применения трансформации
-    setTimeout(() => {
-        const imageContainer = document.querySelector('.modal-image-container');
-        imageContainer.scrollTop = (imageContainer.scrollHeight - imageContainer.clientHeight) / 2;
-        imageContainer.scrollLeft = (imageContainer.scrollWidth - imageContainer.clientWidth) / 2;
-    }, 10);
+    applyZoom(prevScale);
 }
 
-// Функция для применения масштаба
-function applyZoom() {
+// Функция для применения масштаба с сохранением позиции
+function applyZoom(prevScale) {
     const modalImage = document.getElementById('modalImage');
     const imageContainer = document.querySelector('.modal-image-container');
+    
+    // Сохраняем текущую позицию скролла относительно центра
+    const containerRect = imageContainer.getBoundingClientRect();
+    const containerCenterX = containerRect.left + containerRect.width / 2;
+    const containerCenterY = containerRect.top + containerRect.height / 2;
+    
+    const imageRect = modalImage.getBoundingClientRect();
+    const imageCenterX = imageRect.left + imageRect.width / 2;
+    const imageCenterY = imageRect.top + imageRect.height / 2;
+    
+    const relativeX = containerCenterX - imageCenterX;
+    const relativeY = containerCenterY - imageCenterY;
     
     modalImage.style.transform = `scale(${currentScale})`;
     updateZoomIndicator();
@@ -61,21 +71,30 @@ function applyZoom() {
     // Добавляем/убираем класс для курсора
     if (currentScale > 1) {
         modalImage.classList.add('zoomed');
-        
-        // После изменения масштаба прокручиваем к верху изображения
-        setTimeout(() => {
-            imageContainer.scrollTop = 0;
-            imageContainer.scrollLeft = (imageContainer.scrollWidth - imageContainer.clientWidth) / 2;
-        }, 10);
     } else {
         modalImage.classList.remove('zoomed');
-        
-        // Сбрасываем скролл к центру при обычном масштабе
-        setTimeout(() => {
-            imageContainer.scrollTop = (imageContainer.scrollHeight - imageContainer.clientHeight) / 2;
-            imageContainer.scrollLeft = (imageContainer.scrollWidth - imageContainer.clientWidth) / 2;
-        }, 10);
     }
+    
+    // Ждем обновления DOM и применяем новый скролл
+    setTimeout(() => {
+        const newImageRect = modalImage.getBoundingClientRect();
+        const scaleRatio = currentScale / prevScale;
+        
+        // Рассчитываем новую позицию скролла
+        const newScrollLeft = imageContainer.scrollLeft + (relativeX * scaleRatio - relativeX);
+        const newScrollTop = imageContainer.scrollTop + (relativeY * scaleRatio - relativeY);
+        
+        imageContainer.scrollLeft = newScrollLeft;
+        imageContainer.scrollTop = newScrollTop;
+        
+        // Если это сброс зума, центрируем изображение
+        if (currentScale === 1) {
+            setTimeout(() => {
+                imageContainer.scrollLeft = (modalImage.scrollWidth - imageContainer.clientWidth) / 2;
+                imageContainer.scrollTop = (modalImage.scrollHeight - imageContainer.clientHeight) / 2;
+            }, 50);
+        }
+    }, 10);
 }
 
 // Функция для обновления индикатора зума
@@ -133,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentScale = 1;
         }
         
-        applyZoom();
+        applyZoom(1);
     });
     
     // Обработка колесика мыши для скролла увеличенного изображения
@@ -145,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Позволяем естественное поведение скролла
             return;
         } else {
-            // Если не увеличено, предотвращаем скролл (можно прокручивать страницу под модалкой)
+            // Если не увеличено, предотвращаем скролл
             e.preventDefault();
         }
     });
