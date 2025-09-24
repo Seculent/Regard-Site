@@ -42,6 +42,28 @@
     transform: scale(1.1);
 }
 
+.sert {
+    width: 150px;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(f, f, f, 0.3);
+    flex-shrink: 0; /* предотвращает сжатие картинок */
+}
+
+.sertif {
+    padding-top: 70px;
+    display: flex;
+    flex-wrap: wrap; /* перенос на новую строку */
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    max-width: 600px; /* ограничение ширины для переноса */
+    margin-left: auto; /* выравнивание вправо */
+}
+
 /* Стили для модального окна */
 .modal-overlay {
     position: fixed;
@@ -214,29 +236,7 @@
     }
 }
 
-/* Стили для сертификатов на главной странице */
-.sertif {
-    padding-top: 70px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    justify-content: flex-end;
-    flex-shrink: 0;
-    max-width: 600px;
-    margin-left: auto;
-}
-
-.sert {
-    width: 150px;
-    height: auto;
-    max-height: 200px;
-    object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-}
-
+/* Улучшаем кнопки сертификатов */
 .btn_sert {
     transition: all 0.3s ease-out, filter 0.3s ease;
     filter: sepia(0.3) brightness(0.7);
@@ -252,4 +252,24 @@
     transform: scale(1.05);
     filter: sepia(0) brightness(1);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для скроллбара */
+.modal-image-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-image-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.modal-image-container::-webkit-scrollbar-thumb {
+    background: rgba(238, 147, 147, 0.6);
+    border-radius: 4px;
+}
+
+.modal-image-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(238, 147, 147, 0.8);
 }
