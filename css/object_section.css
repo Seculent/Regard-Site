@@ -6,27 +6,21 @@
     font-weight: 600;
     font-size: 31px;
     color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.trending .games {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 50px 0;
-    gap: 10px;
-}
-
+/* Стили для карточек объектов остаются без изменений */
 .image-frame {
     width: 300px;
     height: 200px;
-    border: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29) 50%);
     border-radius: 10px;
     padding: 3px;
     background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29) 50%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
 }
 
 .framed-image {
@@ -35,7 +29,7 @@
     object-fit: cover;
     transition: transform 0.5s ease-out, filter 0.3s ease;
     border-radius: 10px;
-    filter: sepia(0.4) brightness(0.7); /* Затемнение по умолчанию */
+    filter: sepia(0.4) brightness(0.7);
 }
 
 .image-text {
@@ -53,7 +47,7 @@
 
 .image-frame:hover .framed-image {
     transform: scale(1.1);
-    filter: sepia(0) brightness(1); /* Нормальная яркость при наведении */
+    filter: sepia(0) brightness(1);
 }
 
 .image-frame:hover .image-text {
