@@ -1,101 +1,98 @@
-// Карусель для секции "Наши объекты"
+// Простое слайд-шоу для секции "Наши объекты"
 document.addEventListener('DOMContentLoaded', function() {
-    const carousel = document.querySelector('.carousel');
-    const items = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.querySelector('.carousel-control.prev');
-    const nextBtn = document.querySelector('.carousel-control.next');
-    const indicators = document.querySelectorAll('.carousel-indicator');
+    const slides = document.querySelector('.slides');
+    const slideItems = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    const indicators = document.querySelectorAll('.indicator');
     
-    let currentIndex = 0;
-    const totalItems = items.length;
-    let autoSlideInterval;
+    let currentSlide = 0;
+    const totalSlides = slideItems.length;
+    let slideInterval;
     
-    // Функция для обновления карусели
-    function updateCarousel() {
-        // Убедимся, что индекс в пределах допустимого
-        if (currentIndex < 0) currentIndex = totalItems - 1;
-        if (currentIndex >= totalItems) currentIndex = 0;
+    // Функция для показа слайда
+    function showSlide(index) {
+        // Проверяем границы
+        if (index < 0) {
+            currentSlide = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            currentSlide = 0;
+        } else {
+            currentSlide = index;
+        }
         
-        // Применяем трансформацию
-        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        // Сдвигаем слайды
+        slides.style.transform = `translateX(-${currentSlide * 100}%)`;
         
-        // Обновление активного индикатора
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === currentIndex);
+        // Обновляем индикаторы
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === currentSlide);
         });
     }
     
     // Следующий слайд
     function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalItems;
-        updateCarousel();
-        resetAutoSlide();
+        showSlide(currentSlide + 1);
     }
     
     // Предыдущий слайд
     function prevSlide() {
-        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-        updateCarousel();
-        resetAutoSlide();
+        showSlide(currentSlide - 1);
     }
     
-    // Переход по индикаторам
-    function goToSlide(index) {
-        if (index >= 0 && index < totalItems) {
-            currentIndex = index;
-            updateCarousel();
-            resetAutoSlide();
-        }
+    // Автоматическое переключение
+    function startSlideshow() {
+        slideInterval = setInterval(nextSlide, 5000);
     }
     
-    // Автоматическое переключение слайдов
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
-    
-    // Сброс автоматического переключения
-    function resetAutoSlide() {
-        clearInterval(autoSlideInterval);
-        startAutoSlide();
+    // Остановка автоматического переключения
+    function stopSlideshow() {
+        clearInterval(slideInterval);
     }
     
     // Обработчики событий
-    nextBtn.addEventListener('click', nextSlide);
-    prevBtn.addEventListener('click', prevSlide);
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetSlideshow();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetSlideshow();
+    });
     
     indicators.forEach(indicator => {
         indicator.addEventListener('click', function() {
             const index = parseInt(this.getAttribute('data-index'));
-            goToSlide(index);
+            showSlide(index);
+            resetSlideshow();
         });
     });
     
-    // Инициализация при загрузке
-    updateCarousel();
-    
-    // Запуск автоматического переключения
-    startAutoSlide();
+    // Сброс таймера при взаимодействии
+    function resetSlideshow() {
+        stopSlideshow();
+        startSlideshow();
+    }
     
     // Остановка при наведении
-    const carouselContainer = document.querySelector('.carousel-container');
-    carouselContainer.addEventListener('mouseenter', () => {
-        clearInterval(autoSlideInterval);
-    });
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    slideshowContainer.addEventListener('mouseenter', stopSlideshow);
+    slideshowContainer.addEventListener('mouseleave', startSlideshow);
     
-    carouselContainer.addEventListener('mouseleave', () => {
-        startAutoSlide();
-    });
+    // Запуск слайд-шоу
+    startSlideshow();
     
-    // Обработка касаний для мобильных устройств
+    // Обработка свайпов для мобильных устройств
     let touchStartX = 0;
     let touchEndX = 0;
     
-    carouselContainer.addEventListener('touchstart', e => {
+    slideshowContainer.addEventListener('touchstart', e => {
         touchStartX = e.changedTouches[0].screenX;
-        clearInterval(autoSlideInterval); // Остановить автослайд при касании
+        stopSlideshow();
     });
     
-    carouselContainer.addEventListener('touchend', e => {
+    slideshowContainer.addEventListener('touchend', e => {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
     });
@@ -109,9 +106,10 @@ document.addEventListener('DOMContentLoaded', function() {
             prevSlide(); // Свайп вправо
         }
         
-        // Перезапустить автослайд через 3 секунды после касания
-        setTimeout(() => {
-            startAutoSlide();
-        }, 3000);
+        // Перезапуск через 3 секунды после свайпа
+        setTimeout(startSlideshow, 3000);
     }
+    
+    // Инициализация - показываем первый слайд
+    showSlide(0);
 });

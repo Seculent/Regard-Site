@@ -49,50 +49,44 @@
 
         <div class="container trending">
             <h3>Наши объекты</h3>
-
-            <div class="carousel-container">
-                <button class="carousel-control prev">&#10094;</button>
-                <div class="carousel">
-                    <div class="carousel-item">
-                        <div class="image-frame">
-                            <img src="JPG/OBJ-Logolovo.png" alt="Лаголово А101" class="framed-image">
-                            <div class="image-text">
-                                <h3>Лаголово А101</h3>
-                            </div>
+            
+            <!-- Новая простая структура слайд-шоу -->
+            <div class="slideshow-container">
+                <div class="slides">
+                    <div class="slide">
+                        <img src="JPG/OBJ-Logolovo.png" alt="Лаголово А101" class="slide-image">
+                        <div class="slide-caption">
+                            <h3>Лаголово А101</h3>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="image-frame">
-                            <img src="JPG/OBJ-Logolovo1.png" alt="Живи в Песочном!" class="framed-image">
-                            <div class="image-text">
-                                <h3>Живи в Песочном!</h3>
-                            </div>
+                    <div class="slide">
+                        <img src="JPG/OBJ-Logolovo1.png" alt="Живи в Песочном!" class="slide-image">
+                        <div class="slide-caption">
+                            <h3>Живи в Песочном!</h3>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="image-frame">
-                            <img src="JPG/OBJ-Logolovo2.png" alt="Новые Лаврики" class="framed-image">
-                            <div class="image-text">
-                                <h3>Новые Лаврики</h3>
-                            </div>
+                    <div class="slide">
+                        <img src="JPG/OBJ-Logolovo2.png" alt="Новые Лаврики" class="slide-image">
+                        <div class="slide-caption">
+                            <h3>Новые Лаврики</h3>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="image-frame">
-                            <img src="JPG/OBJ-Logolovo3.png" alt="UP-Квартал Воронцовский" class="framed-image">
-                            <div class="image-text">
-                                <h3>UP-Квартал Воронцовский</h3>
-                            </div>
+                    <div class="slide">
+                        <img src="JPG/OBJ-Logolovo3.png" alt="UP-Квартал Воронцовский" class="slide-image">
+                        <div class="slide-caption">
+                            <h3>UP-Квартал Воронцовский</h3>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control next">&#10095;</button>
                 
-                <div class="carousel-indicators">
-                    <button class="carousel-indicator active" data-index="0"></button>
-                    <button class="carousel-indicator" data-index="1"></button>
-                    <button class="carousel-indicator" data-index="2"></button>
-                    <button class="carousel-indicator" data-index="3"></button>
+                <button class="prev">&#10094;</button>
+                <button class="next">&#10095;</button>
+                
+                <div class="slideshow-indicators">
+                    <button class="indicator active" data-index="0"></button>
+                    <button class="indicator" data-index="1"></button>
+                    <button class="indicator" data-index="2"></button>
+                    <button class="indicator" data-index="3"></button>
                 </div>
             </div>
         </div>
