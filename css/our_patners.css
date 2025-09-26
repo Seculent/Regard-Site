@@ -45,7 +45,7 @@
 }
 
 .partner-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(230, 227, 227, 0.334);
     border-radius: 15px;
     padding: 30px;
     text-align: center;
@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Изменено с center на space-between */
+    justify-content: space-between;
     position: relative;
     overflow: hidden;
 }
@@ -89,18 +89,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
-    flex-grow: 1; /* Добавлено для растягивания контейнера */
+    flex: 1;
 }
 
+/* Одинаковый размер для всех логотипов */
 .partner-logo {
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain; /* Сохраняет пропорции */
+    width: 320px; /* Фиксированная ширина для всех */
+    height: 160px; /* Фиксированная высота для всех */
+    object-fit: contain; /* Сохраняет пропорции внутри заданных размеров */
     filter: brightness(0.9);
     transition: all 0.3s ease;
+}
+
+/* Скругление углов для специфичных логотипов */
+.partner-logo[src*="JPG/samolet.png"],
+.partner-logo[src*="fsk.png"] {
+    border-radius: 12px !important;
 }
 
 .partner-card:hover .partner-logo {
@@ -111,19 +117,13 @@
 .partner-name {
     color: #fff;
     font-size: 1.2rem;
-    margin-top: 0;
+    margin: 0;
     font-weight: 300;
     opacity: 0.9;
     transition: all 0.3s ease;
     line-height: 1.3;
     max-width: 100%;
     word-wrap: break-word;
-    margin-top: auto; /* Добавлено для прижатия к низу */
-}
-
-.partner-logo[src*="samolet.png"],
-.partner-logo[src*="fsk.png"] {
-    border-radius: 12px; /* Скругление углов */
 }
 
 .partner-card:hover .partner-name {
@@ -165,6 +165,11 @@
         width: 160px;
         height: 110px;
     }
+    
+    .partner-logo {
+        width: 140px;
+        height: 70px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -195,6 +200,11 @@
         height: 90px;
     }
     
+    .partner-logo {
+        width: 120px;
+        height: 60px;
+    }
+    
     .partner-name {
         font-size: 1.1rem;
     }
@@ -218,6 +228,11 @@
     .partner-logo-container {
         width: 120px;
         height: 80px;
+    }
+    
+    .partner-logo {
+        width: 100px;
+        height: 50px;
     }
     
     .partner-name {
