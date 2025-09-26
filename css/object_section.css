@@ -30,14 +30,14 @@
 }
 
 .slide {
-    min-width: 100%;
     position: relative;
+    min-width: 100%;
     flex-shrink: 0;
     height: 100%;
-    padding: 2px; /* Добавляем отступ для рамки */
-    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%); /* Градиентная рамка */
-    border-radius: 10px; /* Скругляем углы рамки */
-    box-sizing: border-box; /* Учитываем padding в общей ширине */
+    border-radius: 10px;
+    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
+    padding: 2px;
+    box-sizing: border-box;
 }
 
 .slide-image {
@@ -45,13 +45,13 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 8px; /* Немного меньше, чем у рамки */
+    border-radius: 8px;
 }
 
 .slide-caption {
     position: absolute;
-    top: 25px; /* Учитываем рамку */
-    left: 25px; /* Учитываем рамку */
+    top: 25px;
+    left: 25px;
     right: auto;
     background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
     color: white;
@@ -60,7 +60,7 @@
     border-radius: 8px;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(255,255,255,0.1);
-    z-index: 2; /* Чтобы текст был поверх рамки */
+    z-index: 2;
 }
 
 .slide-caption h3 {
@@ -89,7 +89,7 @@
     justify-content: center;
     transition: all 0.4s ease;
     border: 2px solid rgba(255,255,255,0.3);
-    z-index: 10; /* Чтобы кнопки были поверх рамки */
+    z-index: 10;
 }
 
 .prev:hover, .next:hover {
@@ -100,11 +100,11 @@
 }
 
 .prev {
-    left: 30px; /* Учитываем рамку */
+    left: 30px;
 }
 
 .next {
-    right: 30px; /* Учитываем рамку */
+    right: 30px;
 }
 
 /* Индикаторы */
@@ -114,7 +114,7 @@
     margin-top: 20px;
     gap: 10px;
     position: absolute;
-    bottom: 25px; /* Учитываем рамку */
+    bottom: 25px;
     left: 0;
     right: 0;
     z-index: 10;
@@ -206,8 +206,11 @@
     font-size: 32px;
     margin-bottom: 20px;
     font-weight: 600;
-    border-bottom: 2px solid linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
-    padding-bottom: 10px;
+    border-bottom: 2px solid #e1dacf;
+    background: linear-gradient(209deg, rgba(225, 218, 207, 0.1) 9%, rgba(29, 29, 29, 0.1) 50%);
+    padding: 10px 15px;
+    margin: -10px -15px 20px -15px;
+    border-radius: 5px;
 }
 
 .project-description {
@@ -293,8 +296,9 @@
 
 .thumbnail:hover, .thumbnail.active {
     opacity: 1;
-    border-color: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
+    border-color: #e1dacf;
     transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(225, 218, 207, 0.5);
 }
 
 /* Адаптивность модального окна */
@@ -351,7 +355,7 @@
     transform: scale(1.02);
 }
 
-/* Адаптивность */
+/* Адаптивность слайд-шоу */
 @media (max-width: 1440px) {
     .slideshow-container {
         max-width: 1200px;
@@ -367,7 +371,7 @@
     }
     
     .slide {
-        padding: 2px; /* Сохраняем рамку на мобильных */
+        padding: 2px;
     }
     
     .prev, .next {
@@ -383,16 +387,16 @@
     }
     
     .prev {
-        left: 20px; /* Учитываем рамку на мобильных */
+        left: 20px;
     }
     
     .next {
-        right: 20px; /* Учитываем рамку на мобильных */
+        right: 20px;
     }
     
     .slide-caption {
-        top: 20px; /* Учитываем рамку на мобильных */
-        left: 20px; /* Учитываем рамку на мобильных */
+        top: 20px;
+        left: 20px;
         padding: 12px 20px;
     }
     
@@ -401,7 +405,7 @@
     }
     
     .slideshow-indicators {
-        bottom: 20px; /* Учитываем рамку на мобильных */
+        bottom: 20px;
     }
 }
 
@@ -438,21 +442,4 @@
     .slideshow-indicators {
         bottom: 15px;
     }
-}
-
-/* Дополнительные стили для улучшения внешнего вида рамки */
-.slide::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 10px;
-    padding: 2px;
-    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
 }
