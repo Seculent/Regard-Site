@@ -24,13 +24,26 @@ a {
 .container_nav {
     position: fixed;
     right: 0;
-    left:0;
+    left: 0;
     top: 0;
     width: 100%;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
-    padding: 0 calc(50%-700px);
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Центрируем содержимое */
+}
+
+/* Новый контейнер для центрирования навигации */
+.nav-content {
+    width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
     box-sizing: border-box;
 }
 
@@ -38,8 +51,8 @@ header .logo {
     display: flex; 
     align-items: center; 
     gap: 10px;
-    margin: 20px 0 20px 0;
-    padding-left: 253px;
+    margin: 20px 0;
+    /* Убираем старый padding-left */
     max-width: 500px;
 }
 
@@ -57,19 +70,17 @@ header .logo {
 }
 
 header nav {
-    float: right;
-    padding: 60px 0 0 0px;
-    width: 50%;
-    max-width: 500px;
-    margin-right: 253px;
-    margin-left: 0;
+    /* Убираем float и старые отступы */
+    padding: 0;
+    width: auto;
+    margin: 0;
 }
 
 header nav ul {
     font-size: 20px;
     list-style: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Выравниваем навигацию по правому краю */
     padding: 0;
     margin: 0;
     gap: 15px;
@@ -154,6 +165,40 @@ header nav ul li.btn a:hover {
     border: 1px solid #000;
     border-radius: 15px;
     overflow: hidden;
+}
+
+/* Адаптивность для навигации */
+@media (max-width: 1400px) {
+    .nav-content {
+        width: 95%;
+        max-width: 1200px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .nav-content {
+        width: 100%;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    header .logo {
+        margin: 10px 0;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    header nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
 
 /* Плавная прокрутка для всей страницы */
