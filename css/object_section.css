@@ -1,16 +1,29 @@
-.trending {
-    padding-top: 50px;
+/* Базовые стили для карусели */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.trending h3 {
-    font-weight: 600;
-    font-size: 31px;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 30px;
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
 }
 
-/* Стили для карточек объектов остаются без изменений */
+.carousel-item {
+    flex: 0 0 100%;
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* Стили для карточек объектов */
 .image-frame {
     width: 300px;
     height: 200px;
@@ -58,4 +71,97 @@
 .image-frame:hover {
     border-color: #007bff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Управление каруселью */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    transition: background 0.3s ease;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-control:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.carousel-indicator.active {
+    background: rgba(255, 255, 255, 1);
+}
+
+.carousel-indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.trending {
+    padding-top: 50px;
+}
+
+.trending h3 {
+    font-weight: 600;
+    font-size: 31px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .carousel-control {
+        padding: 10px;
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-control.prev {
+        left: 5px;
+    }
+    
+    .carousel-control.next {
+        right: 5px;
+    }
+    
+    .image-frame {
+        width: 250px;
+        height: 170px;
+    }
 }

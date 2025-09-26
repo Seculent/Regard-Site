@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalItems = items.length;
     let autoSlideInterval;
     
+    // Инициализация карусели
+    function initCarousel() {
+        // Устанавливаем начальную позицию
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Активируем первый индикатор
+        indicators[currentIndex].classList.add('active');
+    }
+    
     // Функция для обновления карусели
     function updateCarousel() {
         carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -46,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         autoSlideInterval = setInterval(nextSlide, 5000);
     }
     
-    // Сброс автоматического переключения при взаимодействии пользователя
+    // Сброс автоматического переключения
     function resetAutoSlide() {
         clearInterval(autoSlideInterval);
         startAutoSlide();
@@ -63,16 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Инициализация при загрузке
+    initCarousel();
+    
     // Запуск автоматического переключения
     startAutoSlide();
     
-    // Остановка автоматического переключения при наведении на карусель
-    carousel.addEventListener('mouseenter', () => {
+    // Остановка при наведении
+    const carouselContainer = document.querySelector('.carousel-container');
+    carouselContainer.addEventListener('mouseenter', () => {
         clearInterval(autoSlideInterval);
     });
     
-    // Возобновление автоматического переключения при уходе курсора
-    carousel.addEventListener('mouseleave', () => {
+    carouselContainer.addEventListener('mouseleave', () => {
         startAutoSlide();
     });
 });
