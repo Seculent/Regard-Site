@@ -5,9 +5,10 @@
 
 .trending h3 {
     font-weight: 600;
-    font-size: 31px;
+    font-size: 2.5rem;
     color: #fff;
     margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
 /* Стили для слайд-шоу */
