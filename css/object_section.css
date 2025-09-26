@@ -14,7 +14,7 @@
 /* Стили для слайд-шоу */
 .slideshow-container {
     position: relative;
-    max-width: 1400px;
+    max-width: 1000px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 10px;
