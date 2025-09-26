@@ -10,17 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalItems = items.length;
     let autoSlideInterval;
     
-    // Инициализация карусели
-    function initCarousel() {
-        // Устанавливаем начальную позицию
-        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-        
-        // Активируем первый индикатор
-        indicators[currentIndex].classList.add('active');
-    }
-    
     // Функция для обновления карусели
     function updateCarousel() {
+        // Убедимся, что индекс в пределах допустимого
+        if (currentIndex < 0) currentIndex = totalItems - 1;
+        if (currentIndex >= totalItems) currentIndex = 0;
+        
+        // Применяем трансформацию
         carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
         
         // Обновление активного индикатора
@@ -45,9 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Переход по индикаторам
     function goToSlide(index) {
-        currentIndex = index;
-        updateCarousel();
-        resetAutoSlide();
+        if (index >= 0 && index < totalItems) {
+            currentIndex = index;
+            updateCarousel();
+            resetAutoSlide();
+        }
     }
     
     // Автоматическое переключение слайдов
@@ -73,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Инициализация при загрузке
-    initCarousel();
+    updateCarousel();
     
     // Запуск автоматического переключения
     startAutoSlide();
@@ -87,4 +85,33 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselContainer.addEventListener('mouseleave', () => {
         startAutoSlide();
     });
+    
+    // Обработка касаний для мобильных устройств
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    carouselContainer.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        clearInterval(autoSlideInterval); // Остановить автослайд при касании
+    });
+    
+    carouselContainer.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        
+        if (touchEndX < touchStartX - swipeThreshold) {
+            nextSlide(); // Свайп влево
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            prevSlide(); // Свайп вправо
+        }
+        
+        // Перезапустить автослайд через 3 секунды после касания
+        setTimeout(() => {
+            startAutoSlide();
+        }, 3000);
+    }
 });
