@@ -91,6 +91,34 @@
             </div>
         </div>
 
+        <!-- Модальное окно для проектов -->
+        <div class="modal-overlay-project" id="projectModal">
+            <div class="modal-content-project">
+                <button class="close-modal-project" id="closeProjectModal">&times;</button>
+                <div class="project-modal-container">
+                    <!-- Левая часть - описание -->
+                    <div class="project-info">
+                        <h2 class="project-title" id="modalProjectTitle">Название проекта</h2>
+                        <div class="project-description" id="modalProjectDescription">
+                            <p>Здесь будет подробное описание проекта...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Правая часть - галерея -->
+                    <div class="project-gallery">
+                        <div class="gallery-main">
+                            <img class="gallery-image" id="modalGalleryImage" src="" alt="Галерея проекта">
+                            <button class="gallery-prev">&#10094;</button>
+                            <button class="gallery-next">&#10095;</button>
+                        </div>
+                        <div class="gallery-thumbnails" id="modalGalleryThumbnails">
+                            <!-- Миниатюры будут добавляться через JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Для открытия картинок на сайте -->
         <div class="modal-overlay" id="imageModal">
             <div class="modal-content">

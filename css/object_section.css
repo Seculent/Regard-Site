@@ -141,6 +141,216 @@
     border-color: rgba(255,255,255,0.5);
 }
 
+/* Стили для модального окна проектов */
+.modal-overlay-project {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content-project {
+    position: relative;
+    background: #1a1a1a;
+    margin: 50px auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal-project {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.close-modal-project:hover {
+    background: rgba(255, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+.project-modal-container {
+    display: flex;
+    height: 80vh;
+}
+
+/* Левая часть - описание */
+.project-info {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+}
+
+.project-title {
+    color: #fff;
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
+    padding-bottom: 10px;
+}
+
+.project-description {
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.project-description p {
+    margin-bottom: 15px;
+}
+
+/* Правая часть - галерея */
+.project-gallery {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+}
+
+.gallery-main {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-prev, .gallery-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.gallery-prev:hover, .gallery-next:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 50%;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.gallery-prev {
+    left: 15px;
+}
+
+.gallery-next {
+    right: 15px;
+}
+
+.gallery-thumbnails {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+    background: #2d2d2d;
+    overflow-x: auto;
+    max-height: 100px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.thumbnail:hover, .thumbnail.active {
+    opacity: 1;
+    border-color: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
+    transform: scale(1.05);
+}
+
+/* Адаптивность модального окна */
+@media (max-width: 968px) {
+    .project-modal-container {
+        flex-direction: column;
+        height: 90vh;
+    }
+    
+    .project-info {
+        flex: none;
+        height: 40%;
+        padding: 20px;
+    }
+    
+    .project-gallery {
+        flex: none;
+        height: 60%;
+    }
+    
+    .project-title {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content-project {
+        width: 95%;
+        margin: 20px auto;
+    }
+    
+    .project-info {
+        height: 45%;
+    }
+    
+    .project-gallery {
+        height: 55%;
+    }
+    
+    .gallery-prev, .gallery-next {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+/* Добавляем курсор pointer для кликабельных слайдов */
+.slide {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.slide:hover {
+    transform: scale(1.02);
+}
+
 /* Адаптивность */
 @media (max-width: 1440px) {
     .slideshow-container {
