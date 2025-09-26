@@ -13,48 +13,61 @@
 /* Стили для слайд-шоу */
 .slideshow-container {
     position: relative;
-    max-width: 800px;
+    max-width: 1400px;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     background: #000;
+    height: 500px;
 }
 
 .slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%;
+    height: 100%;
 }
 
 .slide {
     min-width: 100%;
     position: relative;
     flex-shrink: 0;
+    height: 100%;
+    padding: 2px; /* Добавляем отступ для рамки */
+    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%); /* Градиентная рамка */
+    border-radius: 10px; /* Скругляем углы рамки */
+    box-sizing: border-box; /* Учитываем padding в общей ширине */
 }
 
 .slide-image {
     width: 100%;
-    height: 400px;
+    height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 8px; /* Немного меньше, чем у рамки */
 }
 
 .slide-caption {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    top: 25px; /* Учитываем рамку */
+    left: 25px; /* Учитываем рамку */
+    right: auto;
+    background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
     color: white;
-    padding: 20px;
-    text-align: center;
+    padding: 15px 25px;
+    text-align: left;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 2; /* Чтобы текст был поверх рамки */
 }
 
 .slide-caption h3 {
     margin: 0;
     font-size: 24px;
     font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 /* Кнопки навигации */
@@ -62,32 +75,36 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: none;
     padding: 15px;
     cursor: pointer;
     font-size: 20px;
-    border-radius: 50%;
+    border-radius: 12px;
     width: 50px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
-    z-index: 10;
+    transition: all 0.4s ease;
+    border: 2px solid rgba(255,255,255,0.3);
+    z-index: 10; /* Чтобы кнопки были поверх рамки */
 }
 
 .prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 50%;
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .prev {
-    left: 15px;
+    left: 30px; /* Учитываем рамку */
 }
 
 .next {
-    right: 15px;
+    right: 30px; /* Учитываем рамку */
 }
 
 /* Индикаторы */
@@ -97,49 +114,135 @@
     margin-top: 20px;
     gap: 10px;
     position: absolute;
-    bottom: 15px;
+    bottom: 25px; /* Учитываем рамку */
     left: 0;
     right: 0;
     z-index: 10;
 }
 
 .indicator {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     border: none;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
 
 .indicator.active {
     background-color: #fff;
+    transform: scale(1.2);
 }
 
 .indicator:hover {
     background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255,255,255,0.5);
 }
 
 /* Адаптивность */
+@media (max-width: 1440px) {
+    .slideshow-container {
+        max-width: 1200px;
+        margin: 0 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .slideshow-container {
         max-width: 100%;
         margin: 0 15px;
+        height: 350px;
     }
     
-    .slide-image {
-        height: 300px;
+    .slide {
+        padding: 2px; /* Сохраняем рамку на мобильных */
+    }
+    
+    .prev, .next {
+        width: 45px;
+        height: 45px;
+        padding: 12px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+    
+    .prev:hover, .next:hover {
+        border-radius: 50%;
+    }
+    
+    .prev {
+        left: 20px; /* Учитываем рамку на мобильных */
+    }
+    
+    .next {
+        right: 20px; /* Учитываем рамку на мобильных */
+    }
+    
+    .slide-caption {
+        top: 20px; /* Учитываем рамку на мобильных */
+        left: 20px; /* Учитываем рамку на мобильных */
+        padding: 12px 20px;
+    }
+    
+    .slide-caption h3 {
+        font-size: 20px;
+    }
+    
+    .slideshow-indicators {
+        bottom: 20px; /* Учитываем рамку на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    .slideshow-container {
+        height: 280px;
+    }
+    
+    .slide-caption {
+        top: 15px;
+        left: 15px;
+        padding: 10px 15px;
+    }
+    
+    .slide-caption h3 {
+        font-size: 18px;
     }
     
     .prev, .next {
         width: 40px;
         height: 40px;
         padding: 10px;
-        font-size: 18px;
+        font-size: 16px;
     }
     
-    .slide-caption h3 {
-        font-size: 20px;
+    .prev {
+        left: 15px;
     }
+    
+    .next {
+        right: 15px;
+    }
+    
+    .slideshow-indicators {
+        bottom: 15px;
+    }
+}
+
+/* Дополнительные стили для улучшения внешнего вида рамки */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    padding: 2px;
+    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
 }

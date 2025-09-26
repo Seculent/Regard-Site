@@ -1,4 +1,4 @@
-// Простое слайд-шоу для секции "Наши объекты"
+// Слайд-шоу для секции "Наши объекты" без автоперехода
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelector('.slides');
     const slideItems = document.querySelectorAll('.slide');
@@ -6,9 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.querySelector('.next');
     const indicators = document.querySelectorAll('.indicator');
     
+    // Проверяем, что элементы существуют
+    if (!slides || slideItems.length === 0) {
+        console.error('Элементы слайд-шоу не найдены');
+        return;
+    }
+    
     let currentSlide = 0;
     const totalSlides = slideItems.length;
-    let slideInterval;
     
     // Функция для показа слайда
     function showSlide(index) {
@@ -40,74 +45,42 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(currentSlide - 1);
     }
     
-    // Автоматическое переключение
-    function startSlideshow() {
-        slideInterval = setInterval(nextSlide, 5000);
-    }
-    
-    // Остановка автоматического переключения
-    function stopSlideshow() {
-        clearInterval(slideInterval);
-    }
-    
     // Обработчики событий
-    prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetSlideshow();
-    });
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
     
-    nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetSlideshow();
-    });
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
     
     indicators.forEach(indicator => {
         indicator.addEventListener('click', function() {
             const index = parseInt(this.getAttribute('data-index'));
             showSlide(index);
-            resetSlideshow();
         });
     });
     
-    // Сброс таймера при взаимодействии
-    function resetSlideshow() {
-        stopSlideshow();
-        startSlideshow();
-    }
-    
-    // Остановка при наведении
-    const slideshowContainer = document.querySelector('.slideshow-container');
-    slideshowContainer.addEventListener('mouseenter', stopSlideshow);
-    slideshowContainer.addEventListener('mouseleave', startSlideshow);
-    
-    // Запуск слайд-шоу
-    startSlideshow();
-    
     // Обработка свайпов для мобильных устройств
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    slideshowContainer.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-        stopSlideshow();
-    });
-    
-    slideshowContainer.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    if (slideshowContainer) {
+        let touchStartX = 0;
+        let touchEndX = 0;
         
-        if (touchEndX < touchStartX - swipeThreshold) {
-            nextSlide(); // Свайп влево
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-            prevSlide(); // Свайп вправо
+        slideshowContainer.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        slideshowContainer.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide(); // Свайп влево
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide(); // Свайп вправо
+            }
         }
-        
-        // Перезапуск через 3 секунды после свайпа
-        setTimeout(startSlideshow, 3000);
     }
     
     // Инициализация - показываем первый слайд
