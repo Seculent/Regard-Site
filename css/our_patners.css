@@ -106,7 +106,7 @@
 /* Скругление углов для специфичных логотипов */
 .partner-logo[src*="JPG/samolet.png"],
 .partner-logo[src*="fsk.png"] {
-    border-radius: 12px !important;
+    border-radius: 12px;
 }
 
 .partner-card:hover .partner-logo {
