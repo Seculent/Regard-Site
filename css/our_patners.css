@@ -47,17 +47,16 @@
 .partner-card {
     background: radial-gradient(circle, rgba(225, 218, 207, 1) 5%, rgba(29, 29, 29, 0.5) 85%);
     border-radius: 30px;
-    padding: 30px;
+    padding: 20px 20px 40px;
     text-align: center;
     transition: all 0.4s ease;
-    /* border: 1px solid rgba(0, 0, 0, 0); */
     backdrop-filter: blur(15px);
     max-width: 350px;
     height: 250px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex start;
     position: relative;
     overflow: hidden;
 }
@@ -85,11 +84,12 @@
 
 .partner-logo-container {
     width: 180px;
-    height: 120px;
+    height: 180px;
+    margin-bottom: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
+    flex: none;
 }
 
 /* Одинаковый размер для всех логотипов */
@@ -118,6 +118,14 @@
 }
 
 .partner-name {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
     color: #fff;
     font-size: 2rem;
     margin: 0;
