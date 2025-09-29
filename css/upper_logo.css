@@ -8,8 +8,11 @@
 body {
     font-family: 'Oswald', sans-serif;
     background: #E1DACF;
-    background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
+    background: linear-gradient(180deg, rgba(225, 218, 207, 1) 5%, rgba(29, 29, 29, 1) 80%);
+    background-attachment: fixed; /* Фиксирует градиент относительно viewport */
+    background-size: cover;
     padding-top: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 a {
@@ -28,7 +31,7 @@ a {
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     padding: 0;
     box-sizing: border-box;
@@ -60,7 +63,7 @@ header .logo {
     font-size: 29px;
     font-weight: 300;
     text-transform: uppercase;
-    color: #fff;
+    color:  #fff;
 }
 
 .logotype-img {

@@ -17,13 +17,13 @@
 .hero--info h2 {
     color: #fff;
     font-size: 30px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .hero--info p {
     color: #fff;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 25px;
+    font-weight: 300;
     margin: 30px 0;
 }
 
@@ -149,6 +149,33 @@
     animation: modalAppear 0.3s ease-out;
 }
 
+/* Улучшаем кнопки сертификатов на главной странице */
+.btn_sert {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    filter: brightness(0.9);
+    outline: none; /* Убираем стандартную обводку браузера */
+}
+
+.btn_sert:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sert {
+    transition: transform 0.3s ease;
+}
+
+.btn_sert:hover .sert {
+    transform: scale(1.02);
+}
+
 @keyframes modalAppear {
     from {
         opacity: 0;
@@ -182,31 +209,4 @@
         height: 35px;
         font-size: 24px;
     }
-}
-
-/* Улучшаем кнопки сертификатов на главной странице */
-.btn_sert {
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    filter: brightness(0.9);
-    outline: none; /* Убираем стандартную обводку браузера */
-}
-
-.btn_sert:hover {
-    transform: scale(1.05);
-    filter: brightness(1.1);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-
-.sert {
-    transition: transform 0.3s ease;
-}
-
-.btn_sert:hover .sert {
-    transform: scale(1.02);
 }
