@@ -96,7 +96,7 @@
 .prev:hover, .next:hover {
     background-color: rgba(0, 0, 0, 0.9);
     border-radius: 50%;
-    border-color: rgba(255,255,255,0.6);
+    border-color: rgb(255, 255, 255);
     transform: translateY(-50%) scale(1.1);
 }
 
