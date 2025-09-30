@@ -76,7 +76,7 @@
 
 .news-date {
     display: inline-block;
-    background: linear-gradient(135deg, #ee9393, #bb0d0d);
+    background: linear-gradient(135deg, #ee9393, #bb0d0d61);
     color: white;
     padding: 8px 15px;
     border-radius: 20px;
@@ -86,7 +86,7 @@
 }
 
 .news-content h3 {
-    color: #e1dacf;
+    color: #dfd1bb;
     font-size: 1.4rem;
     margin-bottom: 15px;
     font-weight: 500;
@@ -101,12 +101,8 @@
 }
 
 .news-excerpt {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 4.8em; /* Примерная высота для 3 строк */
     line-height: 1.6;
+    margin-bottom: 10px;
 }
 
 .news-full {
