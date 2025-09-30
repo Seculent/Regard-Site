@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initMobileContacts();
     initContactInteractions();
+    initMapIntegration();
 });
 
 function initMobileContacts() {
@@ -164,7 +165,7 @@ function handlePhoneClick(phoneText, element) {
         {
             text: 'Скопировать',
             action: () => {
-                copyToClipboard(cleanPhone, element);
+                copyToClipboardMobile(cleanPhone, element);
             }
         }
     ]);
@@ -183,7 +184,7 @@ function handleEmailClick(emailText, element) {
         {
             text: 'Скопировать',
             action: () => {
-                copyToClipboard(cleanEmail, element);
+                copyToClipboardMobile(cleanEmail, element);
             }
         }
     ]);
@@ -194,7 +195,7 @@ function handleAddressClick(addressText, element) {
         {
             text: 'Скопировать',
             action: () => {
-                copyToClipboard(addressText, element);
+                copyToClipboardMobile(addressText, element);
             }
         },
         {
@@ -246,7 +247,7 @@ function showContactActions(element, actions) {
     }, 5000);
 }
 
-function copyToClipboard(text, element) {
+function copyToClipboardMobile(text, element) {
     navigator.clipboard.writeText(text).then(() => {
         showCopyNotification('Скопировано в буфер обмена!');
         
@@ -331,7 +332,12 @@ function addQuickContactActions() {
         </button>
     `;
     
-    contactsSection.querySelector('.container').insertBefore(quickActions, contactsSection.querySelector('.contacts-grid'));
+    const container = contactsSection.querySelector('.container');
+    const contactsGrid = contactsSection.querySelector('.contacts-grid');
+    
+    if (container && contactsGrid) {
+        container.insertBefore(quickActions, contactsGrid);
+    }
     
     // Добавляем стили для быстрых действий
     addQuickActionsStyles();
@@ -369,6 +375,7 @@ function addQuickActionsStyles() {
             font-weight: 500;
             transition: all 0.3s ease;
             min-height: 44px;
+            cursor: pointer;
         }
         
         .quick-action-btn:hover {
@@ -430,16 +437,15 @@ function initMapEnhancements() {
     const mapContainer = document.querySelector('.map-container');
     if (!mapContainer) return;
     
-    // Показываем состояние загрузки
-    showMapLoading();
-    
-    // Скрываем loading через 5 секунд на случай ошибки
-    setTimeout(hideMapLoading, 5000);
+    // Показываем состояние загрузки если карта еще не загружена
+    if (!mapContainer.querySelector('.ymaps-2-1-79-map')) {
+        showMapLoading();
+    }
 }
 
 function showMapLoading() {
     const mapContainer = document.querySelector('.map-container');
-    if (!mapContainer) return;
+    if (!mapContainer || mapContainer.querySelector('.ymaps-2-1-79-map')) return;
     
     mapContainer.classList.add('loading');
     mapContainer.innerHTML = `
@@ -459,9 +465,6 @@ function hideMapLoading() {
     
     mapContainer.classList.remove('loading');
     mapContainer.classList.add('loaded');
-    
-    // Восстанавливаем оригинальный HTML с картой
-    mapContainer.innerHTML = '<div id="map"></div>';
 }
 
 function initTapToCall() {
@@ -479,6 +482,17 @@ function initTapToCall() {
     });
 }
 
+function initMapIntegration() {
+    // Показываем состояние загрузки для карты контактов
+    const contactMapContainer = document.querySelector('#map');
+    if (contactMapContainer && !contactMapContainer.querySelector('.ymaps-2-1-79-map')) {
+        showMapLoading();
+    }
+    
+    // Скрываем loading через 5 секунд на случай ошибки
+    setTimeout(hideMapLoading, 5000);
+}
+
 // Вспомогательная функция для ограничения частоты вызовов
 function debounce(func, wait) {
     let timeout;
@@ -491,33 +505,3 @@ function debounce(func, wait) {
         timeout = setTimeout(later, wait);
     };
 }
-
-// Интеграция с существующей картой из contact_section.js
-function initMapIntegration() {
-    // Перехватываем инициализацию карты для добавления мобильной оптимизации
-    const originalInit = window.init;
-    
-    window.init = function() {
-        showMapLoading();
-        
-        // Ждем немного перед инициализацией для лучшего UX
-        setTimeout(function() {
-            if (typeof originalInit === 'function') {
-                originalInit();
-            }
-            
-            // Даем карте время на рендеринг
-            setTimeout(hideMapLoading, 1000);
-            
-            // Добавляем мобильные классы
-            if (window.innerWidth <= 768 && window.myMap) {
-                window.myMap.container.getElement().classList.add('ymaps-2-1-79-map-mobile');
-            }
-        }, 500);
-    };
-}
-
-// Инициализация при загрузке
-document.addEventListener('DOMContentLoaded', function() {
-    initMapIntegration();
-});

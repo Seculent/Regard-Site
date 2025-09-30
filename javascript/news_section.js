@@ -47,7 +47,8 @@ const newsData = [
 // Конфигурация
 const config = {
     itemsPerLoad: 3,
-    currentPage: 1
+    currentPage: 1,
+    isExpanded: false
 };
 
 // Инициализация новостного раздела
@@ -68,11 +69,11 @@ function initNewsSection() {
     
     // Обработчик кнопки "Загрузить еще"
     if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', loadMoreNews);
+        loadMoreBtn.addEventListener('click', toggleNews);
     }
     
-    // Проверяем, нужно ли скрыть кнопку после первой загрузки
-    updateLoadMoreButton();
+    // Обновляем высоту карточек после загрузки
+    setTimeout(updateCardsHeight, 100);
 }
 
 // Загрузка новостей
@@ -80,8 +81,11 @@ function loadNews() {
     const newsGrid = document.getElementById('newsGrid');
     if (!newsGrid) return;
     
-    const startIndex = (config.currentPage - 1) * config.itemsPerLoad;
-    const endIndex = startIndex + config.itemsPerLoad;
+    // Очищаем сетку
+    newsGrid.innerHTML = '';
+    
+    const startIndex = 0;
+    const endIndex = config.isExpanded ? newsData.length : config.itemsPerLoad;
     const newsToShow = newsData.slice(startIndex, endIndex);
     
     newsToShow.forEach(news => {
@@ -89,8 +93,10 @@ function loadNews() {
         newsGrid.appendChild(newsCard);
     });
     
-    config.currentPage++;
     updateLoadMoreButton();
+    
+    // Обновляем высоту карточек после рендера
+    setTimeout(updateCardsHeight, 50);
 }
 
 // Создание карточки новости
@@ -102,7 +108,7 @@ function createNewsCard(news) {
     card.innerHTML = `
         <div class="news-date">${news.date}</div>
         <div class="news-content">
-            <h3>${news.title}</h3>
+            <h3 class="news-title-text">${news.title}</h3>
             <div class="news-excerpt">
                 <p>${news.excerpt}</p>
             </div>
@@ -126,29 +132,94 @@ function toggleReadMore(button) {
         excerpt.style.display = 'none';
         full.style.display = 'block';
         button.textContent = 'Свернуть';
+        button.classList.add('expanded');
     } else {
         excerpt.style.display = '-webkit-box';
         full.style.display = 'none';
         button.textContent = 'Читать далее';
+        button.classList.remove('expanded');
     }
+    
+    // Обновляем высоту карточек после переключения
+    setTimeout(updateCardsHeight, 50);
 }
 
-// Загрузка дополнительных новостей
-function loadMoreNews() {
+// Переключение отображения новостей (показать все/свернуть)
+function toggleNews() {
+    config.isExpanded = !config.isExpanded;
     loadNews();
 }
 
-// Обновление состояния кнопки "Загрузить еще"
+// Обновление состояния кнопки "Загрузить еще/Свернуть"
 function updateLoadMoreButton() {
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (!loadMoreBtn) return;
     
-    const totalLoaded = (config.currentPage - 1) * config.itemsPerLoad;
-    if (totalLoaded >= newsData.length) {
-        loadMoreBtn.disabled = true;
-        loadMoreBtn.textContent = 'Все новости загружены';
+    if (config.isExpanded) {
+        loadMoreBtn.textContent = 'Свернуть';
+        loadMoreBtn.classList.add('collapse');
+    } else {
+        loadMoreBtn.textContent = 'Загрузить еще';
+        loadMoreBtn.classList.remove('collapse');
+    }
+    
+    // Скрываем кнопку если новостей меньше или равно itemsPerLoad
+    if (newsData.length <= config.itemsPerLoad) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'flex';
     }
 }
 
+// Функция для обновления высоты карточек
+function updateCardsHeight() {
+    const newsCards = document.querySelectorAll('.news-card');
+    if (newsCards.length === 0) return;
+    
+    // Находим максимальную высоту среди всех карточек
+    let maxHeight = 0;
+    
+    // Сначала сбрасываем высоту для перерасчета
+    newsCards.forEach(card => {
+        card.style.height = 'auto';
+    });
+    
+    // Находим максимальную высоту
+    newsCards.forEach(card => {
+        const cardHeight = card.offsetHeight;
+        if (cardHeight > maxHeight) {
+            maxHeight = cardHeight;
+        }
+    });
+    
+    // Устанавливаем одинаковую высоту для всех карточек
+    newsCards.forEach(card => {
+        card.style.height = maxHeight + 'px';
+    });
+}
+
+// Функция для мобильной оптимизации (вызывается из mobile-news.js)
+function loadMoreNews() {
+    toggleNews();
+}
+
 // Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', initNewsSection);
+document.addEventListener('DOMContentLoaded', function() {
+    initNewsSection();
+    
+    // Обновляем высоту при изменении размера окна
+    window.addEventListener('resize', debounce(updateCardsHeight, 250));
+});
+
+// Вспомогательная функция для ограничения частоты вызовов
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}

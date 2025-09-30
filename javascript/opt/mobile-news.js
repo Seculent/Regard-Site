@@ -42,15 +42,8 @@ function adaptNewsLayout() {
         newsGrid.style.gap = '20px';
     }
     
-    // Оптимизация количества отображаемых символов для очень маленьких экранов
-    if (window.innerWidth <= 360) {
-        newsCards.forEach(card => {
-            const excerpt = card.querySelector('.news-excerpt');
-            if (excerpt) {
-                excerpt.style.webkitLineClamp = '5';
-            }
-        });
-    }
+    // Обновляем высоту карточек после адаптации
+    setTimeout(updateCardsHeight, 100);
 }
 
 function initNewsInteractions() {
@@ -84,7 +77,7 @@ function initNewsInteractions() {
         }, { passive: true });
     });
     
-    // Оптимизация кнопки "Загрузить еще"
+    // Оптимизация кнопки "Загрузить еще/Свернуть"
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('touchstart', function() {
             this.style.transform = 'scale(0.95)';
@@ -167,6 +160,11 @@ function refreshNews() {
         
         // Показываем уведомление об успешном обновлении
         showRefreshNotification('Новости обновлены');
+        
+        // Перезагружаем новости
+        if (typeof window.loadNews === 'function') {
+            window.loadNews();
+        }
     }, 1000);
 }
 
@@ -220,7 +218,7 @@ function initInfiniteScroll() {
     if (window.innerWidth > 768) return;
     
     const loadMoreBtn = document.querySelector('.load-more-btn');
-    if (!loadMoreBtn || loadMoreBtn.disabled) return;
+    if (!loadMoreBtn || loadMoreBtn.style.display === 'none') return;
     
     let isLoading = false;
     
@@ -232,25 +230,29 @@ function initInfiniteScroll() {
         const threshold = 300; // Загружать когда до конца осталось 300px
         
         if (scrollPosition >= pageHeight - threshold) {
-            loadMoreNews();
+            loadMoreNewsMobile();
         }
     }, 100));
     
-    function loadMoreNews() {
+    function loadMoreNewsMobile() {
         if (isLoading) return;
         
         isLoading = true;
-        loadMoreBtn.classList.add('loading');
+        const loadMoreBtn = document.querySelector('.load-more-btn');
+        if (loadMoreBtn) {
+            loadMoreBtn.classList.add('loading');
+        }
         
         // Имитация загрузки
         setTimeout(() => {
-            // В реальном приложении здесь был бы запрос к API
             if (typeof window.loadMoreNews === 'function') {
                 window.loadMoreNews();
             }
             
             isLoading = false;
-            loadMoreBtn.classList.remove('loading');
+            if (loadMoreBtn) {
+                loadMoreBtn.classList.remove('loading');
+            }
         }, 1000);
     }
 }
@@ -272,8 +274,34 @@ function optimizeTextDisplay() {
         
         if (excerptHeight <= lineHeight * maxLines) {
             readMoreBtn.style.display = 'none';
+        } else {
+            readMoreBtn.style.display = 'inline-flex';
         }
     });
+}
+
+// Функция для обновления высоты карточек (совместимость с news_section.js)
+function updateCardsHeight() {
+    if (typeof window.updateCardsHeight === 'function') {
+        window.updateCardsHeight();
+    } else {
+        // Резервная реализация
+        const newsCards = document.querySelectorAll('.news-card');
+        if (newsCards.length === 0) return;
+        
+        let maxHeight = 0;
+        newsCards.forEach(card => {
+            card.style.height = 'auto';
+            const cardHeight = card.offsetHeight;
+            if (cardHeight > maxHeight) {
+                maxHeight = cardHeight;
+            }
+        });
+        
+        newsCards.forEach(card => {
+            card.style.height = maxHeight + 'px';
+        });
+    }
 }
 
 // Вспомогательная функция для ограничения частоты вызовов
@@ -324,9 +352,22 @@ function addMobileNewsStyles() {
             transform: translateX(-50%) translateY(0);
         }
         
+        .load-more-btn.collapse {
+            background: linear-gradient(135deg, #93c4ee, #0d5bbb);
+        }
+        
+        .read-more-btn.expanded {
+            background: #ee9393;
+            color: #000;
+        }
+        
         @media (max-width: 768px) {
             .refresh-indicator {
                 margin: 0 15px 20px 15px;
+            }
+            
+            .news-card {
+                transition: height 0.3s ease;
             }
         }
     `;
@@ -339,4 +380,7 @@ function addMobileNewsStyles() {
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     addMobileNewsStyles();
+    
+    // Обновляем высоту карточек после полной загрузки
+    setTimeout(updateCardsHeight, 500);
 });

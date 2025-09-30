@@ -59,26 +59,11 @@ function adaptGeographyLayout() {
 
 function initInteractiveElements() {
     const objectItems = document.querySelectorAll('.object-item');
-    const mapContainer = document.querySelector('#geo-map');
     
-    if (!objectItems.length || !mapContainer) return;
+    if (!objectItems.length) return;
     
     // Добавляем интерактивность элементам списка
     objectItems.forEach((item, index) => {
-        // Клик по элементу списка
-        item.addEventListener('click', function() {
-            // Убираем активный класс у всех элементов
-            objectItems.forEach(obj => obj.classList.remove('active'));
-            // Добавляем активный класс текущему элементу
-            this.classList.add('active');
-            
-            // Центрируем карту на соответствующем объекте
-            centerMapOnObject(index);
-            
-            // Показываем балун на карте
-            showMapBalloon(index);
-        });
-        
         // Touch-оптимизация
         item.addEventListener('touchstart', function() {
             this.style.transform = 'scale(0.98)';
@@ -91,34 +76,6 @@ function initInteractiveElements() {
     
     // Инициализация свайпов для карты на мобильных
     initMapTouchControls();
-}
-
-function centerMapOnObject(objectIndex) {
-    // Координаты объектов (должны совпадать с geography_map.js)
-    const objectsCoordinates = [
-        [59.729722, 29.834722], // Лаголово
-        [59.750839, 30.588553], // Колпино
-        [60.051389, 30.485556]  // Новое Девяткино
-    ];
-    
-    if (objectsCoordinates[objectIndex] && window.geoMap) {
-        window.geoMap.setCenter(objectsCoordinates[objectIndex], 14, {
-            duration: 500
-        });
-    }
-}
-
-function showMapBalloon(objectIndex) {
-    // Эта функция будет работать с существующими метками на карте
-    if (window.geoMap && window.geoMap.geoObjects) {
-        const geoObjects = window.geoMap.geoObjects;
-        if (geoObjects.getLength() > objectIndex) {
-            const placemark = geoObjects.get(objectIndex);
-            if (placemark) {
-                placemark.balloon.open();
-            }
-        }
-    }
 }
 
 function initMapTouchControls() {
@@ -183,47 +140,18 @@ function hideMapLoading() {
     
     mapContainer.classList.remove('loading');
     mapContainer.classList.add('loaded');
-    
-    // Восстанавливаем оригинальный HTML с картой
-    mapContainer.innerHTML = '<div id="geo-map"></div>';
 }
 
 // Интеграция с существующей картой из geography_map.js
 function initMapIntegration() {
-    // Перехватываем инициализацию карты для добавления мобильной оптимизации
-    const originalInitGeoMap = window.initGeoMap;
-    
-    window.initGeoMap = function() {
+    // Показываем состояние загрузки пока карта не готова
+    const geoMapContainer = document.querySelector('#geo-map');
+    if (geoMapContainer && !geoMapContainer.querySelector('.ymaps-2-1-79-map')) {
         showMapLoading();
-        
-        // Ждем немного перед инициализацией для лучшего UX
-        setTimeout(function() {
-            if (typeof originalInitGeoMap === 'function') {
-                originalInitGeoMap();
-            }
-            
-            // Даем карте время на рендеринг
-            setTimeout(hideMapLoading, 1000);
-            
-            // Сохраняем ссылку на карту в глобальной области
-            if (typeof ymaps !== 'undefined') {
-                ymaps.ready(function() {
-                    window.geoMap = new ymaps.Map('geo-map', {
-                        center: [59.939095, 30.315868],
-                        zoom: 9,
-                        controls: ['zoomControl', 'fullscreenControl']
-                    }, {
-                        searchControlProvider: 'yandex#search'
-                    });
-                    
-                    // Добавляем мобильные классы
-                    if (window.innerWidth <= 768) {
-                        window.geoMap.container.getElement().classList.add('ymaps-2-1-79-map-mobile');
-                    }
-                });
-            }
-        }, 500);
-    };
+    }
+    
+    // Скрываем loading через 5 секунд на случай ошибки
+    setTimeout(hideMapLoading, 5000);
 }
 
 // Вспомогательная функция для ограничения частоты вызовов
@@ -242,10 +170,4 @@ function debounce(func, wait) {
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     initMapIntegration();
-    
-    // Показываем состояние загрузки пока карта не готова
-    showMapLoading();
-    
-    // Скрываем loading через 5 секунд на случай ошибки
-    setTimeout(hideMapLoading, 5000);
 });

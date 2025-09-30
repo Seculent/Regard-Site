@@ -220,6 +220,53 @@
     transform: translateY(30px);
 }
 
+/* Стили для одинаковой высоты карточек */
+.news-grid {
+    align-items: stretch;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s ease;
+}
+
+.news-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-title-text {
+    flex-shrink: 0;
+}
+
+.news-excerpt,
+.news-full {
+    flex: 1;
+}
+
+/* Стили для кнопки "Свернуть" */
+.load-more-btn.collapse {
+    background: linear-gradient(135deg, #93c4ee, #0d5bbb);
+}
+
+.load-more-btn.collapse:hover {
+    background: linear-gradient(135deg, #7bb1e8, #0a4a9e);
+    box-shadow: 0 5px 15px rgba(147, 196, 238, 0.4);
+}
+
+/* Стили для кнопки "Читать далее" в развернутом состоянии */
+.read-more-btn.expanded {
+    background: #ee9393;
+    color: #000;
+}
+
+.read-more-btn.expanded:hover {
+    background: #e57373;
+    transform: scale(1.05);
+}
+
 @keyframes fadeInUp {
     to {
         opacity: 1;
@@ -351,6 +398,7 @@
     .news-card {
         padding: 18px;
         border-radius: 10px;
+        height: auto !important; /* На мобильных отключаем фиксированную высоту */
         min-height: 180px;
     }
     
@@ -554,6 +602,7 @@
     }
     
     .news-card {
+        height: auto !important;
         min-height: 140px;
         padding: 12px;
     }
