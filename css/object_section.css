@@ -5,6 +5,7 @@
     text-align: center;
     width: 100%;
     box-sizing: border-box;
+    margin: 30px 0; /* Добавляем отступы между секциями */
 }
 
 .trending h3 {
@@ -13,6 +14,7 @@
     color: #fff;
     margin-bottom: 30px;
     text-transform: uppercase;
+    line-height: 1.2;
 }
 
 /* Стили для слайд-шоу */
@@ -43,6 +45,12 @@
     background: linear-gradient(209deg, rgba(225, 218, 207, 1) 9%, rgba(29, 29, 29, 1) 50%);
     padding: 2px;
     box-sizing: border-box;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.slide:hover {
+    transform: scale(1.02);
 }
 
 .slide-image {
@@ -66,6 +74,7 @@
     backdrop-filter: blur(5px);
     border: 2px solid rgb(246, 237, 237);
     z-index: 2;
+    max-width: 80%;
 }
 
 .slide-caption h3 {
@@ -73,6 +82,7 @@
     font-size: 24px;
     font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    line-height: 1.2;
 }
 
 /* Кнопки навигации */
@@ -95,6 +105,8 @@
     transition: all 0.4s ease;
     border: 2px solid rgba(255,255,255,0.3);
     z-index: 10;
+    min-width: 44px; /* Минимальный размер для тач-устройств */
+    min-height: 44px;
 }
 
 .prev:hover, .next:hover {
@@ -102,6 +114,10 @@
     border-radius: 50%;
     border-color: rgb(255, 255, 255);
     transform: translateY(-50%) scale(1.1);
+}
+
+.prev:active, .next:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .prev {
@@ -134,6 +150,8 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    min-width: 16px; /* Увеличиваем для мобильных */
+    min-height: 16px;
 }
 
 .indicator.active {
@@ -154,15 +172,17 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.95);
     z-index: 1000;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .modal-content-project {
     position: relative;
     background: #1a1a1a;
-    margin: 50px auto;
+    margin: 0 auto;
     padding: 0;
     width: 90%;
     max-width: 1200px;
@@ -180,12 +200,17 @@
     color: white;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     font-size: 24px;
     cursor: pointer;
     z-index: 1001;
     transition: all 0.3s ease;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close-modal-project:hover {
@@ -216,6 +241,7 @@
     padding: 10px 15px;
     margin: -10px -15px 20px -15px;
     border-radius: 5px;
+    line-height: 1.3;
 }
 
 .project-description {
@@ -263,12 +289,21 @@
     cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .gallery-prev:hover, .gallery-next:hover {
     background: rgba(0, 0, 0, 0.9);
     border-radius: 50%;
     transform: translateY(-50%) scale(1.1);
+}
+
+.gallery-prev:active, .gallery-next:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .gallery-prev {
@@ -286,6 +321,21 @@
     background: #2d2d2d;
     overflow-x: auto;
     max-height: 100px;
+    scrollbar-width: thin;
+    scrollbar-color: #ee9393 #2d2d2d;
+}
+
+.gallery-thumbnails::-webkit-scrollbar {
+    height: 6px;
+}
+
+.gallery-thumbnails::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+
+.gallery-thumbnails::-webkit-scrollbar-thumb {
+    background: #ee9393;
+    border-radius: 3px;
 }
 
 .thumbnail {
@@ -297,6 +347,7 @@
     opacity: 0.6;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    flex-shrink: 0;
 }
 
 .thumbnail:hover, .thumbnail.active {
@@ -306,97 +357,13 @@
     box-shadow: 0 0 10px rgba(225, 218, 207, 0.5);
 }
 
-/* Адаптивность модального окна */
-@media (max-width: 968px) {
-    .project-modal-container {
-        flex-direction: column;
-        height: 90vh;
-    }
-    
-    .project-info {
-        flex: none;
-        height: 40%;
-        padding: 20px;
-    }
-    
-    .project-gallery {
-        flex: none;
-        height: 60%;
-    }
-    
-    .project-title {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 768px) {
-    .modal-content-project {
-        width: 95%;
-        margin: 20px auto;
-    }
-    
-    .project-info {
-        height: 45%;
-    }
-    
-    .project-gallery {
-        height: 55%;
-    }
-    
-    .gallery-prev, .gallery-next {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-}
-
-/* Добавляем курсор pointer для кликабельных слайдов */
-.slide {
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.slide:hover {
-    transform: scale(1.02);
-}
-
 /* Адаптивность слайд-шоу */
-@media (max-width: 1440px) {
-    .slideshow-container {
-        max-width: 1200px;
-        margin: 0 20px;
-    }
-}
 
-@media (max-width: 768px) {
+/* Планшеты и маленькие десктопы */
+@media (max-width: 1200px) {
     .slideshow-container {
-        max-width: 100%;
-        margin: 0 15px;
-        height: 350px;
-    }
-    
-    .slide {
-        padding: 2px;
-    }
-    
-    .prev, .next {
-        width: 45px;
-        height: 45px;
-        padding: 12px;
-        font-size: 18px;
-        border-radius: 10px;
-    }
-    
-    .prev:hover, .next:hover {
-        border-radius: 50%;
-    }
-    
-    .prev {
-        left: 20px;
-    }
-    
-    .next {
-        right: 20px;
+        max-width: 900px;
+        height: 450px;
     }
     
     .slide-caption {
@@ -406,34 +373,61 @@
     }
     
     .slide-caption h3 {
-        font-size: 20px;
+        font-size: 22px;
     }
     
-    .slideshow-indicators {
-        bottom: 20px;
+    .prev, .next {
+        width: 45px;
+        height: 45px;
+        padding: 12px;
+        font-size: 18px;
+    }
+    
+    .prev {
+        left: 20px;
+    }
+    
+    .next {
+        right: 20px;
     }
 }
 
-@media (max-width: 480px) {
+/* Планшеты */
+@media (max-width: 968px) {
+    .trending {
+        padding: 40px 0;
+        margin: 25px 0;
+    }
+    
+    .trending h3 {
+        font-size: 2rem;
+        margin-bottom: 25px;
+    }
+    
     .slideshow-container {
-        height: 280px;
+        max-width: 100%;
+        height: 400px;
+        margin: 0 20px;
+        border-radius: 8px;
     }
     
     .slide-caption {
         top: 15px;
         left: 15px;
         padding: 10px 15px;
+        max-width: 85%;
     }
     
     .slide-caption h3 {
-        font-size: 18px;
+        font-size: 20px;
     }
     
     .prev, .next {
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         padding: 10px;
         font-size: 16px;
+        border-radius: 10px;
     }
     
     .prev {
@@ -445,6 +439,352 @@
     }
     
     .slideshow-indicators {
+        bottom: 20px;
+        gap: 8px;
+    }
+    
+    .indicator {
+        width: 12px;
+        height: 12px;
+        min-width: 14px;
+        min-height: 14px;
+    }
+}
+
+/* Мобильные устройства */
+@media (max-width: 768px) {
+    .trending {
+        padding: 30px 0;
+        margin: 20px 0;
+    }
+    
+    .trending h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        padding: 0 15px;
+    }
+    
+    .slideshow-container {
+        height: 300px;
+        margin: 0 15px;
+        border-radius: 6px;
+    }
+    
+    .slide {
+        padding: 1px;
+    }
+    
+    .slide-caption {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        max-width: 90%;
+    }
+    
+    .slide-caption h3 {
+        font-size: 16px;
+    }
+    
+    .prev, .next {
+        width: 38px;
+        height: 38px;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    
+    .prev {
+        left: 10px;
+    }
+    
+    .next {
+        right: 10px;
+    }
+    
+    .slideshow-indicators {
         bottom: 15px;
+        gap: 6px;
+    }
+    
+    .indicator {
+        width: 10px;
+        height: 10px;
+        min-width: 12px;
+        min-height: 12px;
+    }
+    
+    /* Адаптация модального окна для мобильных */
+    .modal-overlay-project {
+        padding: 10px;
+    }
+    
+    .modal-content-project {
+        width: 95%;
+        max-height: 95vh;
+        border-radius: 12px;
+    }
+    
+    .project-modal-container {
+        flex-direction: column;
+        height: auto;
+        max-height: 85vh;
+    }
+    
+    .project-info {
+        flex: none;
+        height: 40%;
+        max-height: 300px;
+        padding: 20px;
+        order: 2;
+    }
+    
+    .project-gallery {
+        flex: none;
+        height: 60%;
+        min-height: 250px;
+        order: 1;
+    }
+    
+    .project-title {
+        font-size: 24px;
+        margin: -10px -15px 15px -15px;
+        padding: 8px 12px;
+    }
+    
+    .project-description {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .gallery-prev, .gallery-next {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .gallery-thumbnails {
+        padding: 10px;
+        max-height: 80px;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 45px;
+    }
+    
+    .close-modal-project {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+/* Маленькие мобильные устройства */
+@media (max-width: 480px) {
+    .trending {
+        padding: 25px 0;
+        margin: 15px 0;
+    }
+    
+    .trending h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .slideshow-container {
+        height: 250px;
+        margin: 0 10px;
+    }
+    
+    .slide-caption {
+        top: 8px;
+        left: 8px;
+        padding: 6px 10px;
+    }
+    
+    .slide-caption h3 {
+        font-size: 14px;
+    }
+    
+    .prev, .next {
+        width: 35px;
+        height: 35px;
+        padding: 6px;
+        font-size: 12px;
+    }
+    
+    .prev {
+        left: 8px;
+    }
+    
+    .next {
+        right: 8px;
+    }
+    
+    .slideshow-indicators {
+        bottom: 12px;
+        gap: 5px;
+    }
+    
+    .indicator {
+        width: 8px;
+        height: 8px;
+        min-width: 10px;
+        min-height: 10px;
+    }
+    
+    /* Дальнейшая оптимизация модального окна */
+    .modal-overlay-project {
+        padding: 5px;
+    }
+    
+    .modal-content-project {
+        width: 98%;
+        max-height: 98vh;
+        border-radius: 10px;
+    }
+    
+    .project-info {
+        padding: 15px;
+        max-height: 250px;
+    }
+    
+    .project-title {
+        font-size: 20px;
+        margin: -8px -12px 12px -12px;
+        padding: 6px 10px;
+    }
+    
+    .project-description {
+        font-size: 13px;
+    }
+    
+    .project-gallery {
+        min-height: 200px;
+    }
+    
+    .gallery-prev, .gallery-next {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .gallery-thumbnails {
+        padding: 8px;
+        max-height: 70px;
+    }
+    
+    .thumbnail {
+        width: 50px;
+        height: 38px;
+    }
+}
+
+/* Очень маленькие устройства */
+@media (max-width: 360px) {
+    .slideshow-container {
+        height: 200px;
+    }
+    
+    .slide-caption h3 {
+        font-size: 12px;
+    }
+    
+    .prev, .next {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .project-info {
+        max-height: 200px;
+    }
+    
+    .project-title {
+        font-size: 18px;
+    }
+}
+
+/* Ландшафтная ориентация мобильных */
+@media (max-width: 968px) and (orientation: landscape) and (max-height: 500px) {
+    .slideshow-container {
+        height: 250px;
+    }
+    
+    .modal-overlay-project {
+        padding: 5px;
+    }
+    
+    .project-modal-container {
+        flex-direction: row;
+        height: 90vh;
+    }
+    
+    .project-info {
+        height: 100%;
+        max-height: none;
+        order: 1;
+        flex: 1;
+    }
+    
+    .project-gallery {
+        height: 100%;
+        min-height: auto;
+        order: 2;
+        flex: 1;
+    }
+}
+
+/* Поддержка touch-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .slide:hover {
+        transform: none;
+    }
+    
+    .btn_sert:hover {
+        transform: none;
+    }
+    
+    /* Увеличиваем зону клика для индикаторов */
+    .indicator {
+        padding: 8px;
+        margin: -8px;
+    }
+}
+
+/* Улучшение доступности */
+@media (prefers-reduced-motion: reduce) {
+    .slides {
+        transition: none;
+    }
+    
+    .slide,
+    .prev, .next,
+    .gallery-prev, .gallery-next,
+    .thumbnail {
+        transition: none;
+    }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+    .modal-content-project {
+        background: #0a0a0a;
+    }
+    
+    .project-info {
+        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    }
+}
+
+/* Оптимизация для высоких экранов */
+@media (min-height: 1000px) and (max-width: 768px) {
+    .slideshow-container {
+        height: 400px;
+    }
+    
+    .project-modal-container {
+        max-height: 80vh;
     }
 }
