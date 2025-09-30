@@ -4,8 +4,9 @@
     background: rgba(0, 0, 0, 0.5);
     margin-top: 50px;
     border-top: 3px solid;
-    border-image: linear-gradient(to right, rgba(218, 143, 65, 1) 0%, rgba(119, 80, 36, 1) 100%) 1;/* Градиент */
+    border-image: linear-gradient(to right, rgba(218, 143, 65, 1) 0%, rgba(119, 80, 36, 1) 100%) 1;
     border-image-slice: 1;
+    position: relative;
 }
 
 .contacts-section .container {
@@ -24,6 +25,7 @@
     letter-spacing: 2px;
     position: relative;
     font-weight: 600;
+    line-height: 1.2;
 }
 
 .section-title::after {
@@ -43,31 +45,38 @@
     grid-template-columns: 1fr 2fr;
     gap: 40px;
     align-items: start;
-    width: 100%; /* Добавляем */
-    box-sizing: border-box; /* Добавляем */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .contact-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    order: 2; /* Меняем порядок для мобильных */
 }
 
 .contact-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    min-height: 80px; /* Минимальная высота для tap-таргетов */
+    cursor: pointer;
 }
 
 .contact-item:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateX(10px);
     border-color: rgba(238, 147, 147, 0.3);
+}
+
+.contact-item:active {
+    transform: translateX(10px) scale(0.98); /* Feedback для мобильных */
 }
 
 .contact-icon {
@@ -78,6 +87,12 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Фиксированная ширина для выравнивания */
+    height: 40px; /* Фиксированная высота */
 }
 
 .contact-details p {
@@ -86,6 +101,27 @@
     margin: 0;
     font-weight: 300;
     letter-spacing: 0.5px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Стили для кликабельных контактов */
+.contact-item.clickable .contact-details p {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin: -4px -8px;
+}
+
+.contact-item.clickable .contact-details p:hover {
+    background: rgba(238, 147, 147, 0.1);
+}
+
+.contact-item.clickable .contact-details p.copied {
+    color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
 }
 
 .map-container {
@@ -98,6 +134,7 @@
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    order: 1; /* Меняем порядок для мобильных */
 }
 
 #map {
@@ -109,32 +146,103 @@
     box-sizing: border-box;
 }
 
-/* Адаптивность */
-/* Улучшенная адаптивность для контактов */
-@media (max-width: 1400px) {
-    .contacts-section .container {
-        width: 95%;
-        max-width: 1200px;
-        padding: 0 20px;
-    }
+/* Индикатор загрузки карты */
+.map-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
 }
 
+.map-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #ee9393;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Уведомление о копировании */
+.copy-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    z-index: 10000;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.copy-notification.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.copy-notification-icon {
+    font-size: 16px;
+}
+
+/* Адаптивность */
+
+/* Планшеты и маленькие десктопы */
 @media (max-width: 1200px) {
-    .contacts-section .container {
-        width: 100%;
-        padding: 0 30px;
-    }
-    
     .contacts-grid {
+        grid-template-columns: 1fr 1.5fr;
         gap: 30px;
     }
     
     .map-container {
         height: 350px;
+        padding: 20px;
+    }
+    
+    .contact-item {
+        padding: 18px;
+        min-height: 75px;
+    }
+    
+    .contact-icon {
+        font-size: 22px;
+        margin-right: 18px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .contact-details p {
+        font-size: 1rem;
     }
 }
 
-@media (max-width: 1024px) {
+/* Планшеты */
+@media (max-width: 968px) {
+    .contacts-section {
+        padding: 50px 0;
+        margin-top: 40px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 35px;
+    }
+    
     .contacts-grid {
         grid-template-columns: 1fr;
         gap: 25px;
@@ -142,155 +250,453 @@
     
     .map-container {
         height: 300px;
-        order: -1;
+        order: 1;
         padding: 20px;
     }
     
     .contact-info {
-        order: 1;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .contacts-section {
-        padding: 30px 15px;
-    }
-    
-    .section-title {
-        font-size: 1.6rem;
-        margin-bottom: 25px;
-    }
-    
-    .map-container {
-        height: 250px;
-        padding: 15px;
-        margin-bottom: 15px;
+        order: 2;
+        gap: 15px;
     }
     
     .contact-item {
-        padding: 12px 15px;
-        flex-direction: row; /* Иконки и текст в строку */
-        align-items: center;
+        padding: 16px;
+        min-height: 70px;
     }
     
-    .contact-icon {
-        font-size: 18px;
-        margin-right: 12px;
-        min-width: 22px;
-        flex-shrink: 0; /* Предотвращает сжатие иконок */
-    }
-    
-    .contact-details p {
-        font-size: 0.9rem;
-        word-break: break-word; /* Перенос длинного текста */
-    }
-    
-    /* Улучшаем внешний вид на очень маленьких экранах */
     .contact-item:hover {
-        transform: translateX(5px); /* Уменьшаем анимацию */
-    }
-}
-
-@media (max-width: 360px) {
-    .contacts-section {
-        padding: 25px 10px;
-    }
-    
-    .section-title {
-        font-size: 1.4rem;
-    }
-    
-    .map-container {
-        height: 220px;
-        padding: 12px;
-    }
-    
-    .contact-item {
-        padding: 10px 12px;
+        transform: translateY(-2px); /* Меньшее смещение на планшетах */
     }
     
     .contact-icon {
-        font-size: 16px;
-        margin-right: 10px;
+        font-size: 20px;
+        margin-right: 16px;
+        width: 32px;
+        height: 32px;
     }
     
     .contact-details p {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
     }
 }
 
-/* Фикс для карты на мобильных */
+/* Мобильные устройства */
 @media (max-width: 768px) {
+    .contacts-section {
+        padding: 40px 0;
+        margin-top: 30px;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+    
+    .contacts-section .container {
+        padding: 0 15px;
+    }
+    
+    .contacts-grid {
+        gap: 20px;
+    }
+    
+    .map-container {
+        height: 280px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
     #map {
         border-radius: 6px;
     }
     
-    /* Улучшаем кнопки управления на мобильных */
-    .ymaps-2-1-79-controls__control {
-        transform: scale(0.8);
-        transform-origin: center;
-    }
-}
-@media (max-width: 480px) {
-    .contacts-section {
-        padding: 30px 15px;
-    }
-    
-    .section-title {
-        font-size: 1.6rem;
-        margin-bottom: 25px;
-    }
-    
-    .map-container {
-        height: 250px;
-        padding: 15px;
-        margin-bottom: 15px;
+    .contact-info {
+        gap: 12px;
     }
     
     .contact-item {
-        padding: 12px 15px;
-        flex-direction: column;
-        text-align: center;
-        gap: 8px;
-    }
-    
-    .contact-icon {
-        font-size: 18px;
-        margin-bottom: 5px;
-        min-width: 22px;
-    }
-    
-    .contact-details p {
-        font-size: 0.9rem;
-        word-break: break-word;
-        line-height: 1.4;
+        padding: 15px;
+        min-height: 65px;
+        flex-direction: row;
+        align-items: center;
     }
     
     .contact-item:hover {
         transform: translateY(-2px);
     }
     
-    .contact-info {
-        gap: 12px;
+    .contact-icon {
+        font-size: 18px;
+        margin-right: 15px;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .contact-details p {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+    
+    /* Улучшаем отображение длинных адресов и номеров */
+    .contact-details p {
+        word-break: break-word;
+        hyphens: auto;
+    }
+    
+    .copy-notification {
+        top: 10px;
+        padding: 10px 16px;
+        font-size: 13px;
+        max-width: 90%;
     }
 }
 
-
-/* Гарантируем, что ничего не вылазит за пределы */
-.contacts-section {
-    overflow: hidden;
-    width: 100%;
-    box-sizing: border-box;
+/* Маленькие мобильные устройства */
+@media (max-width: 480px) {
+    .contacts-section {
+        padding: 30px 0;
+        margin-top: 25px;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+        padding: 0 10px;
+    }
+    
+    .contacts-section .container {
+        padding: 0 10px;
+    }
+    
+    .map-container {
+        height: 250px;
+        padding: 12px;
+        border-radius: 6px;
+    }
+    
+    #map {
+        border-radius: 4px;
+    }
+    
+    .contact-info {
+        gap: 10px;
+    }
+    
+    .contact-item {
+        padding: 12px;
+        min-height: 60px;
+    }
+    
+    .contact-icon {
+        font-size: 16px;
+        margin-right: 12px;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .contact-details p {
+        font-size: 0.85rem;
+    }
+    
+    /* Вертикальное расположение для очень маленьких экранов */
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 15px 12px;
+    }
+    
+    .contact-icon {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
 }
 
-/* Фиксим проблему с Яндекс.Картами */
-.ymaps-2-1-79-map {
-    width: 100% !important;
-    height: 100% !important;
+/* Очень маленькие устройства */
+@media (max-width: 360px) {
+    .contacts-section {
+        padding: 25px 0;
+        margin-top: 20px;
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+    }
+    
+    .map-container {
+        height: 220px;
+        padding: 10px;
+    }
+    
+    .contact-item {
+        padding: 10px;
+        min-height: 55px;
+    }
+    
+    .contact-icon {
+        font-size: 14px;
+        width: 24px;
+        height: 24px;
+    }
+    
+    .contact-details p {
+        font-size: 0.8rem;
+    }
 }
 
-.ymaps-2-1-79-inner-panes {
-    width: 100% !important;
-    height: 100% !important;
+/* Ландшафтная ориентация мобильных */
+@media (max-width: 968px) and (orientation: landscape) and (max-height: 500px) {
+    .contacts-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .map-container {
+        height: 250px;
+        order: 2;
+    }
+    
+    .contact-info {
+        order: 1;
+        max-height: 250px;
+        overflow-y: auto;
+        gap: 8px;
+    }
+    
+    .contact-item {
+        padding: 10px;
+        min-height: 55px;
+    }
+    
+    /* Стилизация скроллбара */
+    .contact-info::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .contact-info::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+    }
+    
+    .contact-info::-webkit-scrollbar-thumb {
+        background: #ee9393;
+        border-radius: 2px;
+    }
+}
+
+/* Высокие экраны */
+@media (min-height: 1000px) and (max-width: 768px) {
+    .map-container {
+        height: 400px;
+    }
+    
+    .contact-info {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+}
+
+/* Поддержка touch-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .contact-item:hover {
+        transform: none;
+        background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .contact-item:active {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(0.98);
+    }
+    
+    .contact-item.clickable .contact-details p:hover {
+        background: transparent;
+    }
+    
+    .contact-item.clickable .contact-details p:active {
+        background: rgba(238, 147, 147, 0.1);
+    }
+}
+
+/* Улучшение для медленных сетей */
+@media (prefers-reduced-data: reduce) {
+    .map-container {
+        background-image: none;
+    }
+}
+
+/* Поддержка темной темы */
+@media (prefers-color-scheme: dark) {
+    .contacts-section {
+        background: rgba(0, 0, 0, 0.7);
+    }
+    
+    .contact-item {
+        background: rgba(0, 0, 0, 0.3);
+    }
+    
+    .map-container {
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Улучшение доступности */
+@media (prefers-reduced-motion: reduce) {
+    .contact-item {
+        transition: none;
+    }
+    
+    .contact-item:hover {
+        transform: none;
+    }
+    
+    .map-loading-spinner {
+        animation: none;
+        border-top-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .copy-notification {
+        transition: none;
+    }
+}
+
+/* Специфичные стили для Яндекс.Карт на мобильных */
+.ymaps-2-1-79-map-mobile .ymaps-2-1-79-controls__control {
+    transform: scale(0.9);
+}
+
+.ymaps-2-1-79-map-mobile .ymaps-2-1-79-controls__toolbar {
+    font-size: 12px;
+}
+
+/* Адаптация элементов управления картой */
+@media (max-width: 768px) {
+    .ymaps-2-1-79-controls__control {
+        transform: scale(0.8);
+        transform-origin: center;
+    }
+    
+    .ymaps-2-1-79-controls__toolbar {
+        font-size: 11px;
+    }
+    
+    .ymaps-2-1-79-inner-panes {
+        border-radius: 4px;
+    }
+}
+
+/* Состояние загрузки карты */
+.map-container.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-container.loading #map {
+    display: none;
+}
+
+/* Анимация появления карты */
+.map-container.loaded {
+    animation: mapFadeIn 0.5s ease;
+}
+
+@keyframes mapFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Альтернативное представление контактов для очень маленьких экранов */
+.contacts-compact {
+    display: none;
+}
+
+/* Быстрые действия для контактов */
+.contact-actions {
+    display: none;
+    margin-top: 10px;
+    gap: 8px;
+}
+
+.contact-action-btn {
+    background: rgba(238, 147, 147, 0.2);
+    border: 1px solid #ee9393;
+    color: #ee9393;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.contact-action-btn:hover {
+    background: #ee9393;
+    color: #000;
+}
+
+/* Адаптация для очень широких экранов */
+@media (min-width: 2000px) {
+    .contacts-section .container {
+        max-width: 1600px;
+    }
+    
+    .map-container {
+        height: 500px;
+    }
+    
+    .contact-item {
+        padding: 25px;
+        min-height: 100px;
+    }
+    
+    .contact-icon {
+        font-size: 28px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .contact-details p {
+        font-size: 1.2rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .contacts-section {
+        background: none;
+        border-top: 2px solid #333;
+        padding: 20px 0;
+    }
+    
+    .contact-item {
+        background: white;
+        border: 1px solid #ccc;
+        color: #333;
+        break-inside: avoid;
+    }
+    
+    .contact-icon {
+        -webkit-text-fill-color: #333;
+        background: none;
+        color: #333;
+    }
+    
+    .contact-details p {
+        color: #333;
+    }
+    
+    .map-container {
+        display: none;
+    }
 }
