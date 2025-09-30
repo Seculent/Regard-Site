@@ -79,3 +79,32 @@ function addNewObject(coords, title, content, markerColor = '#ee9393') {
     // Здесь будет код для добавления новой точки на карту и в список объектов
     console.log('Добавление нового объекта:', newObject);
 }
+
+// Добавьте в конец geography_map.js
+function optimizeMapForMobile() {
+    if (window.innerWidth <= 768 && window.geoMap) {
+        // Упрощаем контролы для мобильных
+        window.geoMap.controls.remove('typeSelector');
+        window.geoMap.controls.remove('searchControl');
+        
+        // Настраиваем поведение для touch-устройств
+        window.geoMap.behaviors.disable('drag');
+        window.geoMap.behaviors.disable('scrollZoom');
+        
+        // Добавляем мобильный класс
+        window.geoMap.container.getElement().classList.add('ymaps-2-1-79-map-mobile');
+    }
+}
+
+// Вызовите эту функцию после инициализации карты
+// Добавьте в конец функции initGeoMap():
+if (window.innerWidth <= 768) {
+    optimizeMapForMobile();
+}
+
+// Обработчик изменения размера
+window.addEventListener('resize', function() {
+    if (window.geoMap) {
+        optimizeMapForMobile();
+    }
+});
