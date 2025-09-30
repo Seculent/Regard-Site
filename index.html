@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/main_info.css">
     <link rel="stylesheet" href="css/news_section.css">
     <link rel="stylesheet" href="css/object_section.css">
+    <link rel="stylesheet" href="css/geography_section.css">
     <link rel="stylesheet" href="css/our_patners.css">
     <link rel="stylesheet" href="css/contacts_secrion.css">
 </head>
@@ -107,6 +108,47 @@
                 </div>
             </div>
         </div>
+
+                <!-- Секция географии объектов -->
+        <section class="geography-section">
+            <div class="container">
+                <h2 class="geography-title">География объектов</h2>
+                
+                <div class="geography-content">
+                    <!-- Карта -->
+                    <div class="map-container-geo">
+                        <div id="geo-map"></div>
+                    </div>
+                    
+                    <!-- Список объектов -->
+                    <div class="objects-list">
+                        <div class="object-item">
+                            <div class="object-marker marker-1"></div>
+                            <div class="object-info">
+                                <h3>Лаголово А101</h3>
+                                <p>деревня Лаголово, Лаголовское сельское поселение, Ломоносовский район, Ленинградская область</p>
+                            </div>
+                        </div>
+                        
+                        <div class="object-item">
+                            <div class="object-marker marker-2"></div>
+                            <div class="object-info">
+                                <h3>Живи в Песочном!</h3>
+                                <p>Колпино, Санкт-Петербург</p>
+                            </div>
+                        </div>
+                        
+                        <div class="object-item">
+                            <div class="object-marker marker-3"></div>
+                            <div class="object-info">
+                                <h3>UP-Квартал Воронцовский</h3>
+                                <p>деревня Новое Девяткино, Всеволожский район, Ленинградская область</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Секция партнеров -->
         <section class="partners-section">
@@ -230,6 +272,7 @@
     <script src="javascript/modal.js"></script>
     <script src="javascript/carousel.js"></script>
     <script src="javascript/news_section.js"></script>
+    <script src="javascript/geography_map.js"></script>
     </div>
 </body>
 
