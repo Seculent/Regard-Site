@@ -260,6 +260,10 @@ header nav ul li.btn a:hover {
     .container {
         padding: 0 15px;
     }
+
+    .container_nav {
+        z-index: 1002; /* Увеличиваем z-index навигации */
+    }
     
     .nav-content {
         flex-direction: row;
@@ -293,6 +297,7 @@ header nav ul li.btn a:hover {
     /* Показываем гамбургер меню */
     .mobile-menu-toggle {
         display: flex;
+        z-index: 1003;
     }
     
     /* Мобильное меню */
@@ -305,7 +310,7 @@ header nav ul li.btn a:hover {
         height: 100vh;
         background: rgba(0, 0, 0, 0.95);
         backdrop-filter: blur(20px);
-        z-index: 999;
+        z-index: 1001;
         padding: 80px 20px 20px;
         transition: right 0.3s ease;
         overflow-y: auto;
@@ -362,7 +367,7 @@ header nav ul li.btn a:hover {
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.7);
-        z-index: 998;
+        z-index: 1000;
         display: none;
     }
     
