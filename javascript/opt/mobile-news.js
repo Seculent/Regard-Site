@@ -266,17 +266,7 @@ function optimizeTextDisplay() {
         const readMoreBtn = content.querySelector('.read-more-btn');
         
         if (!excerpt || !fullText || !readMoreBtn) return;
-        
-        // Проверяем, нужно ли вообще показывать кнопку "Читать далее"
-        const excerptHeight = excerpt.scrollHeight;
-        const lineHeight = parseInt(getComputedStyle(excerpt).lineHeight);
-        const maxLines = parseInt(excerpt.style.webkitLineClamp) || 3;
-        
-        if (excerptHeight <= lineHeight * maxLines) {
-            readMoreBtn.style.display = 'none';
-        } else {
-            readMoreBtn.style.display = 'inline-flex';
-        }
+        readMoreBtn.style.display = 'inline-flex';
     });
 }
 
