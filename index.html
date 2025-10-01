@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     
     <!-- Ваши стили -->
-    <link rel="stylesheet" href="css/object_section.css">
     <link rel="stylesheet" href="css/geography_section.css">
     <link rel="stylesheet" href="css/our_patners.css">
     <link rel="stylesheet" href="css/news_section.css">
@@ -209,6 +208,102 @@
             font-size: 1.5rem;
         }
 
+                /* Стили для карусели объектов */
+        .carousel-image {
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .carousel-click-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .carousel-caption {
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.9));
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255,255,255,0.3);
+            text-align: left;
+            left: 25px;
+            right: auto;
+            bottom: auto;
+            top: 25px;
+            max-width: 80%;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 30px;
+        }
+
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 50%;
+            border-color: rgb(255, 255, 255);
+        }
+
+        /* Стили для миниатюр в модальном окне */
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            opacity: 1;
+            border-color: #e1dacf;
+            transform: scale(1.05);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .carousel-image {
+                height: 300px;
+            }
+            
+            .carousel-caption {
+                left: 15px;
+                top: 15px;
+                max-width: 85%;
+            }
+            
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 40px;
+                height: 40px;
+                margin: 0 15px;
+            }
+            
+            #projectModal .modal-dialog {
+                margin: 10px;
+            }
+            
+            #projectModal .row {
+                flex-direction: column-reverse;
+            }
+        }
+
         /* Адаптивность */
         @media (max-width: 1200px) {
             .hero-section {
@@ -309,6 +404,20 @@
         </div>
     </nav>
 
+    <!-- Модальное окно для PDF (Bootstrap) -->
+    <div class="modal fade pdf-modal-custom" id="pdfModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <iframe id="pdfViewer" src="PDF/regard_brochure.pdf" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Герой секция -->
     <section class="hero-section">
         <div class="container">
@@ -337,47 +446,116 @@
         </div>
     </section>
 
-    <!-- Секция объектов -->
-    <div class="container trending">
-        <h3>Наши объекты</h3>
-        
-        <!-- Существующий слайдер -->
-        <div class="slideshow-container">
-            <div class="slides">
-                <div class="slide">
-                    <img src="JPG/OBJ-Logolovo.png" alt="Лаголово А101" class="slide-image">
-                    <div class="slide-caption">
-                        <h3>Лаголово А101</h3>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="JPG/OBJ-Logolovo1.png" alt="Живи в Песочном!" class="slide-image">
-                    <div class="slide-caption">
-                        <h3>Живи в Песочном!</h3>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="JPG/OBJ-Logolovo2.png" alt="Новые Лаврики" class="slide-image">
-                    <div class="slide-caption">
-                        <h3>Новые Лаврики</h3>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="JPG/OBJ-Logolovo3.png" alt="UP-Квартал Воронцовский" class="slide-image">
-                    <div class="slide-caption">
-                        <h3>UP-Квартал Воронцовский</h3>
-                    </div>
+    <!-- Модальное окно для изображений (Bootstrap) -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-body p-4 text-center">
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                    <img id="modalImage" class="modal-image-custom" src="" alt="Просмотр изображения">
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Секция объектов -->
+    <section class="trending py-5 bg-dark bg-opacity-50">
+        <div class="container">
+            <h2 class="text-center text-white mb-5 display-4 fw-bold text-uppercase">Наши объекты</h2>
             
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
-            
-            <div class="slideshow-indicators">
-                <button class="indicator active" data-index="0"></button>
-                <button class="indicator" data-index="1"></button>
-                <button class="indicator" data-index="2"></button>
-                <button class="indicator" data-index="3"></button>
+            <!-- Bootstrap Carousel -->
+            <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Индикаторы -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Лаголово А101"></button>
+                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="1" aria-label="Живи в Песочном!"></button>
+                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="2" aria-label="Новые Лаврики"></button>
+                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="3" aria-label="UP-Квартал Воронцовский"></button>
+                </div>
+                
+                <!-- Слайды -->
+                <div class="carousel-inner rounded-3 shadow-lg">
+                    <div class="carousel-item active" data-bs-interval="5000">
+                        <img src="JPG/OBJ-Logolovo.png" class="d-block w-100 carousel-image" alt="Лаголово А101">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Лаголово А101</h3>
+                        </div>
+                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="0"></div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="JPG/OBJ-Logolovo1.png" class="d-block w-100 carousel-image" alt="Живи в Песочном!">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Живи в Песочном!</h3>
+                        </div>
+                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="1"></div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="JPG/OBJ-Logolovo2.png" class="d-block w-100 carousel-image" alt="Новые Лаврики">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Новые Лаврики</h3>
+                        </div>
+                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="2"></div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="JPG/OBJ-Logolovo3.png" class="d-block w-100 carousel-image" alt="UP-Квартал Воронцовский">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>UP-Квартал Воронцовский</h3>
+                        </div>
+                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="3"></div>
+                    </div>
+                </div>
+                
+                <!-- Кнопки навигации -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Предыдущий</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#projectsCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Следующий</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для проектов -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content bg-dark border border-light">
+                <div class="modal-header border-bottom border-secondary">
+                    <h2 class="modal-title text-white fs-3" id="modalProjectTitle">Название проекта</h2>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <!-- Левая часть - описание -->
+                        <div class="col-md-6 d-flex flex-column">
+                            <div class="p-4 h-100" style="background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);">
+                                <div class="project-description text-light overflow-auto" style="max-height: 60vh;" id="modalProjectDescription">
+                                    <p>Здесь будет подробное описание проекта...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Правая часть - галерея -->
+                        <div class="col-md-6 bg-black">
+                            <div class="position-relative">
+                                <img class="img-fluid w-100 gallery-main-image" id="modalGalleryImage" src="" alt="Галерея проекта" style="height: 400px; object-fit: cover;">
+                                <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-2 gallery-prev" style="z-index: 10;">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y me-2 gallery-next" style="z-index: 10;">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="gallery-thumbnails-container bg-secondary bg-opacity-25 p-3">
+                                <div class="d-flex gap-2 overflow-auto" id="modalGalleryThumbnails">
+                                    <!-- Миниатюры будут добавляться через JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -463,60 +641,6 @@
         </div>
     </section>
 
-    <!-- Модальное окно для проектов -->
-    <div class="modal-overlay-project" id="projectModal">
-        <div class="modal-content-project">
-            <button class="close-modal-project" id="closeProjectModal">&times;</button>
-            <div class="project-modal-container">
-                <!-- Левая часть - описание -->
-                <div class="project-info">
-                    <h2 class="project-title" id="modalProjectTitle">Название проекта</h2>
-                    <div class="project-description" id="modalProjectDescription">
-                        <p>Здесь будет подробное описание проекта...</p>
-                    </div>
-                </div>
-                
-                <!-- Правая часть - галерея -->
-                <div class="project-gallery">
-                    <div class="gallery-main">
-                        <img class="gallery-image" id="modalGalleryImage" src="" alt="Галерея проекта">
-                        <button class="gallery-prev">&#10094;</button>
-                        <button class="gallery-next">&#10095;</button>
-                    </div>
-                    <div class="gallery-thumbnails" id="modalGalleryThumbnails">
-                        <!-- Миниатюры будут добавляться через JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно для изображений (Bootstrap) -->
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content modal-content-custom">
-                <div class="modal-body p-4 text-center">
-                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-                    <img id="modalImage" class="modal-image-custom" src="" alt="Просмотр изображения">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно для PDF (Bootstrap) -->
-    <div class="modal fade pdf-modal-custom" id="pdfModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-0">
-                    <iframe id="pdfViewer" src="PDF/regard_brochure.pdf" width="100%" height="100%" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Секция контактов -->
     <section class="contacts-section" id="contacts">
         <div class="container">
@@ -569,7 +693,7 @@
     <!-- Ваши JS файлы -->
     <script src="javascript/contact_section.js"></script>
     <script src="javascript/geography_map.js"></script>
-    <script src="javascript/carousel.js"></script>
+    <!-- <script src="javascript/carousel.js"></script> -->
     <script src="javascript/news_section.js"></script>
 
     <script>
