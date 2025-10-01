@@ -1034,6 +1034,28 @@
 
         /* Адаптивность */
         @media (max-width: 768px) {
+            .hero-section {
+                padding: 100px 0 60px !important;
+                min-height: calc(100vh - 100px);
+            }
+            .hero-certificates {
+                margin-top: 2rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            .scroll-indicator {
+                margin-top: 3rem !important;
+                position: relative;
+                bottom: 0;
+            }
+            
+            .scroll-arrow {
+                height: 25px;
+            }
+            
+            .scroll-text {
+                font-size: 0.7rem;
+            }
             .map-container-geo {
                 height: 350px;
             }
@@ -1048,6 +1070,17 @@
         }
 
         @media (max-width: 576px) {
+            .hero-section {
+                padding: 90px 0 50px !important;
+                min-height: calc(100vh - 90px);
+            }
+            .hero-certificates {
+                padding-bottom: 4rem !important;
+            }
+            
+            .scroll-indicator {
+                margin-top: 2rem !important;
+            }
             .map-container-geo {
                 height: 300px;
             }

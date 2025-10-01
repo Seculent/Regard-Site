@@ -5,6 +5,11 @@ function initContactMap() {
     try {
         console.log('Инициализация карты контактов...');
         
+        // Проверяем, загружена ли API Яндекс.Карт
+        if (typeof ymaps === 'undefined') {
+            throw new Error('Yandex Maps API не загружена');
+        }
+
         // Координаты офиса
         const officeCoords = [59.963611, 30.287149];
         
@@ -27,22 +32,14 @@ function initContactMap() {
                         <strong>📍 Адрес:</strong> 197110, г. Санкт-Петербург, улица Большая Зеленина, 24
                     </p>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong>📞 Телефон:</strong> 
-                        <span style="cursor: pointer; color: #0066cc; text-decoration: underline;" 
-                              onclick="copyToClipboard('+74951234567', this)">+7 (495) 123-45-67</span>
+                        <strong>📞 Телефон:</strong> +7 (495) 123-45-67
                     </p>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong>✉️ Email:</strong> 
-                        <span style="cursor: pointer; color: #0066cc; text-decoration: underline;" 
-                              onclick="copyToClipboard('project@regard-spb.ru', this)">project@regard-spb.ru</span>
-                    </p>
-                    <p style="margin: 5px 0; color: #666; font-size: 12px;">
-                        ⚡ Нажмите на email или телефон, чтобы скопировать
+                        <strong>✉️ Email:</strong> project@regard-spb.ru
                     </p>
                 </div>
             `
         }, {
-            // Стили метки
             iconLayout: 'default#image',
             iconImageHref: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMTgiIGZpbGw9IiNlZTkzOTMiIGZpbGwtb3BhY2l0eT0iMC44IiBzdHJva2U9IiNiYjBkMGQiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI4IiBmaWxsPSIjYmIwZDBkIi8+Cjwvc3ZnPg==',
             iconImageSize: [40, 40],
@@ -58,9 +55,6 @@ function initContactMap() {
         
         // Настройки поведения карты
         contactMap.behaviors.disable('scrollZoom');
-        
-        // Сохраняем ссылку на карту
-        window.contactMap = contactMap;
         
         console.log('Карта контактов успешно инициализирована');
         

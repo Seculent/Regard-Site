@@ -105,6 +105,7 @@
     width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    min-height: 300px; /* Минимальная высота */
 }
 
 #map {
@@ -204,6 +205,7 @@
     
     .map-container {
         height: 300px;
+        min-height: 250px;
     }
 }
 
@@ -240,6 +242,7 @@
     
     .map-container {
         height: 250px;
+        min-height: 200px;
     }
 }
 
