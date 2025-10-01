@@ -6,7 +6,7 @@ function initGeoMap() {
         console.log('Инициализация карты географии...');
         
         const geoMap = new ymaps.Map('geo-map', {
-            center: [59.939095, 30.315868], // Центр на Санкт-Петербург
+            center: [59.939095, 30.315868],
             zoom: 9,
             controls: ['zoomControl', 'fullscreenControl']
         }, {
@@ -16,19 +16,19 @@ function initGeoMap() {
         // Создаем метки для объектов
         const objects = [
             {
-                coords: [59.729722, 29.834722], // Лаголово
+                coords: [59.729722, 29.834722],
                 title: 'Лаголово А101',
                 content: 'деревня Лаголово, Лаголовское сельское поселение, Ломоносовский район, Ленинградская область',
                 markerColor: '#ed4545'
             },
             {
-                coords: [59.750839, 30.588553], // Колпино
+                coords: [59.750839, 30.588553],
                 title: 'Живи в Песочном!',
                 content: 'Колпино, Санкт-Петербург',
                 markerColor: '#2b90e8'
             },
             {
-                coords: [60.051389, 30.485556], // Новое Девяткино
+                coords: [60.051389, 30.485556],
                 title: 'UP-Квартал Воронцовский',
                 content: 'деревня Новое Девяткино, Всеволожский район, Ленинградская область',
                 markerColor: '#11f305'
@@ -61,18 +61,6 @@ function initGeoMap() {
         // Сохраняем ссылку на карту
         window.geoMap = geoMap;
         
-        // Убираем состояние загрузки
-        const mapContainer = document.querySelector('.map-container-geo');
-        if (mapContainer) {
-            mapContainer.classList.remove('loading');
-            mapContainer.classList.add('loaded');
-        }
-        
-        // Адаптация для мобильных устройств
-        if (window.innerWidth < 768) {
-            optimizeMapForMobile();
-        }
-        
         console.log('Карта географии успешно инициализирована');
         
     } catch (error) {
@@ -81,46 +69,23 @@ function initGeoMap() {
     }
 }
 
-// Функция для отображения ошибки карты географии
+// Функция для отображения ошибки карты
 function showGeoMapError() {
     const mapContainer = document.getElementById('geo-map');
     if (mapContainer) {
         mapContainer.innerHTML = `
-            <div style="padding: 20px; text-align: center; background: rgba(255,255,255,0.1); border-radius: 8px; height: 100%; display: flex; flex-direction: column; justify-content: center; color: #fff;">
-                <h3 style="color: #ee9393; margin-bottom: 10px;">Ошибка загрузки карты</h3>
-                <p style="margin-bottom: 15px; color: #ccc;">Не удалось загрузить карту объектов</p>
+            <div class="d-flex flex-column justify-content-center align-items-center h-100 text-center text-white p-4">
+                <h3 class="text-danger mb-3">Ошибка загрузки карты</h3>
+                <p class="mb-3">Не удалось загрузить карту объектов</p>
                 <a href="https://yandex.ru/maps/2/saint-petersburg/" 
                    target="_blank" 
-                   style="color: #ee9393; text-decoration: none; font-weight: 500;">
-                    Посмотреть на Яндекс.Картах →
+                   class="btn btn-outline-light">
+                    Посмотреть на Яндекс.Картах
                 </a>
             </div>
         `;
     }
 }
-
-// Оптимизация карты для мобильных устройств
-function optimizeMapForMobile() {
-    if (window.innerWidth <= 768 && window.geoMap) {
-        // Упрощаем контролы для мобильных
-        window.geoMap.controls.remove('typeSelector');
-        window.geoMap.controls.remove('searchControl');
-        
-        // Настраиваем поведение для touch-устройств
-        window.geoMap.behaviors.disable('drag');
-        window.geoMap.behaviors.disable('scrollZoom');
-        
-        // Добавляем мобильный класс
-        window.geoMap.container.getElement().classList.add('ymaps-2-1-79-map-mobile');
-    }
-}
-
-// Обработчик изменения размера для адаптации
-window.addEventListener('resize', function() {
-    if (window.geoMap) {
-        optimizeMapForMobile();
-    }
-});
 
 // Инициализация взаимодействия с элементами списка
 document.addEventListener('DOMContentLoaded', function() {
@@ -142,9 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Функция для центрирования карты на объекте
 function centerMapOnObject(objectIndex) {
     const objectsCoordinates = [
-        [59.729722, 29.834722], // Лаголово
-        [59.750839, 30.588553], // Колпино
-        [60.051389, 30.485556]  // Новое Девяткино
+        [59.729722, 29.834722],
+        [59.750839, 30.588553],
+        [60.051389, 30.485556]
     ];
     
     if (objectsCoordinates[objectIndex] && window.geoMap) {
@@ -162,11 +127,3 @@ function centerMapOnObject(objectIndex) {
         }
     }
 }
-
-// Запасной таймаут для карты географии
-setTimeout(() => {
-    const geoMapElement = document.querySelector('#geo-map .ymaps-2-1-79-map');
-    if (!geoMapElement) {
-        showGeoMapError();
-    }
-}, 5000);
