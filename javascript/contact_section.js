@@ -62,13 +62,6 @@ function initContactMap() {
         // Сохраняем ссылку на карту
         window.contactMap = contactMap;
         
-        // Убираем состояние загрузки
-        const mapContainer = document.querySelector('.map-container');
-        if (mapContainer) {
-            mapContainer.classList.remove('loading');
-            mapContainer.classList.add('loaded');
-        }
-        
         console.log('Карта контактов успешно инициализирована');
         
     } catch (error) {
@@ -82,13 +75,14 @@ function showMapError(mapId) {
     const mapContainer = document.getElementById(mapId);
     if (mapContainer) {
         mapContainer.innerHTML = `
-            <div style="padding: 20px; text-align: center; background: rgba(255,255,255,0.1); border-radius: 8px; height: 100%; display: flex; flex-direction: column; justify-content: center; color: #fff;">
+            <div class="map-loading">
+                <div class="map-loading-spinner"></div>
                 <h3 style="color: #ee9393; margin-bottom: 10px;">Ошибка загрузки карты</h3>
                 <p style="margin-bottom: 15px; color: #ccc;">Проверьте подключение к интернету</p>
                 <a href="https://yandex.ru/maps/?text=Санкт-Петербург, улица Большая Зеленина, 24" 
                    target="_blank" 
-                   style="color: #ee9393; text-decoration: none; font-weight: 500;">
-                    Посмотреть на Яндекс.Картах →
+                   class="btn btn-outline-light">
+                    Посмотреть на Яндекс.Картах
                 </a>
             </div>
         `;
@@ -117,77 +111,25 @@ function copyToClipboard(text, element) {
     });
 }
 
-// Плавная прокрутка к секции контактов
+// Добавляем функциональность копирования для контактных данных
 document.addEventListener('DOMContentLoaded', function() {
-    const contactsBtn = document.getElementById('contactsBtn');
+    // Делаем телефон и email кликабельными
+    const phoneElement = document.querySelector('.contact-item:nth-child(2) .contact-details p');
+    const emailElement = document.querySelector('.contact-item:nth-child(3) .contact-details p');
     
-    if (contactsBtn) {
-        contactsBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const contactsSection = document.getElementById('contacts');
-            if (contactsSection) {
-                // Вычисляем позицию секции с учетом фиксированного header'а
-                const headerHeight = document.querySelector('.container_nav').offsetHeight;
-                const targetPosition = contactsSection.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+    if (phoneElement) {
+        phoneElement.style.cursor = 'pointer';
+        phoneElement.addEventListener('click', function() {
+            copyToClipboard('+74951234567', this);
         });
     }
     
-    // Добавляем обработчик для всех внутренних ссылок
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            
-            // Пропускаем ссылки, которые не ведут на существующие элементы
-            if (href === '#' || href === '') return;
-            
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-                e.preventDefault();
-                
-                const headerHeight = document.querySelector('.container_nav').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight - 20;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+    if (emailElement) {
+        emailElement.style.cursor = 'pointer';
+        emailElement.addEventListener('click', function() {
+            copyToClipboard('project@regard-spb.ru', this);
         });
-    });
-});
-
-// Обновление активного пункта меню при скролле
-document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('nav a');
-    const sections = document.querySelectorAll('section[id]');
-    
-    window.addEventListener('scroll', function() {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const headerHeight = document.querySelector('.container_nav').offsetHeight;
-            
-            if (scrollY >= (sectionTop - headerHeight - 100)) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
+    }
 });
 
 // Запасной таймаут на случай если карта не загрузится

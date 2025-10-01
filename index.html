@@ -12,9 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     
     <!-- Ваши стили -->
-    <!-- <link rel="stylesheet" href="css/geography_section.css"> -->
     <link rel="stylesheet" href="css/our_patners.css">
-    <!-- <link rel="stylesheet" href="css/news_section.css"> -->
     <link rel="stylesheet" href="css/contacts_secrion.css">
     
     <style>
@@ -1204,45 +1202,59 @@
     </section>
 
     <!-- Секция контактов -->
-    <section class="contacts-section" id="contacts">
+    <section class="contacts-section py-5 bg-dark bg-opacity-75" id="contacts">
         <div class="container">
-            <h1 class="section-title">Контакты</h1>
+            <h2 class="section-title text-center text-white mb-5 display-4 fw-bold text-uppercase position-relative">
+                Контакты
+            </h2>
             
-            <div class="contacts-grid">
+            <div class="row g-4 align-items-stretch">
                 <!-- Контактная информация -->
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-details">
-                            <p>197110, г. Санкт-Петербург, улица Большая Зеленина, 24</p>
+                <div class="col-lg-6 col-md-12">
+                    <div class="contact-info h-100">
+                        <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">📍</div>
+                                <div class="contact-details">
+                                    <p class="text-white mb-0 fs-5">197110, г. Санкт-Петербург, улица Большая Зеленина, 24</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div class="contact-details">
-                            <p>+7 (495) 123-45-67</p>
+                        
+                        <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">📞</div>
+                                <div class="contact-details">
+                                    <p class="text-white mb-0 fs-5">+7 (495) 123-45-67</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
-                        <div class="contact-details">
-                            <p>project@regard-spb.ru</p>
+                        
+                        <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">✉️</div>
+                                <div class="contact-details">
+                                    <p class="text-white mb-0 fs-5">project@regard-spb.ru</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">🕒</div>
-                        <div class="contact-details">
-                            <p>Пн-Пт: 9:00 - 18:00</p>
+                        
+                        <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">🕒</div>
+                                <div class="contact-details">
+                                    <p class="text-white mb-0 fs-5">Пн-Пт: 9:00 - 18:00</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Карта -->
-                <div class="map-container">
-                    <div id="map"></div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="map-container bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 h-100">
+                        <div id="map" class="rounded-2 h-100"></div>
+                    </div>
                 </div>
             </div>
         </div>
