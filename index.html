@@ -110,6 +110,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            overflow: hidden;
         }
 
         .hero-bg-animation {
@@ -117,10 +118,58 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(238, 147, 147, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(187, 13, 13, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(225, 218, 207, 0.05) 0%, transparent 50%);
-            animation: float 6s ease-in-out infinite;
+                /* Плавающие градиентные сферы */
+                radial-gradient(circle at 20% 80%, rgba(238, 147, 147, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(187, 13, 13, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(225, 218, 207, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 60% 60%, rgba(147, 196, 238, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 30% 30%, rgba(147, 238, 169, 0.06) 0%, transparent 50%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        /* Добавьте новые элементы для анимации фона */
+        .hero-bg-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.3) 50%, transparent),
+                radial-gradient(2px 2px at 90% 70%, rgba(238,147,147,0.4) 50%, transparent),
+                radial-gradient(3px 3px at 30% 80%, rgba(187,13,13,0.3) 50%, transparent),
+                radial-gradient(2px 2px at 70% 10%, rgba(255,255,255,0.2) 50%, transparent),
+                radial-gradient(3px 3px at 50% 50%, rgba(225,218,207,0.3) 50%, transparent),
+                radial-gradient(2px 2px at 80% 90%, rgba(238,147,147,0.4) 50%, transparent);
+            background-size: 100% 100%;
+            animation: particlesMove 20s linear infinite;
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 40s linear infinite;
+            top: -50%;
+            left: -50%;
+        }
+
+        .hero-bg-shine {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                125deg,
+                transparent 0%,
+                rgba(255,255,255,0.02) 30%,
+                rgba(238,147,147,0.03) 50%,
+                rgba(255,255,255,0.02) 70%,
+                transparent 100%
+            );
+            animation: shineSweep 15s ease-in-out infinite;
+            transform: translateX(-100%);
         }
 
         .hero-overlay {
@@ -149,7 +198,7 @@
         }
 
         .text-gradient {
-            background: linear-gradient(135deg, #ee9393, #bb0d0d);
+            background: linear-gradient(90deg, #ffffff, #fcfcfc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -210,8 +259,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, 
-                rgba(238, 147, 147, 0.9) 0%, 
-                rgba(187, 13, 13, 0.8) 100%);
+                rgba(185, 152, 152, 0.9) 0%, 
+                rgba(177, 108, 108, 0.8) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -241,7 +290,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ee9393, #bb0d0d);
+            background: linear-gradient(135deg, #ee9393, #b56969);
             border: none;
         }
 
@@ -291,13 +340,90 @@
             letter-spacing: 2px;
         }
 
+        .hero-bg-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(238,147,147,0.4) 2px, transparent 3px),
+                radial-gradient(circle at 75% 75%, rgba(187,13,13,0.3) 2px, transparent 3px),
+                radial-gradient(circle at 50% 10%, rgba(225,218,207,0.2) 2px, transparent 3px);
+            background-size: 100px 100px;
+            animation: dotsPulse 4s ease-in-out infinite;
+        }
+
         /* Анимации */
-        @keyframes float {
+        @keyframes dotsPulse {
             0%, 100% {
-                transform: translateY(0px) rotate(0deg);
+                opacity: 0.5;
+                transform: scale(1);
             }
             50% {
-                transform: translateY(-20px) rotate(1deg);
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+        @keyframes particlesMove {
+            0% {
+                transform: translateY(0px) translateX(0px);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px);
+            }
+            50% {
+                transform: translateY(-10px) translateX(20px);
+            }
+            75% {
+                transform: translateY(-15px) translateX(5px);
+            }
+            100% {
+                transform: translateY(0px) translateX(0px);
+            }
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateX(-25px) translateY(-25px) rotate(0.5deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes shineSweep {
+            0%, 100% {
+                transform: translateX(-100%) skewX(-15deg);
+            }
+            50% {
+                transform: translateX(100%) skewX(-15deg);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                opacity: 0.3;
+                filter: blur(20px);
+            }
+            50% {
+                opacity: 0.6;
+                filter: blur(30px);
+            }
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+                filter: hue-rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(1deg) scale(1.05);
+                filter: hue-rotate(90deg);
+            }
+            66% {
+                transform: translateY(10px) rotate(-0.5deg) scale(0.95);
+                filter: hue-rotate(180deg);
             }
         }
 
@@ -1239,14 +1365,18 @@
     <section class="hero-section vh-100 d-flex align-items-center position-relative overflow-hidden">
         <!-- Анимированный фон -->
         <div class="hero-background">
-            <div class="hero-bg-animation"></div>
-            <div class="hero-overlay"></div>
+        <div class="hero-bg-animation"></div>
+        <div class="hero-bg-particles"></div>
+        <div class="hero-bg-grid"></div>
+        <div class="hero-bg-dots"></div>
+        <div class="hero-bg-shine"></div>
+        <div class="hero-overlay"></div>
         </div>
         
         <div class="container position-relative z-2">
             <div class="row align-items-center min-vh-100 py-5">
                 <div class="col-lg-6 col-md-12 mb-5 mb-lg-0">
-                    <div class="hero-content">
+                    <div class="hero-content animate-on-scroll">
                         <h1 class="hero-title display-3 fw-bold mb-4">
                             ЗНАНИЯ И ОПЫТ В ОБЛАСТИ<br>
                             <span class="text-gradient">МОНИТОРИНГА</span> И<br>
@@ -1270,7 +1400,7 @@
                 </div>
 
                 <div class="col-lg-6 col-md-12">
-                    <div class="hero-certificates">
+                    <div class="hero-certificates animate-on-scroll">
                         <div class="sertif-grid d-flex justify-content-center justify-content-lg-end flex-wrap gap-4">
                             <button class="btn-sert certificate-card" data-bs-toggle="modal" data-bs-target="#imageModal" data-image="JPG/regard_sro.png">
                                 <div class="certificate-inner">
@@ -1630,46 +1760,46 @@
             });
         });
         // Добавьте этот код в ваш существующий script тег
-        document.addEventListener('DOMContentLoaded', function() {
-            // Плавная прокрутка для CTA кнопок
-            document.querySelectorAll('.hero-btn[href^="#"]').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        const headerHeight = document.querySelector('.navbar').offsetHeight;
-                        const targetPosition = targetSection.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+document.addEventListener('DOMContentLoaded', function() {
+    // Плавная прокрутка для CTA кнопок
+    document.querySelectorAll('.hero-btn[href^="#"]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
-            });
-            
-            // Анимация появления элементов при скролле
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animationPlayState = 'running';
-                    }
-                });
-            }, observerOptions);
-            
-            // Наблюдаем за анимированными элементами
-            document.querySelectorAll('.hero-content, .hero-certificates').forEach(el => {
-                el.style.animationPlayState = 'paused';
-                observer.observe(el);
-            });
+            }
         });
+    });
+    
+    // Анимация появления элементов при скролле
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+    
+    // Наблюдаем за анимированными элементами
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+});
     </script>
 </body>
 </html>
