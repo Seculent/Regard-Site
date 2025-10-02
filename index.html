@@ -43,12 +43,34 @@
             scroll-behavior: smooth;
         }
 
-        /* Навигация */
+                /* Навигация */
         .navbar-custom {
-            background: rgba(0, 0, 0, 0.3) !important; /* Изначально более прозрачная */
-            backdrop-filter: blur(5px); /* Меньше размытия изначально */
+            background: rgba(0, 0, 0, 0.5) !important;
+            backdrop-filter: blur(10px);
             padding: 0.5rem 0;
-            transition: all 0.3s ease; /* Плавный переход */
+            transition: all 0.3s ease;
+            position: relative; /* Обычное позиционирование */
+            z-index: 1030;
+        }
+
+        /* Класс для фиксированной навигации при скролле */
+        .navbar-custom.fixed-top {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
         }
 
         /* Класс для фиксированной навигации при скролле */
@@ -108,7 +130,7 @@
 
         /* Герой секция во весь экран */
         .hero-section {
-            padding-top: 80px;
+            padding-top: 0;
             background: linear-gradient(135deg, 
                 rgba(29, 29, 29, 0.95) 0%, 
                 rgba(59, 59, 59, 0.85) 50%, 
@@ -1208,7 +1230,7 @@
 
 <body>
     <!-- Навигация на Bootstrap -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
             <a class="navbar-brand nav-logo" href="#">
                 <img src="JPG/logo.jpg" alt="Логотип компании ООО Регард - строительство и геодезический мониторинг" class="logo-img">
@@ -1698,11 +1720,13 @@
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-custom');
             const scrollPosition = window.scrollY;
+            const navbarHeight = navbar.offsetHeight;
             
-            if (scrollPosition > 50) { // После скролла на 50px
-                navbar.classList.add('scrolled');
+            // Когда навигация уходит за верх окна - фиксируем ее
+            if (scrollPosition > navbarHeight) {
+                navbar.classList.add('fixed-top');
             } else {
-                navbar.classList.remove('scrolled');
+                navbar.classList.remove('fixed-top');
             }
         });
         // Упрощенный скрипт для модалки изображений
