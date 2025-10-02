@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Ваши стили -->
+    <!-- Мои стили -->
     <link rel="stylesheet" href="css/our_patners.css">
     <link rel="stylesheet" href="css/contacts_secrion.css">
     
@@ -45,9 +45,17 @@
 
         /* Навигация */
         .navbar-custom {
-            background: rgba(0, 0, 0, 0.5) !important;
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3) !important; /* Изначально более прозрачная */
+            backdrop-filter: blur(5px); /* Меньше размытия изначально */
             padding: 0.5rem 0;
+            transition: all 0.3s ease; /* Плавный переход */
+        }
+
+        /* Класс для фиксированной навигации при скролле */
+        .navbar-custom.scrolled {
+            background: rgba(0, 0, 0, 0.8) !important; /* Более плотный фон при скролле */
+            backdrop-filter: blur(10px); /* Больше размытия */
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5); /* Тень для отделения */
         }
 
         .nav-logo {
@@ -100,6 +108,7 @@
 
         /* Герой секция во весь экран */
         .hero-section {
+            padding-top: 80px;
             background: linear-gradient(135deg, 
                 rgba(29, 29, 29, 0.95) 0%, 
                 rgba(59, 59, 59, 0.85) 50%, 
@@ -490,6 +499,7 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             .hero-section {
+                padding-top: 70px;
                 min-height: 100vh;
                 height: auto;
             }
@@ -1058,7 +1068,7 @@
 
         @media (max-width: 576px) {
             .hero-section {
-                padding-top: 70px !important;
+                padding-top: 60px;
                 min-height: calc(100vh - 70px) !important;
                 padding: 90px 0 50px !important;
             }
@@ -1684,6 +1694,17 @@
     <script src="javascript/news_section.js"></script>
 
     <script>
+        // Обработчик скролла для навигации
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            const scrollPosition = window.scrollY;
+            
+            if (scrollPosition > 50) { // После скролла на 50px
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
         // Упрощенный скрипт для модалки изображений
         document.addEventListener('DOMContentLoaded', function() {
             const imageModal = document.getElementById('imageModal');
