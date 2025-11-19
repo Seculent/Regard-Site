@@ -29,13 +29,13 @@ function initContactMap() {
                 <div style="padding: 15px; color: #333; font-family: Arial, sans-serif;">
                     <h3 style="margin-bottom: 10px; color: #2c3e50; font-weight: 600;">ООО «Регард»</h3>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong>📍 Адрес:</strong> 197110, г. Санкт-Петербург, улица Большая Зеленина, 24
+                        <strong> ⮞ Адрес:</strong> 197110, г. Санкт-Петербург, улица Большая Зеленина, 24
                     </p>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong>📞 Телефон:</strong> +7 (495) 123-45-67
+                        <strong> ⮞ Телефон:</strong> +7 (495) 123-45-67
                     </p>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong>✉️ Email:</strong> project@regard-spb.ru
+                        <strong> ⮞ Email:</strong> project@regard-spb.ru
                     </p>
                 </div>
             `
