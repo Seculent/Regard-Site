@@ -1745,14 +1745,62 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <small class="text-white-50">
-                    © 2024 ООО "Регард". Все права защищены.
+                    © 2025 ООО "Регард". Все права защищены.
                     <a href="#" class="text-white-50 text-decoration-none ms-2" data-bs-toggle="modal" data-bs-target="#privacyModal">Политика конфиденциальности</a>
                     <a href="#" class="text-white-50 text-decoration-none ms-2" data-bs-toggle="modal" data-bs-target="#termsModal">Пользовательское соглашение</a>
                 </small>
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="privacyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title">Политика конфиденциальности</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                    <h6>1. Общие положения</h6>
+                    <p>ООО "Регард" уважает вашу конфиденциальность и обязуется защищать персональные данные пользователей.</p>
+                    
+                    <h6>2. Собираемая информация</h6>
+                    <p>Мы можем собирать техническую информацию (IP-адрес, данные браузера) и контактные данные, предоставленные вами через формы обратной связи.</p>
+                    
+                    <h6>3. Использование информации</h6>
+                    <p>Информация используется для обработки запросов, улучшения работы сайта и предоставления услуг.</p>
+                    
+                    <h6>4. Защита данных</h6>
+                    <p>Мы принимаем меры для защиты данных от несанкционированного доступа.</p>
+                    
+                    <h6>5. Контакты</h6>
+                    <p>По вопросам защиты данных обращайтесь: project@regard-spb.ru</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="termsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title">Пользовательское соглашение</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="max-height: 60vh; overflow-y: auto;">
+                    <h6>1. Использование сайта</h6>
+                    <p>Используя данный сайт, вы соглашаетесь с условиями настоящего соглашения.</p>
+                    
+                    <h6>2. Интеллектуальная собственность</h6>
+                    <p>Все материалы сайта защищены авторским правом. Копирование без разрешения запрещено.</p>
+                    
+                    <h6>3. Ограничение ответственности</h6>
+                    <p>Мы не несем ответственности за технические сбои и временную недоступность сайта.</p>
+                    
+                    <h6>4. Сторонние ресурсы</h6>
+                    <p>Не несем ответственности за содержание сторонних сайтов, на которые могут вести ссылки.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         // Обработчик скролла для навигации
         window.addEventListener('scroll', function() {
@@ -1833,6 +1881,29 @@
                     observer.observe(el);
                 });
         });
+    </script>
+        <div id="cookieNotice" class="fixed-bottom bg-dark text-white p-3" style="display: none;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <small>Мы используем cookies для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="#" class="text-warning" data-bs-toggle="modal" data-bs-target="#privacyModal">Политикой конфиденциальности</a>.</small>
+                </div>
+                <div class="col-md-4 text-end">
+                    <button class="btn btn-sm btn-outline-warning" onclick="acceptCookies()">Принять</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function acceptCookies() {
+        localStorage.setItem('cookiesAccepted', 'true');
+        document.getElementById('cookieNotice').style.display = 'none';
+    }
+
+    // Показать уведомление, если cookies не приняты
+    if (!localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookieNotice').style.display = 'block';
+    }
     </script>
 </body>
 </html>
