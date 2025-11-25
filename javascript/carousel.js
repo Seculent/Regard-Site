@@ -1,24 +1,29 @@
 // Projects data
 const projectsData = [
     {
-        title: "Лаголово А101",
+        title: "Квартал AVANT",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        images: ["JPG/OBJ-Logolovo1.png", "JPG/OBJ-Logolovo.png", "JPG/OBJ-Logolovo2.png", "JPG/OBJ-Logolovo3.png"]
+        images: ["JPG/LAG/Lag1.1.jpg", "JPG/LAG/Lag1.2.jpg", "JPG/LAG/Lag1.3.jpg"]
     },
     {
-        title: "Живи в Песочном!",
+        title: "ЖК 'А101 Лаголово'",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        images: ["JPG/OBJ-Logolovo1.png", "JPG/OBJ-Logolovo.png", "JPG/OBJ-Logolovo2.png", "JPG/OBJ-Logolovo3.png"]
+        images: ["JPG/LAG/Lag1.1.jpg", "JPG/LAG/Lag1.2.jpg", "JPG/LAG/Lag1.3.jpg"]
     },
     {
-        title: "Новые Лаврики",
+        title: "ЖК 'Курортный Квартал'",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        images: ["JPG/OBJ-Logolovo2.png", "JPG/OBJ-Logolovo1.png", "JPG/OBJ-Logolovo.png", "JPG/OBJ-Logolovo3.png"]
+        images: ["JPG/PES/PES1.1.jpg", "JPG/PES/PES1.2.jpg", "JPG/PES/PES1.3.jpg", "JPG/PES/PES1.4.jpg", "JPG/PES/PES1.5.jpg", "JPG/PES/PES1.6.jpg", "JPG/PES/PES1.7.jpg"]
+    },
+    {
+        title: "ЖК 'Новые Лаврики'",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        images: ["JPG/LAV/LAV1.1.jpg", "JPG/LAV/LAV1.2.jpg", "JPG/LAV/LAV1.3.jpg", "JPG/LAV/LAV1.4.jpg"]
     },
     {
         title: "UP-Квартал Воронцовский",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        images: ["JPG/OBJ-Logolovo3.png", "JPG/OBJ-Logolovo1.png", "JPG/OBJ-Logolovo2.png", "JPG/OBJ-Logolovo.png"]
+        images: ["JPG/FSK/VRN1.1.jpg", "JPG/FSK/VRN1.2.jpg", "JPG/FSK/VRN1.3.jpg"]
     }
 ];
 
