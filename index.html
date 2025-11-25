@@ -2044,5 +2044,86 @@
     }
     </style>
 
+    <script>
+        // Обработчик скролла для навигации
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            const scrollPosition = window.scrollY;
+            const navbarHeight = navbar.offsetHeight;
+            
+            // Когда навигация уходит за верх окна - фиксируем ее
+            if (scrollPosition > navbarHeight) {
+                navbar.classList.add('fixed-top');
+            } else {
+                navbar.classList.remove('fixed-top');
+            }
+        });
+        // Упрощенный скрипт для модалки изображений
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            // Обработчик открытия модалки с изображением
+            imageModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const imageSrc = button.getAttribute('data-image');
+                modalImage.src = imageSrc;
+            });
+
+            // Очистка при закрытии
+            imageModal.addEventListener('hidden.bs.modal', function() {
+                modalImage.src = '';
+            });
+
+            // Убираем обводку при фокусе на кнопках сертификатов
+            const certButtons = document.querySelectorAll('.btn-sert');
+            certButtons.forEach(button => {
+                button.addEventListener('focus', function() {
+                    this.style.outline = 'none';
+                });
+            });
+        });
+        // Добавьте этот код в ваш существующий script тег
+        document.addEventListener('DOMContentLoaded', function() {
+            // Плавная прокрутка для CTA кнопок
+            document.querySelectorAll('.hero-btn[href^="#"]').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const headerHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = targetSection.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Анимация появления элементов при скролле
+            const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('animated');
+                            entry.target.style.animationPlayState = 'running';
+                        }
+                    });
+                }, observerOptions);
+                
+                // Наблюдаем за анимированными элементами
+                document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                    observer.observe(el);
+                });
+        });
+    </script>
 </body>
 </html>
