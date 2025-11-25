@@ -1021,6 +1021,28 @@
             border-radius: 2px;
         }
 
+        /* Стили для красных SVG-иконок */
+        .contact-icon svg {
+            fill: #ee9393; /* Красный цвет как на вашем сайте */
+            flex-shrink: 0;
+        }
+
+        .view-text svg {
+            fill: #ee9393;
+            flex-shrink: 0;
+        }
+
+        .btn-outline-warning svg {
+            fill: #ffc107; /* Цвет как у кнопки warning */
+        }
+
+        /* При наведении на контактные элементы */
+        .contact-item:hover .contact-icon svg {
+            fill: #ffa5a5; /* Более светлый красный при наведении */
+            transform: scale(1.1);
+            transition: all 0.3s ease;
+        }
+
         @keyframes fadeInUp {
             to {
                 opacity: 1;
@@ -1340,10 +1362,16 @@
                         <!-- CTA кнопки -->
                         <div class="hero-buttons d-flex flex-wrap gap-3">
                             <a href="#contacts" class="btn btn-primary btn-lg px-4 py-3 rounded-pill hero-btn">
-                                ⮟ Связаться с нами
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="me-2">
+                                    <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                                </svg>
+                                Связаться с нами
                             </a>
                             <a href="#projects" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill hero-btn">
-                                ⮟ Наши проекты
+                                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="me-2">
+                                    <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
+                                </svg> 
+                                Наши проекты
                             </a>
                         </div>
                     </div>
@@ -1749,7 +1777,11 @@
                     <div class="contact-info h-100">
                         <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25 mb-3">
                             <div class="d-flex align-items-center">
-                                <div class="contact-icon me-3">⮞</div>
+                                <div class="contact-icon me-3">
+                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                    </svg>
+                                </div>
                                 <div class="contact-details">
                                     <p class="text-white mb-0 fs-5">197110, г. Санкт-Петербург, улица Большая Зеленина, 24</p>
                                 </div>
@@ -1758,7 +1790,11 @@
                         
                         <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25 mb-3">
                             <div class="d-flex align-items-center">
-                                <div class="contact-icon me-3">⮞</div>
+                                <div class="contact-icon me-3">
+                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                    </svg>
+                                </div>
                                 <div class="contact-details">
                                     <p class="text-white mb-0 fs-5">+7 (495) 123-45-67</p>
                                 </div>
@@ -1767,7 +1803,11 @@
                         
                         <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25 mb-3">
                             <div class="d-flex align-items-center">
-                                <div class="contact-icon me-3">⮞</div>
+                                <div class="contact-icon me-3">
+                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                    </svg>
+                                </div>
                                 <div class="contact-details">
                                     <p class="text-white mb-0 fs-5">project@regard-spb.ru</p>
                                 </div>
@@ -1776,7 +1816,11 @@
                         
                         <div class="contact-item bg-dark bg-opacity-50 rounded-3 p-4 border border-light border-opacity-25">
                             <div class="d-flex align-items-center">
-                                <div class="contact-icon me-3">⮞</div>
+                                <div class="contact-icon me-3">
+                                    <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                                    </svg>
+                                </div>
                                 <div class="contact-details">
                                     <p class="text-white mb-0 fs-5">Пн-Пт: 9:00 - 18:00</p>
                                 </div>
