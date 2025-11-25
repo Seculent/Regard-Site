@@ -131,6 +131,8 @@
         /* Герой секция во весь экран */
         .hero-section {
             padding-top: 0;
+            padding: calc(80px + env(safe-area-inset-top)) 0 60px !important;
+            min-height: calc(100vh - env(safe-area-inset-top)) !important;
             background: linear-gradient(135deg, 
                 rgba(29, 29, 29, 0.95) 0%, 
                 rgba(59, 59, 59, 0.85) 50%, 
@@ -522,7 +524,8 @@
         @media (max-width: 768px) {
             .hero-section {
                 padding-top: 70px;
-                min-height: 100vh;
+                padding: calc(100px + env(safe-area-inset-top)) 0 60px !important;
+                min-height: calc(100vh - env(safe-area-inset-top)) !important;
                 height: auto;
             }
             
@@ -1368,9 +1371,7 @@
                                 Связаться с нами
                             </a>
                             <a href="#projects" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill hero-btn">
-                                <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="me-2">
-                                    <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
-                                </svg> 
+                                 
                                 Наши проекты
                             </a>
                         </div>
