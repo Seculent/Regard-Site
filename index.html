@@ -786,10 +786,48 @@
             opacity: 0;
             transform: translateY(20px);
         }
+        /* Стилизация скроллбара для списка объектов */
+        .objects-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .objects-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .objects-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ee9393, #bb0d0d);
+            border-radius: 4px;
+        }
+
+        .objects-list::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ffa5a5, #d32f2f);
+        }
+
+        /* Для Firefox */
+        .objects-list {
+            scrollbar-width: thin;
+            scrollbar-color: #ee9393 rgba(255, 255, 255, 0.1);
+        }
+
+        /* Убедитесь, что у контейнера есть ограничение по высоте и прокрутка */
+        .objects-list {
+            height: 100%;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
 
         .object-item:nth-child(1) { animation-delay: 0.1s; }
         .object-item:nth-child(2) { animation-delay: 0.2s; }
         .object-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .objects-list {
+            height: 100%;
+            max-height: 500px; /* или другую подходящую высоту */
+            overflow-y: auto;
+        }
 
         /* Стили для секции новостей на Bootstrap */
         .news-section {
@@ -1488,8 +1526,7 @@
                 
                 <!-- Список объектов -->
                 <div class="col-lg-4 col-md-5">
-                    <div class="objects-list d-flex flex-column gap-3">
-
+                        <div class="objects-list d-flex flex-column gap-3">
                         <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
                             <div class="d-flex align-items-start">
                                 <div class="object-marker marker-1 me-3 mt-1"></div>
@@ -1539,8 +1576,26 @@
                             <div class="d-flex align-items-start">
                                 <div class="object-marker marker-1 me-3 mt-1"></div>
                                 <div class="object-info">
-                                    <h3 class="mb-2 fs-5" style="color: rgba(249, 167, 167, 0.8);">UP-Квартал Воронцовский</h3>
+                                    <h3 class="mb-2 fs-5" style="color: rgba(249, 167, 167, 0.8);">ЖК "Колпино-10"</h3>
                                     <p class="text-light mb-0 small">Санкт-Петербург, внутригородское муниципальное образование Санкт-Петербурга город Колпино, проспект Ленина, земельный участок 60а</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
+                            <div class="d-flex align-items-start">
+                                <div class="object-marker marker-1 me-3 mt-1"></div>
+                                <div class="object-info">
+                                    <h3 class="mb-2 fs-5" style="color: rgba(249, 167, 167, 0.8);">ЖК "Новосаратовка"</h3>
+                                    <p class="text-light mb-0 small">Ленинградская область, Всеволожский муниципальный район, Свердловское городское поселение, деревня Новосаратовка</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
+                            <div class="d-flex align-items-start">
+                                <div class="object-marker marker-1 me-3 mt-1"></div>
+                                <div class="object-info">
+                                    <h3 class="mb-2 fs-5" style="color: rgba(249, 167, 167, 0.8);">ЖК "Красный Кирпичник"</h3>
+                                    <p class="text-light mb-0 small">Санкт-Петербург, город Колпино, Загородная улица, участок 33</p>
                                 </div>
                             </div>
                         </div>
