@@ -131,8 +131,10 @@
         /* Герой секция во весь экран */
         .hero-section {
             padding-top: 0;
-            padding: calc(80px + env(safe-area-inset-top)) 0 60px !important;
-            min-height: calc(100vh - env(safe-area-inset-top)) !important;
+            padding: 100px 0 60px !important;
+            padding: calc(100px + var(--safe-area-inset-top, 0px)) 0 calc(60px + var(--safe-area-inset-bottom, 0px)) !important;
+            min-height: calc(100vh - var(--safe-area-inset-top, 0px)) !important;
+            min-height: calc(100dvh - var(--safe-area-inset-top, 0px)) !important;
             background: linear-gradient(135deg, 
                 rgba(29, 29, 29, 0.95) 0%, 
                 rgba(59, 59, 59, 0.85) 50%, 
@@ -524,8 +526,10 @@
         @media (max-width: 768px) {
             .hero-section {
                 padding-top: 70px;
-                padding: calc(100px + env(safe-area-inset-top)) 0 60px !important;
-                min-height: calc(100vh - env(safe-area-inset-top)) !important;
+                padding: 120px 0 60px !important;
+                padding: calc(120px + var(--safe-area-inset-top, 0px)) 0 calc(60px + var(--safe-area-inset-bottom, 0px)) !important;
+                min-height: calc(100vh - var(--safe-area-inset-top, 0px)) !important;
+                min-height: calc(100dvh - var(--safe-area-inset-top, 0px)) !important;
                 height: auto;
             }
             
