@@ -32,7 +32,7 @@
 
         body {
             font-family: 'Oswald', sans-serif;
-            background:  rgb(29, 29, 29);
+            background:  rgb(30, 30, 30);
             background-attachment: fixed;
             padding-top: 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -45,7 +45,7 @@
 
                 /* Навигация */
         .navbar-custom {
-            background: rgba(0, 0, 0, 0.8) !important;
+            background: rgba(30, 30, 30, 0.8) !important;
             backdrop-filter: blur(10px);
             padding: 0.5rem 0;
             transition: all 0.3s ease;
@@ -1364,7 +1364,7 @@
     </div>
 
     <!-- Секция объектов -->
-    <section class="trending py-5 bg-dark bg-opacity-50" id="projects">
+    <section class="trending py-5" id="projects">
         <div class="container">
             <h2 class="text-center text-white mb-5 display-4 fw-bold text-uppercase">Наши объекты</h2>
             
@@ -1673,7 +1673,7 @@
     </section>
 
     <!-- Секция контактов -->
-    <section class="contacts-section py-5 bg-dark bg-opacity-75" id="contacts">
+    <section class="contacts-section py-5 bg-dark bg-opacity-25" id="contacts">
         <div class="container">
             <h2 class="section-title text-center text-white mb-5 display-4 fw-bold text-uppercase position-relative">
                 Контакты
@@ -1740,6 +1740,18 @@
     <script src="javascript/geography_map.js"></script>
     <script src="javascript/carousel.js"></script>
     <script src="javascript/news_section.js"></script>
+
+    <div class="container mt-5 pt-4 border-top">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <small class="text-white-50">
+                    © 2024 ООО "Регард". Все права защищены.
+                    <a href="#" class="text-white-50 text-decoration-none ms-2" data-bs-toggle="modal" data-bs-target="#privacyModal">Политика конфиденциальности</a>
+                    <a href="#" class="text-white-50 text-decoration-none ms-2" data-bs-toggle="modal" data-bs-target="#termsModal">Пользовательское соглашение</a>
+                </small>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Обработчик скролла для навигации
