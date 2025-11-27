@@ -280,41 +280,6 @@
             color: #ee9393;
         }
 
-        /* Индикатор прокрутки */
-        .scroll-indicator {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.7);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-arrow {
-            width: 2px;
-            height: 30px;
-            background: linear-gradient(to bottom, #ee9393, transparent);
-            margin-bottom: 8px;
-            position: relative;
-        }
-
-        .scroll-arrow::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -4px;
-            width: 10px;
-            height: 10px;
-            border-right: 2px solid #ee9393;
-            border-bottom: 2px solid #ee9393;
-            transform: rotate(45deg);
-        }
-
-        .scroll-text {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
@@ -1128,21 +1093,7 @@
             .hero-certificates {
                 margin-top: 2rem !important;
                 padding-bottom: 3rem !important;
-            }
-            
-            .scroll-indicator {
-                margin-top: 3rem !important;
-                position: relative;
-                bottom: 0;
-            }
-            
-            .scroll-arrow {
-                height: 25px;
-            }
-            
-            .scroll-text {
-                font-size: 0.7rem;
-            }
+            }            
             .map-container-geo {
                 height: 350px;
             }
@@ -1376,13 +1327,13 @@
                         
                         <!-- CTA кнопки -->
                         <div class="hero-buttons d-flex flex-wrap gap-3">
-                            <a href="#contacts" class="btn btn-primary btn-lg px-4 py-3 rounded-pill hero-btn">
+                            <a href="#contacts" class="btn btn-primary btn-lg px-4 py-2 rounded-pill hero-btn">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="me-2">
                                     <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
                                 </svg>
                                 Связаться с нами
                             </a>
-                            <a href="#projects" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill hero-btn">
+                            <a href="#projects" class="btn btn-outline-light btn-lg px-4 py-2 rounded-pill hero-btn">
                                 <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" class="me-2">
                                     <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/>
                                 </svg>
@@ -1419,13 +1370,7 @@
                                     </div>
                                 </div>
                             </button>
-                        </div>
-                        
-                        <!-- Индикатор прокрутки -->
-                        <div class="scroll-indicator mt-5">
-                            <div class="scroll-arrow"></div>
-                            <span class="scroll-text">Листайте вниз</span>
-                        </div>
+                        </div>                    
                     </div>
                 </div>
             </div>
@@ -2159,7 +2104,7 @@
         alert(message);
     }
     </script>
-
+    <!-- Обработчик скролла -->
     <script>
         // Обработчик скролла для навигации
         window.addEventListener('scroll', function() {
