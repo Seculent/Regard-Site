@@ -107,13 +107,9 @@
             transition: all 0.3s ease;
         }
 
-        .nav-link-custom:hover {
-            border-bottom: 3px solid #fff;
-        }
-
         .nav-btn-custom {
-            background: #000 !important;
-            color: #fff !important;
+            background: #000000 !important;
+            color: #ffffff !important;
             border-radius: 5px;
             padding: 0.5rem 1rem !important;
             margin: 0 0.25rem;
@@ -124,8 +120,7 @@
         }
 
         .nav-btn-custom:hover {
-            background: #bb0d0d !important;
-            transform: scale(1.05);
+            opacity: 0.6;
         }
 
         /* Герой секция во весь экран */
@@ -214,9 +209,6 @@
 
         .certificate-card:hover .certificate-inner {
             transform: translateY(-10px) scale(1.05);
-            box-shadow: 
-                0 20px 40px rgba(238, 147, 147, 0.3),
-                0 0 0 2px rgba(238, 147, 147, 0.3);
         }
 
         .sertif-img {
@@ -234,8 +226,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(135deg, 
-                rgba(185, 152, 152, 0.9) 0%, 
-                rgba(177, 108, 108, 0.8) 100%);
+                rgba(175, 175, 175, 0.6) 0%, 
+                rgba(240, 237, 237, 0.7) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -265,19 +257,20 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ee9393, #b56969);
+            justify-items: center;
+            background: linear-gradient(135deg, #000000, #000000);
             border: none;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(238, 147, 147, 0.4);
+            box-shadow: 0 10px 25px rgba(163, 163, 163, 0.4);
         }
 
         .btn-outline-light:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #ee9393;
-            color: #ee9393;
+            background: rgba(0, 0, 0, 0.1);
+            border-color: #969696;
+            color: #ffffff;
         }
 
         .animate-on-scroll {
@@ -685,7 +678,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: #ee9393;
+            background: #d28d38;
             border-radius: 2px;
         }
 
@@ -769,18 +762,18 @@
         }
 
         .objects-list::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #ee9393, #bb0d0d);
+            background: linear-gradient(135deg,#8e8d8d, #4e4d4d);
             border-radius: 4px;
         }
 
         .objects-list::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #ffa5a5, #d32f2f);
+            background: linear-gradient(135deg,#8e8d8d, #4e4d4d);
         }
 
         /* Для Firefox */
         .objects-list {
             scrollbar-width: thin;
-            scrollbar-color: #ee9393 rgba(255, 255, 255, 0.1);
+            scrollbar-color: #777575 rgba(255, 255, 255, 0.1);
         }
 
         /* Убедитесь, что у контейнера есть ограничение по высоте и прокрутка */
@@ -821,7 +814,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: #ee9393;
+            background: #d28d38;
             border-radius: 2px;
         }
 
@@ -832,7 +825,7 @@
             padding: 25px;
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
             display: flex;
@@ -858,13 +851,13 @@
 
         .news-card:hover {
             transform: translateY(-10px);
-            border-color: rgba(238, 147, 147, 0.3);
+            border-color: rgb(111, 111, 111);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
 
         .news-date {
             display: inline-block;
-            background: linear-gradient(135deg, #ee9393, #bb0d0d61);
+            background: linear-gradient(135deg,#8e8d8d, #4e4d4d);
             color: white;
             padding: 8px 15px;
             border-radius: 20px;
@@ -882,7 +875,7 @@
         }
 
         .news-content h3 {
-            color: #dfd1bb;
+            color: #d28d38;
             font-size: 1.3rem;
             margin-bottom: 15px;
             font-weight: 500;
@@ -915,8 +908,9 @@
 
         .read-more-btn {
             background: transparent;
-            border: 2px solid #ee9393;
-            color: #ee9393;
+            letter-spacing: 1px;
+            border: 2px solid #979797;
+            color: #ffffff;
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
@@ -930,19 +924,20 @@
         }
 
         .read-more-btn:hover {
-            background: #ee9393;
-            color: #000;
+            background: #6c6c6c;
+            color: #ffffff;
             transform: scale(1.05);
         }
 
         .read-more-btn.expanded {
-            background: #ee9393;
-            color: #000;
+            background: #6e6e6e;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
 
         /* Кнопка загрузки */
         .load-more-btn {
-            background: linear-gradient(135deg, #ee9393, #bb0d0d);
+            background: linear-gradient(135deg,#8e8d8d, #4e4d4d);
             border: none;
             transition: all 0.3s ease;
             font-weight: 500;
@@ -951,16 +946,16 @@
 
         .load-more-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(238, 147, 147, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
         }
 
         .load-more-btn.collapse {
-            background: linear-gradient(135deg, #93c4ee, #0d5bbb);
+            background: linear-gradient(135deg,#8e8d8d, #4e4d4d);
         }
 
         .load-more-btn.collapse:hover {
-            background: linear-gradient(135deg, #7bb1e8, #0a4a9e);
-            box-shadow: 0 5px 15px rgba(147, 196, 238, 0.4);
+            background: linear-gradient(135deg,#8e8d8d, #4e4d4d);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
         }
 
         /* Анимации */
@@ -989,18 +984,18 @@
             transform: translateX(-50%);
             width: 80px;
             height: 3px;
-            background: #ee9393;
+            background: #d28d38;
             border-radius: 2px;
         }
 
         /* Стили для красных SVG-иконок */
         .contact-icon svg {
-            fill: #ee9393; /* Красный цвет как на вашем сайте */
+            fill: #d28d38; /* Красный цвет как на вашем сайте */
             flex-shrink: 0;
         }
 
         .view-text svg {
-            fill: #ee9393;
+            fill: #d28d38;
             flex-shrink: 0;
         }
 
@@ -1010,7 +1005,7 @@
 
         /* При наведении на контактные элементы */
         .contact-item:hover .contact-icon svg {
-            fill: #ffa5a5; /* Более светлый красный при наведении */
+            fill: #d28d38; /* Более светлый красный при наведении */
             transform: scale(1.1);
             transition: all 0.3s ease;
         }
@@ -1271,7 +1266,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-custom active" href="#">На главную</a>
+                        <a class="nav-link nav-link-custom nav-btn-custom" href="#">На главную</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-custom nav-btn-custom" href="#projects">Наши проекты</a>

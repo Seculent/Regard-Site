@@ -25,7 +25,7 @@
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background: #ee9393;
+    background: #d28d38;
     border-radius: 2px;
 }
 
@@ -58,7 +58,7 @@
 .contact-icon {
     font-size: 24px;
     min-width: 30px;
-    background: linear-gradient(135deg, #ee9393, #bb0d0d);
+    background: linear-gradient(135deg, #8f8f8f, #363636);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
