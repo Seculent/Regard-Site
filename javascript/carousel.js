@@ -2,7 +2,7 @@
 const projectsData = [
     {
         title: "Квартал AVANT",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        description: "<p>Квартал AVANT от компании AAG расположен в историческом центре Санкт-Петербурга на территории бывшей текстильной фабрики — объекта культурного наследия архитектора Эриха Мендельсона. </p><br><p>Проект реализован по концепции 'город в городе' с сохранением комфортного человеческого масштаба. Архитекторы AAG создали обширные общественные пространства, уникальный лесной ландшафт в urban-среде и тщательно продуманные функциональные зоны. Каждый элемент квартала демонстрирует комплексный подход AAG к созданию качественной городской среды.</p><br>ООО РЕГАРД выполняет устройство фальцевой и рулонной кровель ревставрируемой фабрики. Объем работ: <br>Рулонной кровле: 5600 м2; <br> Скатной кровле: 7000 м2",
         images: ["JPG/AVANT/AVANT1.1.jpg", "JPG/AVANT/AVANT1.2.jpg", "JPG/AVANT/AVANT1.3.jpg", "JPG/AVANT/AVANT1.4.jpg"]
     },
     {
