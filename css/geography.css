@@ -1,0 +1,188 @@
+/* geography.css */
+
+/* Стили для секции географии объектов */
+.geography-section {
+    background: transparent;
+    position: relative;
+}
+
+.geography-title {
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text);
+}
+
+.geography-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--color-border-gold);
+    border-radius: 2px;
+}
+
+.map-container-geo {
+    height: 500px;
+    backdrop-filter: blur(10px);
+    background: var(--color-surface-dark);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-border);
+}
+
+#geo-map {
+    height: 100%;
+    width: 100%;
+    border-radius: var(--border-radius-sm);
+}
+
+.objects-list {
+    height: 100%;
+}
+
+.object-item {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    background: var(--color-surface-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+}
+
+.object-item:hover {
+    background: var(--color-surface-medium) !important;
+    transform: translateX(5px);
+    border-color: var(--color-accent-light) !important;
+}
+
+.object-item.active {
+    background: var(--color-surface-medium) !important;
+    border-color: var(--color-accent) !important;
+}
+
+.object-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.marker-1 {
+    background: var(--gradient-silver);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.marker-2 {
+    background: linear-gradient(135deg, #93c4ee, #0d5bbb);
+    box-shadow: 0 0 10px rgba(147, 196, 238, 0.5);
+}
+
+.marker-3 {
+    background: linear-gradient(135deg, #93eea9, #0dbb2d);
+    box-shadow: 0 0 10px rgba(147, 238, 169, 0.5);
+}
+
+.object-item.active .object-marker {
+    transform: scale(1.2);
+}
+
+.object-info h3 {
+    color: var(--color-secondary);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.object-info p {
+    color: var(--color-text-light);
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Стилизация скроллбара для списка объектов */
+.objects-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.objects-list::-webkit-scrollbar-track {
+    background: var(--color-surface-light);
+    border-radius: 4px;
+}
+
+.objects-list::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 4px;
+}
+
+.objects-list::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-primary);
+}
+
+/* Для Firefox */
+.objects-list {
+    scrollbar-width: thin;
+    scrollbar-color: #777575 var(--color-surface-light);
+}
+
+/* Убедитесь, что у контейнера есть ограничение по высоте и прокрутка */
+.objects-list {
+    height: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Анимация появления элементов с задержкой */
+.object-item:nth-child(1) { animation-delay: 0.1s; }
+.object-item:nth-child(2) { animation-delay: 0.2s; }
+.object-item:nth-child(3) { animation-delay: 0.3s; }
+.object-item:nth-child(4) { animation-delay: 0.4s; }
+.object-item:nth-child(5) { animation-delay: 0.5s; }
+.object-item:nth-child(6) { animation-delay: 0.6s; }
+.object-item:nth-child(7) { animation-delay: 0.7s; }
+
+/* Медиа-запросы для географии */
+@media (max-width: 768px) {
+    .map-container-geo {
+        height: 350px;
+    }
+    
+    .object-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    .object-item:active {
+        transform: scale(0.98);
+    }
+}
+
+@media (max-width: 576px) {
+    .map-container-geo {
+        height: 300px;
+    }
+    
+    .geography-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .object-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .object-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .object-info p {
+        font-size: 0.85rem;
+    }
+}

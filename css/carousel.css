@@ -1,0 +1,360 @@
+/* carousel.css */
+
+/* Стили для карусели объектов */
+.carousel-image {
+    height: 500px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.carousel-click-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.carousel-caption {
+    background: linear-gradient(135deg, var(--color-surface-dark), rgba(0, 0, 0, 0.5));
+    border-radius: var(--border-radius-sm);
+    backdrop-filter: blur(5px);
+    border: 2px solid var(--color-border-light);
+    text-align: left;
+    left: 25px;
+    right: auto;
+    bottom: auto;
+    top: 25px;
+    max-width: 80%;
+    padding: var(--spacing-md);
+}
+
+.carousel-caption h3 {
+    color: var(--color-text);
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    background: var(--color-surface-dark);
+    border-radius: var(--border-radius-sm);
+    border: 2px solid var(--color-border-light);
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 30px;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background: var(--color-black);
+    border-color: var(--color-text);
+    opacity: 1;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.carousel-indicators {
+    margin-bottom: 1.5rem;
+    gap: 8px;
+}
+
+.carousel-indicators [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-black);
+    border-color: var(--color-black);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+}
+
+.carousel-indicators [data-bs-target].active {
+    background-color: var(--color-secondary);
+    border-color: var(--color-text);
+    transform: scale(1.2);
+}
+
+.carousel-indicators [data-bs-target]:hover {
+    background-color: var(--color-black);
+    border-color: var(--color-border-light);
+}
+
+/* Стили для миниатюр в модальном окне */
+.thumbnail {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    flex-shrink: 0;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+    opacity: 1;
+    border-color: var(--color-border-light);
+    transform: scale(1.05);
+}
+
+/* Стилизация Bootstrap модалок */
+.modal-image-custom {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--shadow-hover);
+}
+
+.modal-content-custom {
+    background: var(--color-surface-dark);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--border-radius-lg);
+}
+
+.btn-close-custom {
+    background: var(--color-accent);
+    border: none;
+    color: var(--color-text);
+    font-size: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    opacity: 0.9;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-close-custom:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.pdf-modal-custom .modal-content {
+    background: transparent;
+    border: none;
+}
+
+.pdf-modal-custom .modal-header {
+    border-bottom: none;
+    padding: 10px 15px;
+}
+
+.pdf-modal-custom .btn-close {
+    color: var(--color-text);
+    opacity: 1;
+    font-size: 1.5rem;
+}
+
+/* Стили для модалки проектов */
+#projectModal .modal-content {
+    background: var(--color-black);
+    border: 1px solid var(--color-border-light);
+}
+
+#projectModal .modal-header {
+    border-bottom: 1px solid var(--color-border);
+    background: linear-gradient(135deg, var(--color-surface-dark), rgba(0, 0, 0, 0.7));
+}
+
+#projectModal .modal-title {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+#projectModal .btn-close-white {
+    color: var(--color-text);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+#projectModal .btn-close-white:hover {
+    opacity: 1;
+}
+
+.project-description {
+    color: var(--color-text-light);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.project-description p {
+    margin-bottom: 1rem;
+}
+
+.gallery-main-image {
+    border-bottom: 2px solid var(--color-border);
+}
+
+.gallery-prev,
+.gallery-next {
+    background: var(--color-surface-dark) !important;
+    color: var(--color-text) !important;
+    border: 2px solid var(--color-border-light) !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.gallery-prev:hover,
+.gallery-next:hover {
+    background: var(--color-black) !important;
+    border-color: var(--color-text) !important;
+    transform: scale(1.1);
+}
+
+.gallery-thumbnails-container {
+    background: var(--color-surface-light);
+    border-top: 2px solid var(--color-border);
+}
+
+/* Медиа-запросы для карусели */
+@media (max-width: 1200px) {
+    .carousel-image {
+        height: 450px;
+    }
+}
+
+@media (max-width: 992px) {
+    .carousel-image {
+        height: 400px;
+    }
+    
+    .carousel-caption {
+        left: 20px;
+        top: 20px;
+        padding: var(--spacing-sm);
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-image {
+        height: 300px;
+    }
+    
+    .carousel-caption {
+        left: 15px;
+        top: 15px;
+        max-width: 85%;
+        padding: 12px;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 1rem;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        margin: 0 15px;
+    }
+    
+    #projectModal .modal-dialog {
+        margin: 10px;
+    }
+    
+    #projectModal .row {
+        flex-direction: column-reverse;
+    }
+    
+    .btn-close-custom {
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .thumbnail {
+        width: 60px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-image {
+        height: 250px;
+    }
+    
+    .carousel-caption {
+        left: 10px;
+        top: 10px;
+        padding: 10px;
+        max-width: 90%;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 0.9rem;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 35px;
+        height: 35px;
+        margin: 0 10px;
+    }
+    
+    .carousel-indicators [data-bs-target] {
+        width: 10px;
+        height: 10px;
+        margin: 0 3px;
+    }
+    
+    .thumbnail {
+        width: 50px;
+        height: 38px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-image {
+        height: 200px;
+    }
+    
+    .carousel-caption {
+        padding: 8px;
+    }
+    
+    .carousel-caption h3 {
+        font-size: 0.8rem;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 30px;
+        height: 30px;
+    }
+}

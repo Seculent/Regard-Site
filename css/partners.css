@@ -1,0 +1,393 @@
+/* partners.css */
+
+/* Стили для секции партнеров */
+.partners-section {
+    position: relative;
+    margin: var(--spacing-xl) 0;
+    padding: var(--spacing-xl) 0;
+    background: var(--color-surface-dark);
+}
+
+.partners-title {
+    position: relative;
+    letter-spacing: 1px;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.partners-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--color-border-gold);
+    border-radius: 2px;
+}
+
+/* Контейнер для бегущих строк */
+.partners-marquee-wrapper {
+    overflow: hidden;
+    position: relative;
+    padding: var(--spacing-lg) 0;
+    margin: var(--spacing-md) 0;
+}
+
+/* Общие стили для бегущих строк */
+.partners-marquee {
+    display: flex;
+    width: fit-content;
+}
+
+.partners-track {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 0 30px;
+}
+
+/* Стили логотипов партнеров */
+.partner-logo-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 120px;
+    padding: 15px;
+    background: var(--color-surface-light);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.partner-logo-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+    transition: left 0.6s ease;
+}
+
+.partner-logo-item:hover::before {
+    left: 100%;
+}
+
+.partner-logo-item:hover {
+    background: var(--color-surface-medium);
+    border-color: var(--color-accent-light);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.partner-logo-item:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.partner-logo-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0.9) grayscale(0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.partner-logo-item:hover .partner-logo-img {
+    filter: brightness(1.2) grayscale(0);
+    transform: scale(1.1);
+}
+
+/* Анимация для первой строки (слева направо) */
+.partners-marquee-left .partners-track {
+    animation: scrollLeft 45s linear infinite;
+}
+
+/* Анимация для второй строки (справа налево) */
+.partners-marquee-right .partners-track {
+    animation: scrollRight 40s linear infinite;
+}
+
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Градиентные маски для плавного перехода */
+.partners-marquee-wrapper::before,
+.partners-marquee-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 150px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.partners-marquee-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, 
+        var(--color-surface-dark) 0%, 
+        transparent 100%);
+}
+
+.partners-marquee-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, 
+        var(--color-surface-dark) 0%, 
+        transparent 100%);
+}
+
+/* Пауза анимации при наведении */
+.partners-marquee-wrapper:hover .partners-track {
+    animation-play-state: paused;
+}
+
+/* Индикатор загрузки для логотипов */
+.partner-logo-item.loading {
+    background: var(--color-surface-light);
+}
+
+.partner-logo-item.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--color-border);
+    border-top: 3px solid var(--color-secondary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Адаптивность */
+@media (max-width: 1400px) {
+    .partners-track {
+        gap: 50px;
+    }
+    
+    .partner-logo-item {
+        width: 160px;
+        height: 110px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .partners-track {
+        gap: 45px;
+    }
+    
+    .partner-logo-item {
+        width: 150px;
+        height: 100px;
+        padding: 12px;
+    }
+    
+    .partners-marquee-wrapper::before,
+    .partners-marquee-wrapper::after {
+        width: 120px;
+    }
+}
+
+@media (max-width: 992px) {
+    .partners-section {
+        padding: var(--spacing-lg) 0;
+        margin: var(--spacing-lg) 0;
+    }
+    
+    .partners-track {
+        gap: 40px;
+    }
+    
+    .partner-logo-item {
+        width: 140px;
+        height: 95px;
+        padding: 10px;
+    }
+    
+    .partners-marquee-wrapper {
+        padding: var(--spacing-md) 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .partners-title {
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .partners-track {
+        gap: 35px;
+    }
+    
+    .partner-logo-item {
+        width: 130px;
+        height: 90px;
+        padding: 10px;
+    }
+    
+    .partners-marquee-wrapper::before,
+    .partners-marquee-wrapper::after {
+        width: 80px;
+    }
+    
+    .partners-marquee-wrapper {
+        padding: var(--spacing-sm) 0;
+        margin: var(--spacing-sm) 0;
+    }
+    
+    .partner-logo-item:hover {
+        transform: translateY(-3px);
+    }
+}
+
+@media (max-width: 576px) {
+    .partners-section {
+        padding: var(--spacing-md) 0;
+        margin: var(--spacing-md) 0;
+    }
+    
+    .partners-track {
+        gap: 30px;
+    }
+    
+    .partner-logo-item {
+        width: 120px;
+        height: 85px;
+        padding: 8px;
+    }
+    
+    .partners-marquee-wrapper::before,
+    .partners-marquee-wrapper::after {
+        width: 60px;
+    }
+    
+    .partners-marquee-wrapper {
+        padding: 20px 0;
+    }
+    
+    .partner-logo-img {
+        filter: brightness(0.95) grayscale(0.1);
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-track {
+        gap: 25px;
+    }
+    
+    .partner-logo-item {
+        width: 110px;
+        height: 80px;
+        padding: 6px;
+    }
+    
+    .partners-marquee-wrapper::before,
+    .partners-marquee-wrapper::after {
+        width: 50px;
+    }
+}
+
+@media (max-width: 400px) {
+    .partners-track {
+        gap: 20px;
+    }
+    
+    .partner-logo-item {
+        width: 100px;
+        height: 70px;
+        padding: 5px;
+    }
+}
+
+/* Отключение анимаций для пользователей, которые их предпочитают избегать */
+@media (prefers-reduced-motion: reduce) {
+    .partners-marquee-left .partners-track,
+    .partners-marquee-right .partners-track {
+        animation: none;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 25px;
+        padding: 0;
+    }
+    
+    .partners-track {
+        padding: 0;
+        transform: none !important;
+    }
+    
+    .partners-marquee-wrapper::before,
+    .partners-marquee-wrapper::after {
+        display: none;
+    }
+    
+    .partner-logo-item:hover {
+        transform: none;
+    }
+}
+
+/* Поддержка touch-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .partner-logo-item:hover {
+        transform: none;
+        background: var(--color-surface-light);
+        border-color: var(--color-border);
+        box-shadow: none;
+    }
+    
+    .partner-logo-item:active {
+        transform: scale(0.95);
+        background: var(--color-surface-medium);
+    }
+    
+    .partner-logo-item:hover .partner-logo-img {
+        transform: none;
+        filter: brightness(0.9) grayscale(0.2);
+    }
+    
+    .partners-marquee-wrapper:hover .partners-track {
+        animation-play-state: running;
+    }
+}
+
+/* Темный режим для светлых логотипов */
+.partner-logo-item.dark-logo .partner-logo-img {
+    filter: brightness(0.8) grayscale(0.3) contrast(1.2);
+}
+
+.partner-logo-item.dark-logo:hover .partner-logo-img {
+    filter: brightness(1.1) grayscale(0) contrast(1);
+}

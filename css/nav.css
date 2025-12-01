@@ -1,0 +1,103 @@
+/* nav.css */
+
+/* Навигация */
+.navbar-custom {
+    background: var(--color-surface) !important;
+    backdrop-filter: blur(10px);
+    padding: var(--spacing-xs) 0;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1030;
+}
+
+/* Класс для фиксированной навигации при скролле */
+.navbar-custom.fixed-top {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(133, 133, 133, 0.8) !important; /* Оставляем как есть - уникальный эффект */
+    box-shadow: var(--shadow-default);
+    animation: slideDown 0.3s ease;
+}
+
+.navbar-custom.scrolled {
+    background: rgba(0, 0, 0, 0.8) !important; /* Оставляем как есть - уникальный эффект */
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-default);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.logo-img {
+    max-width: 14rem;
+    border-radius: 10px;
+    box-shadow: 1px 5px 15px var(--color-black);
+}
+
+.nav-link-custom {
+    color: var(--color-text) !important;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease;
+}
+
+.nav-btn-custom {
+    background: var(--color-black) !important;
+    color: var(--color-text) !important;
+    border-radius: 5px;
+    padding: 0.5rem 1rem !important;
+    margin: 0 0.25rem;
+    transition: all 0.5s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+}
+
+.nav-btn-custom:hover {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-color: var(--color-border-light);
+}
+
+/* Медиа-запросы для навигации */
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .logo-img {
+        max-width: 10rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 1rem;
+    }
+    
+    .logo-img {
+        max-width: 8rem;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}

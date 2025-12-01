@@ -1,0 +1,145 @@
+/* global.css */
+
+/* ===== CSS ПЕРЕМЕННЫЕ (тема по умолчанию - темная) ===== */
+:root {
+    /* Основные цвета */
+    --color-primary: #1e1e1e;
+    --color-secondary: #d28d38;
+    --color-accent: #ee9393;
+    --color-accent-light: rgba(255, 255, 255, 1);
+    --color-accent-secondary: #bb0d0d;
+    --color-black: #000000;
+    
+    /* Фон и поверхности */
+    --color-background: #1e1e1e;
+    --color-surface: #1d1d1d;
+    --color-surface-light: rgba(255, 255, 255, 0.05);
+    --color-surface-medium: rgba(255, 255, 255, 0.1);
+    --color-surface-dark: rgba(0, 0, 0, 0.5);
+    
+    /* Текст */
+    --color-text: #ffffff;
+    --color-text-secondary: rgba(255, 255, 255, 0.9);
+    --color-text-muted: rgba(255, 255, 255, 0.7);
+    --color-text-light: #e0e0e0;
+    --color-text-gold: #fce6ba;
+    
+    /* Границы */
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-light: rgba(255, 255, 255, 0.3);
+    --color-border-gold: #d28d38;
+    
+    /* Градиенты */
+    --gradient-primary: linear-gradient(135deg, #8e8d8d, #4e4d4d);
+    --gradient-gold: linear-gradient(to right, rgba(218, 143, 65, 1) 0%, rgba(119, 80, 36, 1) 100%);
+    --gradient-silver: linear-gradient(135deg, #8f8f8f, #363636);
+    --gradient-dark: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    
+    /* Тени */
+    --shadow-default: 0 2px 20px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 5px 15px rgba(255, 255, 255, 0.4);
+    
+    /* Размеры */
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 15px;
+    
+    /* Отступы */
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    
+    /* Шрифты */
+    --font-primary: 'Oswald', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+}
+
+/* ===== СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--color-background);
+    background-attachment: fixed;
+    padding-top: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    overflow-x: hidden;
+    color: var(--color-text);
+}
+
+/* ===== УТИЛИТАРНЫЕ КЛАССЫ ===== */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Анимация появления элементов */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Общие классы для секций */
+.section-title {
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    line-height: 1.2;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--color-border-gold);
+    border-radius: 2px;
+}
+
+/* ===== ОБЩИЕ МЕДИА-ЗАПРОСЫ ===== */
+@media (max-width: 768px) {
+    :root {
+        --spacing-lg: 24px;
+        --spacing-xl: 32px;
+    }
+}
+
+/* Отключение анимаций для пользователей, которые их предпочитают избегать */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

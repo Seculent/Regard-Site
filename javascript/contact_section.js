@@ -1,4 +1,8 @@
 // Инициализация Яндекс.Карты для контактов
+let contactMap = null;
+let myPlacemark = null;
+let isInitialized = false;
+
 ymaps.ready(initContactMap);
 
 function initContactMap() {
@@ -10,20 +14,28 @@ function initContactMap() {
             throw new Error('Yandex Maps API не загружена');
         }
 
+        // Если карта уже инициализирована, не создаем заново
+        if (isInitialized) {
+            console.log('Карта уже инициализирована');
+            return;
+        }
+
         // Координаты офиса
         const officeCoords = [59.963611, 30.287149];
         
-        // Создаем карту
-        const contactMap = new ymaps.Map('map', {
+        // Создаем карту с минимальными настройками
+        contactMap = new ymaps.Map('map', {
             center: officeCoords,
             zoom: 15,
             controls: ['zoomControl', 'fullscreenControl']
         }, {
-            searchControlProvider: 'yandex#search'
+            searchControlProvider: 'yandex#search',
+            suppressMapOpenBlock: true,
+            yandexMapDisablePoiInteractivity: true
         });
 
         // Создаем метку
-        const myPlacemark = new ymaps.Placemark(officeCoords, {
+        myPlacemark = new ymaps.Placemark(officeCoords, {
             hintContent: 'ООО «РЕГАРД»',
             balloonContent: `
                 <div style="padding: 15px; color: #333; font-family: Arial, sans-serif;">
@@ -35,7 +47,7 @@ function initContactMap() {
                         <strong>Телефон:</strong> +7 (495) 123-45-67
                     </p>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong> Email:</strong> project@regard-spb.ru
+                        <strong>Email:</strong> project@regard-spb.ru
                     </p>
                 </div>
             `
@@ -44,18 +56,62 @@ function initContactMap() {
             iconImageHref: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMTgiIGZpbGw9IiNlZTkzOTMiIGZpbGwtb3BhY2l0eT0iMC44IiBzdHJva2U9IiNiYjBkMGQiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSI4IiBmaWxsPSIjYmIwZDBkIi8+Cjwvc3ZnPg==',
             iconImageSize: [40, 40],
             iconImageOffset: [-20, -40],
-            balloonCloseButton: true
+            balloonCloseButton: true,
+            balloonAutoPan: true
         });
         
         // Добавляем метку на карту
         contactMap.geoObjects.add(myPlacemark);
         
-        // Открываем балун при загрузке
-        myPlacemark.balloon.open();
-        
         // Настройки поведения карты
         contactMap.behaviors.disable('scrollZoom');
         
+        // Добавляем обработчик события изменения размера карты
+        contactMap.events.add('fullscreenenter', function() {
+            console.log('Полноэкранный режим включен');
+            // Принудительно обновляем размер карты
+            setTimeout(() => {
+                if (contactMap) {
+                    contactMap.container.fitToViewport();
+                }
+            }, 100);
+        });
+        
+        contactMap.events.add('fullscreenexit', function() {
+            console.log('Полноэкранный режим выключен');
+            // Принудительно обновляем размер карты после выхода из полноэкранного режима
+            setTimeout(() => {
+                if (contactMap) {
+                    contactMap.container.fitToViewport();
+                    // Дополнительная проверка через небольшой интервал
+                    setTimeout(() => {
+                        if (contactMap) {
+                            contactMap.container.fitToViewport();
+                        }
+                    }, 300);
+                }
+            }, 100);
+        });
+        
+        // Обработчик изменения размера окна
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (contactMap && !contactMap.fullscreen.getState()) {
+                    contactMap.container.fitToViewport();
+                }
+            }, 250);
+        });
+        
+        // Открываем балун при загрузке с небольшой задержкой
+        setTimeout(() => {
+            if (myPlacemark && !myPlacemark.balloon.isOpen()) {
+                myPlacemark.balloon.open();
+            }
+        }, 1000);
+        
+        isInitialized = true;
         console.log('Карта контактов успешно инициализирована');
         
     } catch (error) {
@@ -69,13 +125,42 @@ function showMapError(mapId) {
     const mapContainer = document.getElementById(mapId);
     if (mapContainer) {
         mapContainer.innerHTML = `
-            <div class="map-loading">
-                <div class="map-loading-spinner"></div>
-                <h3 style="color: #ee9393; margin-bottom: 10px;">Ошибка загрузки карты</h3>
-                <p style="margin-bottom: 15px; color: #ccc;">Проверьте подключение к интернету</p>
+            <div class="map-loading" style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                padding: 20px;
+                text-align: center;
+                background: rgba(238, 147, 147, 0.1);
+                border-radius: 8px;
+            ">
+                <div class="map-loading-spinner" style="
+                    width: 50px;
+                    height: 50px;
+                    border: 3px solid #f3f3f3;
+                    border-top: 3px solid #ee9393;
+                    border-radius: 50%;
+                    animation: spin 1s linear infinite;
+                    margin-bottom: 20px;
+                "></div>
+                <h3 style="color: #ee9393; margin-bottom: 10px; font-size: 18px;">Ошибка загрузки карты</h3>
+                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">Проверьте подключение к интернету</p>
                 <a href="https://yandex.ru/maps/?text=Санкт-Петербург, улица Большая Зеленина, 24" 
                    target="_blank" 
-                   class="btn btn-outline-light">
+                   class="btn btn-outline-light"
+                   style="
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background: transparent;
+                        border: 1px solid #ee9393;
+                        color: #ee9393;
+                        text-decoration: none;
+                        border-radius: 4px;
+                        transition: all 0.3s ease;
+                        font-size: 14px;
+                   ">
                     Посмотреть на Яндекс.Картах
                 </a>
             </div>
@@ -113,6 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (phoneElement) {
         phoneElement.style.cursor = 'pointer';
+        phoneElement.title = 'Нажмите для копирования';
         phoneElement.addEventListener('click', function() {
             copyToClipboard('+74951234567', this);
         });
@@ -120,16 +206,47 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (emailElement) {
         emailElement.style.cursor = 'pointer';
+        emailElement.title = 'Нажмите для копирования';
         emailElement.addEventListener('click', function() {
             copyToClipboard('project@regard-spb.ru', this);
         });
     }
+    
+    // Добавляем CSS для анимации спиннера
+    if (!document.querySelector('#map-spinner-style')) {
+        const style = document.createElement('style');
+        style.id = 'map-spinner-style';
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
 });
+
+// Функция для принудительного обновления размера карты
+function updateMapSize() {
+    if (contactMap) {
+        contactMap.container.fitToViewport();
+    }
+}
 
 // Запасной таймаут на случай если карта не загрузится
 setTimeout(() => {
-    const mapElement = document.querySelector('#map .ymaps-2-1-79-map');
-    if (!mapElement) {
+    const mapElement = document.getElementById('map');
+    if (mapElement && !mapElement.querySelector('.ymaps-2-1-79-map') && !isInitialized) {
         showMapError('map');
     }
 }, 5000);
+
+// Очищаем карту при размонтировании компонента (если используешь SPA)
+window.addEventListener('beforeunload', function() {
+    if (contactMap) {
+        contactMap.destroy();
+        contactMap = null;
+        myPlacemark = null;
+        isInitialized = false;
+    }
+});
