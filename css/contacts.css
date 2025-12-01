@@ -80,7 +80,6 @@
 }
 
 .contact-item.clickable .contact-details p:hover {
-    background: var(--color-accent-light);
     color: var(--color-text);
 }
 
