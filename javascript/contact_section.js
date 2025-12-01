@@ -2,6 +2,8 @@
 let contactMap = null;
 let myPlacemark = null;
 let isInitialized = false;
+let isInFullscreen = false;
+let mapContainer = null;
 
 ymaps.ready(initContactMap);
 
@@ -18,6 +20,12 @@ function initContactMap() {
         if (isInitialized) {
             console.log('Карта уже инициализирована');
             return;
+        }
+
+        // Получаем контейнер карты
+        mapContainer = document.getElementById('map');
+        if (!mapContainer) {
+            throw new Error('Контейнер карты не найден');
         }
 
         // Координаты офиса
@@ -66,43 +74,8 @@ function initContactMap() {
         // Настройки поведения карты
         contactMap.behaviors.disable('scrollZoom');
         
-        // Добавляем обработчик события изменения размера карты
-        contactMap.events.add('fullscreenenter', function() {
-            console.log('Полноэкранный режим включен');
-            // Принудительно обновляем размер карты
-            setTimeout(() => {
-                if (contactMap) {
-                    contactMap.container.fitToViewport();
-                }
-            }, 100);
-        });
-        
-        contactMap.events.add('fullscreenexit', function() {
-            console.log('Полноэкранный режим выключен');
-            // Принудительно обновляем размер карты после выхода из полноэкранного режима
-            setTimeout(() => {
-                if (contactMap) {
-                    contactMap.container.fitToViewport();
-                    // Дополнительная проверка через небольшой интервал
-                    setTimeout(() => {
-                        if (contactMap) {
-                            contactMap.container.fitToViewport();
-                        }
-                    }, 300);
-                }
-            }, 100);
-        });
-        
-        // Обработчик изменения размера окна
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                if (contactMap && !contactMap.fullscreen.getState()) {
-                    contactMap.container.fitToViewport();
-                }
-            }, 250);
-        });
+        // Обработчики для полноэкранного режима
+        setupFullscreenHandlers();
         
         // Открываем балун при загрузке с небольшой задержкой
         setTimeout(() => {
@@ -111,12 +84,119 @@ function initContactMap() {
             }
         }, 1000);
         
+        // Устанавливаем фиксированные размеры карты
+        setTimeout(() => {
+            forceMapSize();
+        }, 500);
+        
         isInitialized = true;
         console.log('Карта контактов успешно инициализирована');
         
     } catch (error) {
         console.error('Ошибка инициализации карты контактов:', error);
         showMapError('map');
+    }
+}
+
+// Настройка обработчиков полноэкранного режима
+function setupFullscreenHandlers() {
+    if (!contactMap) return;
+    
+    // Обработчик входа в полноэкранный режим
+    contactMap.events.add('fullscreenenter', function() {
+        console.log('Полноэкранный режим включен');
+        isInFullscreen = true;
+        
+        // Принудительно устанавливаем высоту для полноэкранного режима
+        setTimeout(() => {
+            if (mapContainer) {
+                const parent = mapContainer.parentElement;
+                if (parent) {
+                    parent.style.height = '100vh';
+                }
+                mapContainer.style.height = '100vh';
+            }
+        }, 50);
+    });
+    
+    // Обработчик выхода из полноэкранного режима
+    contactMap.events.add('fullscreenexit', function() {
+        console.log('Полноэкранный режим выключен');
+        isInFullscreen = false;
+        
+        // Восстанавливаем оригинальные размеры
+        setTimeout(() => {
+            restoreMapSize();
+            
+            // Дополнительный вызов через небольшой интервал
+            setTimeout(() => {
+                restoreMapSize();
+                if (contactMap) {
+                    contactMap.container.fitToViewport();
+                }
+            }, 200);
+        }, 100);
+    });
+    
+    // Обработчик изменения размера окна (с debounce)
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (!isInFullscreen && contactMap) {
+                restoreMapSize();
+                contactMap.container.fitToViewport();
+            }
+        }, 250);
+    });
+}
+
+// Восстановление оригинального размера карты
+function restoreMapSize() {
+    if (!mapContainer) return;
+    
+    const parent = mapContainer.parentElement;
+    if (parent) {
+        // Возвращаем родительскому контейнеру его оригинальные стили
+        parent.style.height = '';
+        parent.style.maxHeight = '';
+        parent.style.minHeight = '';
+    }
+    
+    // Возвращаем карте оригинальные стили
+    mapContainer.style.height = '';
+    mapContainer.style.maxHeight = '';
+    mapContainer.style.minHeight = '';
+    
+    // Устанавливаем фиксированные размеры
+    setTimeout(() => {
+        forceMapSize();
+    }, 50);
+}
+
+// Принудительная установка размера карты
+function forceMapSize() {
+    if (!mapContainer || isInFullscreen) return;
+    
+    const parent = mapContainer.parentElement;
+    if (!parent) return;
+    
+    // Получаем стили родительского контейнера
+    const parentStyle = window.getComputedStyle(parent);
+    const parentHeight = parent.offsetHeight;
+    
+    // Устанавливаем высоту карты на 100% высоты родителя
+    if (parentHeight > 0) {
+        mapContainer.style.height = parentHeight + 'px';
+        mapContainer.style.minHeight = '300px'; // Минимальная высота
+        mapContainer.style.maxHeight = '600px'; // Максимальная высота
+    }
+    
+    // Обновляем размеры карты
+    if (contactMap) {
+        setTimeout(() => {
+            contactMap.container.fitToViewport();
+        }, 100);
     }
 }
 
@@ -173,16 +253,17 @@ function copyToClipboard(text, element) {
     navigator.clipboard.writeText(text).then(() => {
         // Сохраняем оригинальный текст
         const originalText = element.textContent;
+        const originalColor = element.style.color;
         
         // Меняем текст на "Скопировано!"
         element.textContent = '✓ Скопировано!';
-        element.style.color = '#28a745';
+        element.style.color = '#ffffffff';
         
-        // Возвращаем оригинальный текст через 2 секунды
+        // Возвращаем оригинальный текст через 0.5 секунды
         setTimeout(() => {
             element.textContent = originalText;
-            element.style.color = '#0066cc';
-        }, 2000);
+            element.style.color = originalColor || '#fff';
+        }, 500);
         
     }).catch(err => {
         console.error('Ошибка при копировании: ', err);
@@ -190,27 +271,57 @@ function copyToClipboard(text, element) {
     });
 }
 
-// Добавляем функциональность копирования для контактных данных
+// Добавляем функциональность копирования для ВСЕХ контактных данных
 document.addEventListener('DOMContentLoaded', function() {
-    // Делаем телефон и email кликабельными
-    const phoneElement = document.querySelector('.contact-item:nth-child(2) .contact-details p');
-    const emailElement = document.querySelector('.contact-item:nth-child(3) .contact-details p');
+    // Находим все контактные элементы
+    const contactItems = document.querySelectorAll('.contact-item');
     
-    if (phoneElement) {
-        phoneElement.style.cursor = 'pointer';
-        phoneElement.title = 'Нажмите для копирования';
-        phoneElement.addEventListener('click', function() {
-            copyToClipboard('+74951234567', this);
-        });
-    }
-    
-    if (emailElement) {
-        emailElement.style.cursor = 'pointer';
-        emailElement.title = 'Нажмите для копирования';
-        emailElement.addEventListener('click', function() {
-            copyToClipboard('project@regard-spb.ru', this);
-        });
-    }
+    contactItems.forEach((item, index) => {
+        // Находим текстовый элемент внутри каждого контактного элемента
+        const textElement = item.querySelector('.contact-details p');
+        
+        if (textElement) {
+            // Определяем, какой текст копировать в зависимости от позиции элемента
+            let textToCopy = '';
+            
+            switch(index) {
+                case 0: // Адрес
+                    textToCopy = '197110, г. Санкт-Петербург, улица Большая Зеленина, 24';
+                    break;
+                case 1: // Телефон
+                    textToCopy = '+7 (495) 123-45-67';
+                    break;
+                case 2: // Email
+                    textToCopy = 'project@regard-spb.ru';
+                    break;
+                case 3: // График работы
+                    textToCopy = 'Пн-Пт: 9:00 - 18:00';
+                    break;
+                default:
+                    textToCopy = textElement.textContent.trim();
+            }
+            
+            // Делаем элемент кликабельным
+            textElement.style.cursor = 'pointer';
+            textElement.title = 'Нажмите для копирования';
+            
+            // Добавляем эффект при наведении
+            item.classList.add('clickable');
+            
+            // Добавляем обработчик клика
+            textElement.addEventListener('click', function(e) {
+                e.stopPropagation(); // Останавливаем всплытие
+                copyToClipboard(textToCopy, this);
+            });
+            
+            // Также можно кликать на весь контактный блок
+            item.addEventListener('click', function(e) {
+                if (e.target !== textElement && !textElement.contains(e.target)) {
+                    copyToClipboard(textToCopy, textElement);
+                }
+            });
+        }
+    });
     
     // Добавляем CSS для анимации спиннера
     if (!document.querySelector('#map-spinner-style')) {
@@ -221,14 +332,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+            
+            /* Стили для кликабельных контактных элементов */
+            .contact-item.clickable {
+                transition: all 0.3s ease;
+            }
+            
+            .contact-item.clickable:hover {
+                background: rgba(255, 255, 255, 0.05) !important;
+            }
+            
+            .contact-item.clickable .contact-details p {
+                transition: color 0.3s ease;
+                position: relative;
+            }
+            
+            .contact-item.clickable .contact-details p.copied {
+                color: #ffffffff !important;
+            }
         `;
         document.head.appendChild(style);
     }
+    
+    // Принудительно устанавливаем размер карты при загрузке
+    setTimeout(() => {
+        if (mapContainer) {
+            forceMapSize();
+        }
+    }, 1000);
 });
 
 // Функция для принудительного обновления размера карты
 function updateMapSize() {
-    if (contactMap) {
+    if (contactMap && !isInFullscreen) {
+        restoreMapSize();
         contactMap.container.fitToViewport();
     }
 }
@@ -247,6 +384,11 @@ window.addEventListener('beforeunload', function() {
         contactMap.destroy();
         contactMap = null;
         myPlacemark = null;
+        mapContainer = null;
         isInitialized = false;
+        isInFullscreen = false;
     }
 });
+
+// Экспортируем функцию обновления размера для использования извне
+window.updateContactMapSize = updateMapSize;

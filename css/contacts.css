@@ -400,7 +400,6 @@
 }
 
 .contact-item.clickable::after {
-    content: '📋';
     position: absolute;
     right: var(--spacing-md);
     opacity: 0;
@@ -418,4 +417,141 @@
     content: '✓';
     color: #4CAF50;
     opacity: 1;
+}
+
+/* Фиксируем размер карты и предотвращаем растягивание */
+.map-container {
+    position: relative;
+    height: 400px !important; /* Фиксированная высота */
+    max-height: 400px !important;
+    min-height: 300px !important;
+    width: 100%;
+    overflow: hidden;
+    resize: none !important;
+}
+
+.map-container:fullscreen,
+.map-container:-webkit-full-screen,
+.map-container:-moz-full-screen,
+.map-container:-ms-fullscreen {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    min-height: 100vh !important;
+}
+
+#map {
+    height: 100% !important;
+    width: 100% !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Стили для полноэкранного режима */
+:fullscreen #map,
+:-webkit-full-screen #map,
+:-moz-full-screen #map,
+:-ms-fullscreen #map {
+    height: 100vh !important;
+}
+
+/* Предотвращаем растягивание после выхода из полноэкранного режима */
+.map-container:not(:fullscreen):not(:-webkit-full-screen):not(:-moz-full-screen):not(:-ms-fullscreen) {
+    animation: resetSize 0.3s ease forwards;
+}
+
+@keyframes resetSize {
+    to {
+        height: 400px !important;
+        max-height: 400px !important;
+        min-height: 300px !important;
+    }
+}
+
+/* Улучшенные медиа-запросы для карты */
+@media (max-width: 992px) {
+    .map-container {
+        height: 350px !important;
+        max-height: 350px !important;
+        min-height: 280px !important;
+    }
+    
+    @keyframes resetSize {
+        to {
+            height: 350px !important;
+            max-height: 350px !important;
+            min-height: 280px !important;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 300px !important;
+        max-height: 300px !important;
+        min-height: 250px !important;
+    }
+    
+    @keyframes resetSize {
+        to {
+            height: 300px !important;
+            max-height: 300px !important;
+            min-height: 250px !important;
+        }
+    }
+}
+
+@media (max-width: 576px) {
+    .map-container {
+        height: 250px !important;
+        max-height: 250px !important;
+        min-height: 200px !important;
+    }
+    
+    @keyframes resetSize {
+        to {
+            height: 250px !important;
+            max-height: 250px !important;
+            min-height: 200px !important;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .map-container {
+        height: 220px !important;
+        max-height: 220px !important;
+        min-height: 180px !important;
+    }
+    
+    @keyframes resetSize {
+        to {
+            height: 220px !important;
+            max-height: 220px !important;
+            min-height: 180px !important;
+        }
+    }
+}
+
+/* Обеспечиваем, что карта всегда будет видна */
+.ymaps-2-1-79-map {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.ymaps-2-1-79-inner-panes {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Гарантируем, что родительский контейнер не растягивается */
+.contact-info + .col-lg-6 {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-info + .col-lg-6 .map-container {
+    flex-shrink: 0;
 }
