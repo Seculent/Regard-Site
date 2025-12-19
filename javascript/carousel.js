@@ -6,23 +6,33 @@ const projectsData = [
     //     images: ["JPG/AVANT/AVANT1.1.jpg", "JPG/AVANT/AVANT1.2.jpg", "JPG/AVANT/AVANT1.3.jpg", "JPG/AVANT/AVANT1.4.jpg"]
     // },
     {
-        title: "ЖК 'А101 Лаголово'",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        title: "ЖК «А101 Лаголово»",
+        description: "<p style=\"text-align: justify\">ГК А101 возводит современный жилой комплекс у подножия знаменитых Дудергофских высот, в окружении чистых озёр и живописных природных массивов. Проект включает всё необходимое для комфортной жизни: экотропы для прогулок и панорамные виды с самой высокой точки Санкт-Петербурга.</p><hr> ООО РЕГАРД, как подрядчик, выполняет работы по устройству кровель домов 1-ой очереди строительства.<br><br>По состоянию на конец 2025 года: <br><ul><li>Ведутся работы по устройству кровель домов 1.3.1, 1.3.2 (слайд №4).</li><li>Общая площадь выполненных работ  составляет более <strong>7 000 м2</strong></li></ul>",
         images: ["JPG/LAG/Lag1.1.jpg", "JPG/LAG/Lag1.2.jpg", "JPG/LAG/Lag1.3.jpg", "JPG/LAG/Lag1.4.jpg"]
     },
     {
-        title: "ЖК 'Курортный Квартал'",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        title: "ЖК «Курортный Квартал»",
+        description: "<p style=\"text-align: justify\"><strong>ГК Самолет</strong> реализует проект жилого комплекса комфорт-класса «Курортный Квартал» в 20 минутах от Финского залива, в одноименном районе Санкт-Петербурга, рядом с тенистым лесопарком. Проект предлагает жителям сочетание природных преимуществ — свежего морского бриза, высоких сосен, зелёных зон — с комфортом городской жизни и развитой инфраструктурой.</p><hr>Компанией ООО РЕГАРД выполнено устройство кровель нескольких очередей строительства «Курортного Квартала».<br><br>По состоянию на конец 2025 года: <br><ul><li>Выполнены работы по устройству кровель участков 580-596;</li><li>Общая площадь выполненных работ составялет более <strong>15 000 м2</strong></li></ul>",
         images: ["JPG/PES/PES1.1.jpg", "JPG/PES/PES1.2.jpg", "JPG/PES/PES1.3.jpg", "JPG/PES/PES1.4.jpg", "JPG/PES/PES1.5.jpg", "JPG/PES/PES1.6.jpg", "JPG/PES/PES1.7.jpg", "JPG/PES/PES1.8.jpg"]
     },
     {
-        title: "ЖК 'Новые Лаврики'",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        title: "ЖК «Новые Лаврики»",
+        description: "<p style=\"text-align: justify\"><strong>ГК Самолет</strong> создаёт жилой комплекс «Новые Лаврики», вдохновлённый северной природой — сосновыми лесами, озёрными просторами и живописными каменистыми берегами. Расположение комплекса предлагает жителям активный отдых в экологичной среде: скандинавская ходьба в хвойных массивах, глэмпинг у водоёмов, лыжные прогулки в парковых зонах — при этом в 30 минутах от центра Санкт-Петербурга. Архитектурное решение комплекса выполнено в лаконичном скандинавском стиле, гармонично вписывающемся в окружающий пейзаж.</p><hr>ООО РЕГАРД выполненяет устройство кровель 1-ой очереди строительства.<br><br>По состоянию на конец 2025 года: <br><ul><li>Выполнены работы по устройству кровель участков 1.1, 1.3;</li><li>Общая площадь выполненных работ составялет <strong>3 000 м2</strong></li></ul>",
         images: ["JPG/LAV/LAV1.1.jpg", "JPG/LAV/LAV1.2.jpg", "JPG/LAV/LAV1.3.jpg", "JPG/LAV/LAV1.4.jpg", "JPG/LAV/LAV1.5.jpg"]
     },
     {
-        title: "UP-Квартал Воронцовский",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        title: "ЖК «Астрид»",
+        description: "<p style=\"text-align: justify\"><strong>ООО «СПб Недвижимость».</strong> Где жить, если нравятся размеренные дни на природе, но иногда хочется двигаться вместе с динамичным ритмом мегаполиса? Квартира вашей мечты находится в нашем квартале «Новое Колпино».</p><hr>ООО РЕГАРД выполненяет устройство кровли корпуса №10.<br><br>По состоянию на конец 2025 года: <br><ul><li>Работы по устройству кровли выполнены в полном объеме;</li><li>Общая площадь выполненных работ составялет <strong>2 000 м2</strong></li></ul>",
+        images: ["JPG/KOLP/KOLP1.1.jpg"]
+    },
+    {
+        title: "ЖК «Красный Кирпичник»",
+        description: "<p style=\"text-align: justify\"><strong>ООО «СПб Недвижимость».</strong> Утопающий в зелени квартал «Новое Колпино» — идеальное место, чтобы растить детей и создавать размеренную жизнь. В 15 минутах езды от дома находится сразу 10 зеленых зон — сквер Коммуны, Городской и Троицкий сады, Никольский и Харламов скверы, сад Урицкого, скверы Володарского, Героев-Ижорцев и Защитников Отечества. Самая крупная из них — Колпинский парк — расположена на берегу реки Ижоры. Летом здесь можно загорать на пляже, кататься на аттракционах и кормить лебедей, взять лодку и наслаждаться видами с воды, после сыграть партию в бадминтон или волейбол. А осенью так приятно шагать по дорожкам, усыпанным листьями, и кормить белок орехами.</p><hr>ООО РЕГАРД выполненяет устройство кровель нескольких очередей строительства.<br><br>По состоянию на конец 2025 года: <br><ul><li>Выполняются работы по устройству кровли жилого дома на учаске №33;</li><li>Общая площадь выполненных работ составялет <strong>10 000 м2</strong></li></ul>",
+        images: ["JPG/KKR/KKR1.1.jpg", "JPG/KKR/KKR1.2.jpg", "JPG/KKR/KKR1.3.jpg"]
+    },
+    {
+        title: "ЖК «UP-Квартал Воронцовский»",
+        description: "<p style=\"text-align: justify\"><strong>ГК ФСК</strong> создаёт жилой комплекс UP-квартал «Воронцовский» в Новом Девяткино, молодом и наиболее активно развивающемся районе петербургской агломерации, великолепно интегрированном в транспортную и социальную инфраструктуру Ленинградской области и Петербурга.</p><hr>ООО РЕГАРД выполненяет устройство кровель 1-ой очереди строительства.<br><br>По состоянию на конец 2025 года: <br><ul><li>Выполнены работы по устройству кровли корпуса Б;</li><li>Общая площадь выполненных работ составялет <strong>3 000 м2</strong></li></ul>",
         images: ["JPG/FSK/VRN1.1.jpg", "JPG/FSK/VRN1.2.jpg", "JPG/FSK/VRN1.3.jpg", "JPG/FSK/VRN1.4.jpg"]
     }
 ];
