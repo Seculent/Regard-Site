@@ -764,6 +764,7 @@
             </div>
         </div>
     </div>
+    <!-- Модалка реквизитов (исправленная версия) -->
     <div class="modal fade" id="legalModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content bg-dark text-light">
@@ -772,8 +773,8 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Скрытый блок для копирования (УНИКАЛЬНЫЙ ID) -->
-                    <div id="legalCopyContent" style="position: absolute; left: -9999px; white-space: pre-line;">
+                    <!-- Скрытый блок для копирования (УНИКАЛЬНЫЙ ID) с правильным форматированием -->
+                    <div id="legalCopyContent" style="position: absolute; left: -9999px;">
     Полное наименование: ООО РЕГАРД
     Юридический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
     Фактический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
@@ -793,49 +794,49 @@
                         <div class="col-md-6">
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">Полное наименование</h6>
-                                <p class="mb-0 copy-field-legal" data-content="Полное наименование: [Полное наименование организации]">ООО «РЕГАРД»</p>
+                                <p class="mb-0 copy-field-legal">ООО «РЕГАРД»</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">Юридический адрес</h6>
-                                <p class="mb-0 copy-field-legal" data-content="Юридический адрес: [Юридический адрес]">г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н</p>
+                                <p class="mb-0 copy-field-legal">г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н</p>
                             </div>
 
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">Фактический адрес</h6>
-                                <p class="mb-0 copy-field-legal" data-content="Фактический адрес: [Фактический адрес]">г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н</p>
+                                <p class="mb-0 copy-field-legal">г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">E-mail</h6>
-                                <p class="mb-0 copy-field-legal" data-content="E-mail: [E-mail]">project@regard-spb.ru</p>
+                                <p class="mb-0 copy-field-legal">project@regard-spb.ru</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">ИНН</h6>
-                                <p class="mb-0 copy-field-legal" data-content="ИНН: [ИНН]">7839072672</p>
+                                <p class="mb-0 copy-field-legal">7839072672</p>
                             </div>
                         </div>
                         
                         <div class="col-md-6">
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">КПП</h6>
-                                <p class="mb-0 copy-field-legal" data-content="КПП: [КПП]">781301001</p>
+                                <p class="mb-0 copy-field-legal">781301001</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">ОГРН</h6>
-                                <p class="mb-0 copy-field-legal" data-content="ОГРН: [ОГРН]">1167847394252</p>
+                                <p class="mb-0 copy-field-legal">1167847394252</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">Расчетный счет</h6>
-                                <p class="mb-0 copy-field-legal" data-content="Расчетный счет: [Номер расчетного счета]">40702810232060010649</p>
+                                <p class="mb-0 copy-field-legal">40702810232060010649</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">Банк</h6>
-                                <p class="mb-0 copy-field-legal" data-content="Банк: [Наименование банка]">ФИЛИАЛ «САНКТ-ПЕТЕРБУРГСКИЙ» АО «АЛЬФА-БАНК»</p>
+                                <p class="mb-0 copy-field-legal">ФИЛИАЛ «САНКТ-ПЕТЕРБУРГСКИЙ» АО «АЛЬФА-БАНК»</p>
                             </div>
                         </div>
                     </div>
@@ -844,20 +845,20 @@
                         <div class="col-12">
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">БИК</h6>
-                                <p class="mb-0 copy-field-legal" data-content="БИК: [БИК банка]">044030786</p>
+                                <p class="mb-0 copy-field-legal">044030786</p>
                             </div>
                             
                             <div class="legal-item mb-3">
                                 <h6 class="text-warning mb-1">Корреспондентский счет</h6>
-                                <p class="mb-0 copy-field-legal" data-content="Корреспондентский счет: [Корреспондентский счет]">30101810600000000786</p>
+                                <p class="mb-0 copy-field-legal">30101810600000000786</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="mt-4 p-3 bg-dark border border-warning rounded">
                         <h6 class="text-warning mb-2">Руководитель</h6>
-                        <p class="mb-1 copy-field-legal" data-content="[Должность руководителя]: [ФИО руководителя]">Генеральный директор: Ясюкевич К.С.</p>
-                        <p class="mb-0 copy-field-legal" data-content="Действует на основании: [Устава/Положения]">Действует на основании Устава</p>
+                        <p class="mb-1 copy-field-legal">Генеральный директор: Ясюкевич К.С.</p>
+                        <p class="mb-0 copy-field-legal">Действует на основании Устава</p>
                     </div>
 
                     <!-- Кнопки копирования -->
@@ -867,8 +868,16 @@
                         </button>
                     </div>
                     
+                    <!-- Уведомление о копировании (скрыто по умолчанию) -->
+                    <div id="copyNotification" class="mt-3 alert alert-success d-none py-2" style="background: rgba(25, 135, 84, 0.2); border: 1px solid #198754;">
+                        <small class="d-flex align-items-center">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span>Скопировано в буфер обмена</span>
+                        </small>
+                    </div>
+                    
                     <div>
-                        <small class="mb-0">Нажмите на любое поле или кнопку для копирования</small>
+                        <small class="text-white-50">Нажмите на любое поле или кнопку для копирования</small>
                     </div>
                 </div>
             </div>
@@ -885,31 +894,194 @@
     <script src="javascript/carousel.js"></script>
     <script src="javascript/news_section.js"></script>
     <script src="javascript/mobile-fix.js"></script>
+
     <!-- Обработчик копирования для Реквизитов -->
     <script>
     // УНИКАЛЬНЫЕ функции для реквизитов
     function copyAllRequisites() {
-        const copyText = document.getElementById('legalCopyContent').textContent;
+        // Получаем текст из скрытого блока с правильным форматированием
+        const copyText = `Полное наименование: ООО РЕГАРД
+    Юридический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
+    Фактический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
+    E-mail: project@regard-spb.ru
+    ИНН: 7839072672
+    КПП: 781301001
+    ОГРН: 1167847394252
+    Р/с: 40702810232060010649
+    Банк: ФИЛИАЛ «САНКТ-ПЕТЕРБУРГСКИЙ» АО «АЛЬФА-БАНК»
+    БИК: 044030786
+    К/с: 30101810600000000786
+    Генеральный директор: Ясюкевич К.С.
+    Действует на основании: Устава`;
+        
+        // Используем Clipboard API для современных браузеров
         navigator.clipboard.writeText(copyText).then(() => {
             showCopyNotification('Все реквизиты скопированы!');
+        }).catch(err => {
+            // Fallback для старых браузеров
+            console.error('Clipboard API error:', err);
+            fallbackCopyToClipboard(copyText);
         });
     }
+
+    // Функция для копирования отдельных полей
+    function copySingleField(text) {
+        // Для отдельных полей копируем как есть
+        navigator.clipboard.writeText(text).then(() => {
+            showCopyNotification('Скопировано!');
+        }).catch(err => {
+            console.error('Clipboard API error:', err);
+            fallbackCopyToClipboard(text);
+        });
+    }
+
+    // Fallback метод для старых браузеров
+    function fallbackCopyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        
+        // Стили, чтобы textarea не был виден
+        textArea.style.position = 'fixed';
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = '0';
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showCopyNotification(successful ? 'Скопировано!' : 'Ошибка копирования');
+            }
+        } catch (err) {
+            console.error('Fallback copy error:', err);
+            showCopyNotification('Ошибка копирования');
+        }
+        
+        document.body.removeChild(textArea);
+    }
+
+    // Функция для показа уведомления (без alert)
+    function showCopyNotification(message) {
+        // Создаем или находим контейнер для уведомлений
+        let notificationContainer = document.getElementById('copyNotificationContainer');
+        
+        if (!notificationContainer) {
+            notificationContainer = document.createElement('div');
+            notificationContainer.id = 'copyNotificationContainer';
+            notificationContainer.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999;
+            `;
+            document.body.appendChild(notificationContainer);
+        }
+        
+        // Создаем уведомление
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            background: rgba(25, 135, 84, 0.9);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-family: sans-serif;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        notification.textContent = message;
+        notificationContainer.appendChild(notification);
+        
+        // Удаляем уведомление через 2 секунды
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 2000);
+    }
+
+    // Добавляем CSS анимации
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+        
+        .copy-field-legal {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .copy-field-legal:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .copy-field-legal.copied {
+            background-color: rgba(255, 193, 7, 0.2) !important;
+        }
+    `;
+    document.head.appendChild(style);
 
     // Клик по любому полю с классом copy-field-legal (УНИКАЛЬНЫЙ класс)
-    document.querySelectorAll('.copy-field-legal').forEach(field => {
-        field.style.cursor = 'pointer';
-        field.addEventListener('click', function() {
-            const content = this.getAttribute('data-content');
-            navigator.clipboard.writeText(content).then(() => {
-                showCopyNotification('Скопировано!');
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.copy-field-legal').forEach(field => {
+            field.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const textToCopy = this.textContent.trim();
+                
+                // Визуальный эффект
+                this.classList.add('copied');
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                }, 200);
+                
+                // Копируем текст
+                copySingleField(textToCopy);
             });
+            
+            // Добавляем атрибут title для подсказки
+            field.setAttribute('title', 'Нажмите для копирования');
+            
+            // Для элементов без курсора по умолчанию
+            if (!field.style.cursor) {
+                field.style.cursor = 'pointer';
+            }
         });
     });
-
-    function showCopyNotification(message) {
-        alert(message);
-    }
     </script>
+
     <!-- Попытка решить проблему с PDF файлом -->
     <script>
         // Предотвращаем автоматическое открытие PDF и стандартное поведение ссылок
