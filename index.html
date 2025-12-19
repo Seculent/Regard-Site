@@ -774,21 +774,19 @@
                 </div>
                 <div class="modal-body">
                     <!-- Скрытый блок для копирования (УНИКАЛЬНЫЙ ID) с правильным форматированием -->
-                    <div id="legalCopyContent" style="position: absolute; left: -9999px;">
-    Полное наименование: ООО РЕГАРД
-    Юридический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
-    Фактический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
-    E-mail: project@regard-spb.ru
-    ИНН: 7839072672
-    КПП: 781301001
-    ОГРН: 1167847394252
-    Р/с: 40702810232060010649
-    Банк: ФИЛИАЛ «САНКТ-ПЕТЕРБУРГСКИЙ» АО «АЛЬФА-БАНК»
-    БИК: 044030786
-    К/с: 30101810600000000786
-    Генеральный директор: Ясюкевич К.С.
-    Действует на основании: Устава
-                    </div>
+                    <div id="legalCopyContent" style="position: absolute; left: -9999px; white-space: pre-line; font-family: 'Times New Roman'; font-size: 14pt;">Полное наименование: ООО РЕГАРД
+Юридический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
+Фактический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
+E-mail: project@regard-spb.ru
+ИНН: 7839072672
+КПП: 781301001
+ОГРН: 1167847394252
+Р/с: 40702810232060010649
+Банк: ФИЛИАЛ «САНКТ-ПЕТЕРБУРГСКИЙ» АО «АЛЬФА-БАНК»
+БИК: 044030786
+К/с: 30101810600000000786
+Генеральный директор: Ясюкевич К.С.
+Действует на основании: Устава</div>
                     
                     <div class="row">
                         <div class="col-md-6">
@@ -898,31 +896,45 @@
     <!-- Обработчик копирования для Реквизитов -->
     <script>
     // УНИКАЛЬНЫЕ функции для реквизитов
-    function copyAllRequisites() {
-        // Получаем текст из скрытого блока с правильным форматированием
-        const copyText = `Полное наименование: ООО РЕГАРД
-    Юридический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
-    Фактический адрес: г Санкт-Петербург ул. Большая Зеленина, д 24 стр. 1, оф.130-Н
-    E-mail: project@regard-spb.ru
-    ИНН: 7839072672
-    КПП: 781301001
-    ОГРН: 1167847394252
-    Р/с: 40702810232060010649
-    Банк: ФИЛИАЛ «САНКТ-ПЕТЕРБУРГСКИЙ» АО «АЛЬФА-БАНК»
-    БИК: 044030786
-    К/с: 30101810600000000786
-    Генеральный директор: Ясюкевич К.С.
-    Действует на основании: Устава`;
-        
-        // Используем Clipboard API для современных браузеров
-        navigator.clipboard.writeText(copyText).then(() => {
+function copyAllRequisites() {
+    // Получаем текст из скрытого блока
+    let copyText = document.getElementById('legalCopyContent').textContent;
+    
+    // Нормализуем переводы строк для Windows/Word
+    // Заменяем все варианты переводов строк на \r\n
+    copyText = copyText.replace(/\r?\n|\r/g, '\r\n');
+    
+    // Убираем лишние пробелы в начале/конце строк
+    copyText = copyText.split('\r\n')
+        .map(line => line.trim())
+        .filter(line => line.length > 0)
+        .join('\r\n');
+    
+    // Копируем через временный textarea
+    const textArea = document.createElement('textarea');
+    textArea.value = copyText;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(copyText).then(() => {
+                showCopyNotification('Все реквизиты скопированы!');
+            });
+        } else {
+            document.execCommand('copy');
             showCopyNotification('Все реквизиты скопированы!');
-        }).catch(err => {
-            // Fallback для старых браузеров
-            console.error('Clipboard API error:', err);
-            fallbackCopyToClipboard(copyText);
-        });
+        }
+    } catch (err) {
+        console.error('Copy failed:', err);
+        showCopyNotification('Ошибка копирования');
+    } finally {
+        document.body.removeChild(textArea);
     }
+}
 
     // Функция для копирования отдельных полей
     function copySingleField(text) {
