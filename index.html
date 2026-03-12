@@ -7,19 +7,15 @@
     <meta name="keywords" content="геодезический мониторинг, строительство, Санкт-Петербург, устройство кровли, кровельные работы">
     <title>REGARD | РЕГАРД</title>
 
-    <!-- Предзагрузка критических изображений -->
     <link rel="preload" href="JPG/regard_sro.png" as="image">
     <link rel="preload" href="JPG/regard_sro1.png" as="image">
-
-    <!-- ✅ Bootstrap CSS -->
+  
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- ✅ Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Мои стили -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/hero.css">
@@ -43,7 +39,6 @@
 </head>
 
 <body>
-    <!-- Навигация на Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
             <a class="navbar-brand nav-logo" href="#">
@@ -79,7 +74,6 @@
         </div>
     </nav>
 
-    <!-- Модальное окно для PDF (Bootstrap) -->
     <div class="modal fade pdf-modal-custom" id="pdfModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -101,7 +95,6 @@
         </div>
     </div>
 
-    <!-- Герой секция во весь экран -->
     <section class="hero-section vh-100 d-flex align-items-center position-relative overflow-hidden">
         <div class="hero-background">
             <div class="hero-bg-animation"></div>
@@ -176,7 +169,6 @@
         </div>
     </section>
 
-    <!-- Модальное окно для изображений (Bootstrap) -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content modal-content-custom">
@@ -188,7 +180,6 @@
         </div>
     </div>
 
-    <!-- Секция объектов -->
     <section class="trending py-5" id="projects">
         <div class="container">
             <h2 class="geography-title text-center text-white mb-5 display-6 fw-bold">Наши объекты</h2>
@@ -280,7 +271,6 @@
         </div>
     </section>
 
-    <!-- Модальное окно для проектов -->
     <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content bg-dark border border-light">
@@ -322,7 +312,6 @@
         </div>
     </div>
 
-    <!-- Секция географии объектов -->
     <section class="geography-section py-5">
         <div class="container">
             <h2 class="geography-title text-center text-white mb-5 display-6 fw-bold">География объектов</h2>
@@ -416,7 +405,6 @@
         </div>
     </section>
 
-    <!-- Секция новостей на Bootstrap -->
     <section class="news-section py-5 bg-dark bg-opacity-25">
         <div class="container">
             <h2 class="news-title text-center text-white mb-5 display-6 fw-bold text-uppercase position-relative">
@@ -438,7 +426,6 @@
         </div>
     </section>
 
-    <!-- Секция партнеров на Bootstrap -->
     <section class="partners-section py-5 bg-dark bg-opacity-25">
         <div class="container">
             <h2 class="partners-title text-center text-white mb-5 display-6 fw-bold text-uppercase position-relative">
@@ -547,7 +534,6 @@
         </div>
     </section>
 
-    <!-- Секция контактов -->
     <section class="contacts-section py-5 bg-dark bg-opacity-25" id="contacts">
         <div class="container">
             <h2 class="section-title text-center text-white mb-5 display-6 fw-bold text-uppercase position-relative">
@@ -621,7 +607,7 @@
             </div>
         </div>
     </section>
-    <!-- Юридические документы -->
+
     <div class="container mt-5 pt-4 border-top" style="padding-bottom: 1rem;">
         <div class="row">
             <div class="col-md-12 text-center">
@@ -788,7 +774,7 @@
             </div>
         </div>
     </div>
-    <!-- Модалка реквизитов -->
+
     <div class="modal fade" id="legalModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content bg-dark text-light">
@@ -906,18 +892,14 @@ E-mail: project@regard-spb.ru
         </div>
     </div>
 
-    <!-- Подключение скриптов -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=562b26dd-47cf-42b4-8264-083d74ed910d&lang=ru_RU" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Ваши JS файлы -->
     <script src="javascript/contact_section.js"></script>
     <script src="javascript/geography_map.js"></script>
     <script src="javascript/carousel.js"></script>
     <script src="javascript/news_section.js"></script>
     <script src="javascript/mobile-fix.js"></script>
 
-    <!-- Обработчик копирования для Реквизитов -->
     <script>
     // УНИКАЛЬНЫЕ функции для реквизитов
     function copyAllRequisites() {
@@ -1117,7 +1099,6 @@ E-mail: project@regard-spb.ru
         });
     });
     </script>
-    <!-- Попытка решить проблему с PDF файлом -->
     <script>
         // Предотвращаем автоматическое открытие PDF и стандартное поведение ссылок
         document.addEventListener('DOMContentLoaded', function() {
@@ -1181,7 +1162,6 @@ E-mail: project@regard-spb.ru
             });
         });
     </script>
-    <!-- Обработчик скролла -->
     <script>
         // Обработчик скролла для навигации
         window.addEventListener('scroll', function() {
