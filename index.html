@@ -1212,27 +1212,57 @@ E-mail: project@regard-spb.ru
                 });
             });
         });
-        // Добавьте этот код в ваш существующий script тег
         document.addEventListener('DOMContentLoaded', function() {
-            // Плавная прокрутка для CTA кнопок
-            document.querySelectorAll('.hero-btn[href^="#"]').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        const headerHeight = document.querySelector('.navbar').offsetHeight;
-                        const targetPosition = targetSection.offsetTop - headerHeight;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+            const navbar = document.querySelector('.navbar-custom');
+            if (!navbar) return;
+
+            // Функция плавной прокрутки к элементу с учётом навигации
+            function smoothScrollToElement(targetElement) {
+                if (!targetElement) return;
+
+                const navbarHeight = navbar.offsetHeight;
+                const rect = targetElement.getBoundingClientRect();
+                const absoluteTop = rect.top + window.scrollY;
+                const targetPosition = Math.max(0, absoluteTop - navbarHeight);
+
+                // Отменяем текущую плавную прокрутку, если она идёт
+                if ('scrollBehavior' in document.documentElement.style) {
+                    // Современные браузеры: устанавливаем мгновенно, чтобы прервать анимацию
+                    window.scrollTo(0, window.scrollY);
+                }
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
+            }
+
+            // Обработчик для всех внутренних якорей (включая #, но исключая модальные ссылки)
+            function handleAnchorClick(e) {
+                const link = e.currentTarget;
+                const targetId = link.getAttribute('href');
+                
+                // Пропускаем пустые ссылки или ссылки только с #
+                if (!targetId || targetId === '#') {
+                    e.preventDefault();
+                    smoothScrollToElement(document.body); // прокрутка наверх
+                    return;
+                }
+
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    e.preventDefault();
+                    smoothScrollToElement(targetSection);
+                }
+            }
+
+            // Навешиваем обработчик на все ссылки с href, начинающимся с #, кроме тех, что открывают модалки
+            document.querySelectorAll('a[href^="#"]:not([data-bs-toggle])').forEach(link => {
+                // Удаляем старые обработчики, чтобы избежать дублирования (если скрипт выполняется повторно)
+                link.removeEventListener('click', handleAnchorClick);
+                link.addEventListener('click', handleAnchorClick);
             });
-            
+
             // Анимация появления элементов при скролле
             const observerOptions = {
                     threshold: 0.1,
