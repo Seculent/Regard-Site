@@ -16,7 +16,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(133, 133, 133, 0.8) !important; /* Оставляем как есть - уникальный эффект */
+    background: rgba(41, 41, 41, 0.8) !important; /* Оставляем как есть - уникальный эффект */
     box-shadow: var(--shadow-default);
     animation: slideDown 0.3s ease;
 }
@@ -44,7 +44,7 @@
 .logo-img {
     max-width: 14rem;
     border-radius: 10px;
-    box-shadow: 1px 5px 15px var(--color-black);
+    /* box-shadow: 1px 5px 15px var(--color-black); */
 }
 
 .nav-link-custom {
@@ -55,7 +55,7 @@
 }
 
 .nav-btn-custom {
-    background: var(--color-black) !important;
+    background: var(--color-surface) !important;
     color: var(--color-text) !important;
     border-radius: 5px;
     padding: 0.5rem 1rem !important;
@@ -69,7 +69,7 @@
 
 .nav-btn-custom:hover {
     background: rgba(0, 0, 0, 0.8) !important;
-    border-color: var(--color-border-light);
+    border-bottom: 1px solid var(--color-secondary);
 }
 
 /* Медиа-запросы для навигации */
