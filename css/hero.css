@@ -16,10 +16,14 @@
 
 .hero-content {
     animation: slideInLeft 1s ease-out;
+    margin-top: 3rem;
 }
 
 .hero-certificates {
     animation: slideInRight 1s ease-out;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
 }
 
 .hero-title {
@@ -114,6 +118,67 @@
     font-weight: 600;
     font-size: 0.9rem;
     text-align: center;
+}
+
+/* Счётчик выполненных работ */
+.hero-counter {
+    width: fit-content;          /* ширина по содержимому */
+    width: 93%;              /* не вылезаем за край */
+    padding: 1.2rem 1.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(218, 143, 65, 0.3);
+    border-radius: 28px;
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.7), inset 0 1px 2px rgba(255,255,255,0.1);
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+    text-align: center;           /* текст внутри по центру */
+}
+.counter-heading {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--color-text-gold);
+}
+
+.counter-progress {
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;          /* сузим полоску, чтобы не упиралась в края */
+    margin-top: 0.8rem;    /* центрируем */
+}
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-secondary), #ffb347);
+    transition: width 2s ease;
+    width: 0%;               /* начальное состояние */
+}
+
+.counter-text {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.3rem;
+}
+
+.counter-value {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--color-text-gold);    /* единый золотистый цвет */
+    line-height: 1.2;
+    filter: drop-shadow(0 8px 5px #00000066);
+}
+
+.counter-value span {
+    display: inline-block;
+    min-width: 120px; /* чтобы число не прыгало при анимации */
+}
+
+.counter-value sup {
+    color: inherit;          /* наследует цвет от родителя */
+    font-size: 0.6em;        /* уменьшаем размер верхнего индекса для гармонии */
+    top: -0.3em;             /* немного поднимаем */
+    position: relative;      /* для top */
 }
 
 /* Кнопки */
@@ -227,6 +292,21 @@
         width: 140px;
         height: 180px;
     }
+    .hero-counter {
+        width: 100%;
+    }
+    .counter-text {
+        font-size: 1rem;
+    }
+    .counter-value {
+        font-size: 2.5rem;
+    }
+    .counter-progress {
+        max-width: 90%;
+    }
+    .hero-certificates {
+        align-items: stretch;      /* чтобы дочерние блоки заняли всю ширину */
+    }
 }
 
 @media (max-width: 576px) {
@@ -252,6 +332,12 @@
     .hero-buttons .btn {
         width: 100%;
         justify-content: center;
+    }
+    .counter-value {
+        font-size: 2rem;
+    }
+    .counter-value span {
+        min-width: 100px;
     }
 }
 

@@ -52,7 +52,7 @@ function initContactMap() {
                         <strong>Адрес:</strong> 197110, г. Санкт-Петербург, улица Большая Зеленина, 24
                     </p>
                     <p style="margin: 5px 0; color: #666;">
-                        <strong>Телефон:</strong> +7 (495) 123-45-67
+                        <strong>Телефон:</strong> +7 (931) 234-56-56
                     </p>
                     <p style="margin: 5px 0; color: #666;">
                         <strong>Email:</strong> project@regard-spb.ru
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     textToCopy = '197110, г. Санкт-Петербург, улица Большая Зеленина, 24';
                     break;
                 case 1: // Телефон
-                    textToCopy = '+7 (495) 123-45-67';
+                    textToCopy = '+7 (931) 234-56-56';
                     break;
                 case 2: // Email
                     textToCopy = 'project@regard-spb.ru';
