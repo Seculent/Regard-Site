@@ -37,13 +37,6 @@ function fixMobileLayout() {
         
         // Применяем отступ
         heroSection.style.paddingTop = totalPadding + 'px';
-        
-        console.log('Mobile layout fix applied:', {
-            browser: isOpera ? 'Opera' : isTelegram ? 'Telegram' : isInstagram ? 'Instagram' : isFacebook ? 'Facebook' : 'Other',
-            navbarHeight,
-            additionalPadding,
-            totalPadding
-        });
     } else {
         // На десктопе сбрасываем кастомные отступы
         heroSection.style.paddingTop = '';
