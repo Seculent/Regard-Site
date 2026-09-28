@@ -1,20 +1,8 @@
 // Инициализация карты географии объектов
 ymaps.ready(initGeoMap);
 
-function initGeoMap() {
-    try {
-        console.log('Инициализация карты географии...');
-        
-        const geoMap = new ymaps.Map('geo-map', {
-            center: [59.939095, 30.315868],
-            zoom: 9,
-            controls: ['zoomControl', 'fullscreenControl']
-        }, {
-            searchControlProvider: 'yandex#search'
-        });
-
-        // Создаем метки для объектов
-        const objects = [
+const GEO_OBJECTS = [
+            // AVANT: актуальный проект, временно скрыт. Не удалять; вернуть при повторной публикации.
             // {
             //     coords: [59.960557, 30.285640],
             //     title: 'Квартал AVANT',
@@ -63,10 +51,23 @@ function initGeoMap() {
                 content: 'Санкт-Петербург, город Колпино, Загородная улица, участок 33',
                 markerColor: '#5c5b5b'
             }
-        ];
+];
+
+function initGeoMap() {
+    try {
+        const geoMap = new ymaps.Map('geo-map', {
+            center: [59.939095, 30.315868],
+            zoom: 9,
+            controls: ['zoomControl', 'fullscreenControl']
+        }, {
+            searchControlProvider: 'yandex#search'
+        });
+
+        // Создаем метки для объектов
+
 
         // Добавляем метки на карту
-        objects.forEach((obj, index) => {
+        GEO_OBJECTS.forEach((obj, index) => {
             const placemark = new ymaps.Placemark(obj.coords, {
                 balloonContentHeader: obj.title,
                 balloonContentBody: obj.content,
@@ -90,9 +91,6 @@ function initGeoMap() {
 
         // Сохраняем ссылку на карту
         window.geoMap = geoMap;
-        
-        console.log('Карта географии успешно инициализирована');
-        
     } catch (error) {
         console.error('Ошибка инициализации карты географии:', error);
         showGeoMapError();
@@ -136,19 +134,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Функция для центрирования карты на объекте
 function centerMapOnObject(objectIndex) {
-    const objectsCoordinates = [
-        // [59.960557, 30.285640],
-        [59.729722, 29.834722],
-        [60.073872, 30.431324],
-        [60.117889, 30.174842],
-        [60.051389, 30.485556],
-        [59.749296, 30.570305],
-        [59.864626, 30.553859],
-        [59.776284, 30.600095]
-    ];
-    
-    if (objectsCoordinates[objectIndex] && window.geoMap) {
-        window.geoMap.setCenter(objectsCoordinates[objectIndex], 14, {
+    const object = GEO_OBJECTS[objectIndex];
+
+    if (object && window.geoMap) {
+        window.geoMap.setCenter(object.coords, 14, {
             duration: 500
         });
         

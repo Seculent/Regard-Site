@@ -9,8 +9,6 @@ ymaps.ready(initContactMap);
 
 function initContactMap() {
     try {
-        console.log('Инициализация карты контактов...');
-        
         // Проверяем, загружена ли API Яндекс.Карт
         if (typeof ymaps === 'undefined') {
             throw new Error('Yandex Maps API не загружена');
@@ -18,7 +16,6 @@ function initContactMap() {
 
         // Если карта уже инициализирована, не создаем заново
         if (isInitialized) {
-            console.log('Карта уже инициализирована');
             return;
         }
 
@@ -90,8 +87,6 @@ function initContactMap() {
         }, 500);
         
         isInitialized = true;
-        console.log('Карта контактов успешно инициализирована');
-        
     } catch (error) {
         console.error('Ошибка инициализации карты контактов:', error);
         showMapError('map');
@@ -104,7 +99,6 @@ function setupFullscreenHandlers() {
     
     // Обработчик входа в полноэкранный режим
     contactMap.events.add('fullscreenenter', function() {
-        console.log('Полноэкранный режим включен');
         isInFullscreen = true;
         
         // Принудительно устанавливаем высоту для полноэкранного режима
@@ -121,7 +115,6 @@ function setupFullscreenHandlers() {
     
     // Обработчик выхода из полноэкранного режима
     contactMap.events.add('fullscreenexit', function() {
-        console.log('Полноэкранный режим выключен');
         isInFullscreen = false;
         
         // Восстанавливаем оригинальные размеры
