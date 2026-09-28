@@ -11,6 +11,9 @@ backend:
 media_folder: "JPG/uploads"
 public_folder: "/JPG/uploads"
 
+output:
+  omit_empty_optional_fields: true
+
 collections:
   - label: "Объекты"
     name: "projects_data"
@@ -79,5 +82,6 @@ collections:
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
               - { label: "Полный текст", name: "fullText", widget: "text" }
               - { label: "Опубликована", name: "published", widget: "boolean", default: true }
+
 
 
