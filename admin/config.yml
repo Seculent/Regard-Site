@@ -34,9 +34,9 @@ collections:
             fields:
               - { label: "ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], hint: "Технический идентификатор объекта. После публикации НЕ МЕНЯТЬ. Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
               - { label: "Название", name: "title", widget: "string" }
-              - { label: "Опубликован", name: "published", widget: "boolean", default: true }
-              - { label: "Показывать в карусели", name: "showInCarousel", widget: "boolean", default: true }
-              - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true }
+              - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: true, hint: "Главный переключатель объекта. Если выключить, объект будет полностью скрыт на сайте — и в карусели, и на карте." }
+              - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
+              - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true, hint: "Показывает объект на карте. Работает только если объект опубликован и указаны координаты." }
               - { label: "Обложка", name: "preview", widget: "image", choose_url: false }
               - { label: "Описание", name: "description", widget: "text", hint: "Сейчас описание хранится как HTML, чтобы сохранить существующее оформление сайта. В C3.3 сделаем удобный визуальный редактор." }
               - label: "Галерея"
@@ -81,7 +81,7 @@ collections:
               - { label: "Заголовок", name: "title", widget: "string" }
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
               - { label: "Полный текст", name: "fullText", widget: "text" }
-              - { label: "Опубликована", name: "published", widget: "boolean", default: true }
+              - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: true, hint: "Если выключить, новость останется в CMS, но перестанет отображаться на сайте." }
 
 
 
