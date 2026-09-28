@@ -1,153 +1,25 @@
-// Инициализация карты географии объектов
+let GEO_OBJECTS = [];
+let geoPlacemarks = [];
 ymaps.ready(initGeoMap);
 
-const GEO_OBJECTS = [
-            // AVANT: актуальный проект, временно скрыт. Не удалять; вернуть при повторной публикации.
-            // {
-            //     coords: [59.960557, 30.285640],
-            //     title: 'Квартал AVANT',
-            //     content: 'Пионерская улица, 53, Санкт-Петербург',
-            //     markerColor: '#5c5b5b'
-            // },
-            {
-                coords: [59.729722, 29.834722],
-                title: 'ЖК "А101 Лаголово"',
-                content: 'Деревня Лаголово, Лаголовское сельское поселение, Ломоносовский район, Ленинградская область',
-                markerColor: '#5c5b5b'
-            },
-            {
-                coords: [60.073872, 30.431324],
-                title: 'ЖК "Новые Лаврики"',
-                content: 'Жилой комплекс Новые Лаврики, 1.3, Мурино, Всеволожский район, Ленинградская область',
-                markerColor: '#5c5b5b'
-            },
-            {
-                coords: [60.117889, 30.174842],
-                title: 'ЖК "Курортный Квартал"',
-                content: 'Поселок Песочный, Курортный район, Санкт-Петербург ул. Садовая 90',
-                markerColor: '#5c5b5b'
-            },
-            {
-                coords: [60.051389, 30.485556],
-                title: 'ЖК "UP-Квартал Воронцовский"',
-                content: 'Деревня Новое Девяткино, Всеволожский район, Ленинградская область',
-                markerColor: '#5c5b5b'
-            },
-            {
-                coords: [59.749296, 30.570305],
-                title: 'ЖК "Астрид"',
-                content: 'Санкт-Петербург, внутригородское муниципальное образование Санкт-Петербурга город Колпино, проспект Ленина, земельный участок 60а',
-                markerColor: '#5c5b5b'
-            },
-            {
-                coords: [59.864626, 30.553859],
-                title: 'ЖК "Невская долина"',
-                content: 'Ленинградская область, Всеволожский муниципальный район, Свердловское городское поселение, деревня Новосаратовка',
-                markerColor: '#5c5b5b'
-            },
-            {
-                coords: [59.776284, 30.600095],
-                title: 'ЖК "Новое Колпино"',
-                content: 'Санкт-Петербург, город Колпино, Загородная улица, участок 33',
-                markerColor: '#5c5b5b'
-            }
-];
-
-function initGeoMap() {
+async function initGeoMap() {
     try {
-        const geoMap = new ymaps.Map('geo-map', {
-            center: [59.939095, 30.315868],
-            zoom: 9,
-            controls: ['zoomControl', 'fullscreenControl']
-        }, {
-            searchControlProvider: 'yandex#search'
+        const projects = await window.RegardContent.projects();
+        GEO_OBJECTS = projects.filter(project => project.published && project.showOnMap && project.map?.coords);
+        renderObjectList(GEO_OBJECTS);
+        const geoMap = new ymaps.Map('geo-map', { center:[59.939095,30.315868], zoom:9, controls:['zoomControl','fullscreenControl'] }, { searchControlProvider:'yandex#search' });
+        GEO_OBJECTS.forEach((project,index)=>{
+            const placemark=new ymaps.Placemark(project.map.coords,{balloonContentHeader:project.title,balloonContentBody:project.map.address,hintContent:project.title},{preset:'islands#circleIcon',iconColor:project.map.markerColor||'#5c5b5b'});
+            geoMap.geoObjects.add(placemark); geoPlacemarks.push(placemark);
+            placemark.events.add('click',()=>setActiveObject(index));
         });
-
-        // Создаем метки для объектов
-
-
-        // Добавляем метки на карту
-        GEO_OBJECTS.forEach((obj, index) => {
-            const placemark = new ymaps.Placemark(obj.coords, {
-                balloonContentHeader: obj.title,
-                balloonContentBody: obj.content,
-                hintContent: obj.title
-            }, {
-                preset: 'islands#circleIcon',
-                iconColor: obj.markerColor
-            });
-            
-            geoMap.geoObjects.add(placemark);
-            
-            // Связываем метки с элементами списка
-            placemark.events.add('click', function() {
-                const objectItems = document.querySelectorAll('.object-item');
-                objectItems.forEach(item => item.classList.remove('active'));
-                if (objectItems[index]) {
-                    objectItems[index].classList.add('active');
-                }
-            });
-        });
-
-        // Сохраняем ссылку на карту
-        window.geoMap = geoMap;
-    } catch (error) {
-        console.error('Ошибка инициализации карты географии:', error);
-        showGeoMapError();
-    }
+        window.geoMap=geoMap;
+        bindObjectList();
+    } catch(error){ console.error('Ошибка инициализации карты географии:',error); showGeoMapError(); }
 }
-
-// Функция для отображения ошибки карты
-function showGeoMapError() {
-    const mapContainer = document.getElementById('geo-map');
-    if (mapContainer) {
-        mapContainer.innerHTML = `
-            <div class="d-flex flex-column justify-content-center align-items-center h-100 text-center text-white p-4">
-                <h3 class="text-danger mb-3">Ошибка загрузки карты</h3>
-                <p class="mb-3">Не удалось загрузить карту объектов</p>
-                <a href="https://yandex.ru/maps/2/saint-petersburg/" 
-                   target="_blank" 
-                   class="btn btn-outline-light">
-                    Посмотреть на Яндекс.Картах
-                </a>
-            </div>
-        `;
-    }
-}
-
-// Инициализация взаимодействия с элементами списка
-document.addEventListener('DOMContentLoaded', function() {
-    const objectItems = document.querySelectorAll('.object-item');
-    
-    objectItems.forEach((item, index) => {
-        item.addEventListener('click', function() {
-            // Убираем активный класс у всех элементов
-            objectItems.forEach(obj => obj.classList.remove('active'));
-            // Добавляем активный класс текущему элементу
-            this.classList.add('active');
-            
-            // Центрируем карту на соответствующем объекте
-            centerMapOnObject(index);
-        });
-    });
-});
-
-// Функция для центрирования карты на объекте
-function centerMapOnObject(objectIndex) {
-    const object = GEO_OBJECTS[objectIndex];
-
-    if (object && window.geoMap) {
-        window.geoMap.setCenter(object.coords, 14, {
-            duration: 500
-        });
-        
-        // Открываем балун соответствующей метки
-        const geoObjects = window.geoMap.geoObjects;
-        if (geoObjects.getLength() > objectIndex) {
-            const placemark = geoObjects.get(objectIndex);
-            if (placemark) {
-                placemark.balloon.open();
-            }
-        }
-    }
-}
+function renderObjectList(projects){const list=document.querySelector('.objects-list');if(!list)return;list.innerHTML=projects.map((p,i)=>`<div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer" data-object-index="${i}"><div class="d-flex align-items-start"><div class="object-marker marker-1 me-3 mt-1"></div><div class="object-info"><h3 class="mb-2 fs-5">${escapeGeo(p.map.listTitle||p.title)}</h3><p class="text-light mb-0 small">${escapeGeo(p.map.address)}</p></div></div></div>`).join('');}
+function bindObjectList(){document.querySelectorAll('.object-item').forEach((item,index)=>item.addEventListener('click',()=>centerMapOnObject(index)));}
+function setActiveObject(index){document.querySelectorAll('.object-item').forEach((item,i)=>item.classList.toggle('active',i===index));}
+function centerMapOnObject(index){const p=GEO_OBJECTS[index];if(!p||!window.geoMap)return;setActiveObject(index);window.geoMap.setCenter(p.map.coords,14,{duration:500});geoPlacemarks[index]?.balloon.open();}
+function showGeoMapError(){const c=document.getElementById('geo-map');if(c)c.innerHTML=`<div class="d-flex flex-column justify-content-center align-items-center h-100 text-center text-white p-4"><h3 class="text-danger mb-3">Ошибка загрузки карты</h3><p class="mb-3">Не удалось загрузить карту объектов</p><a href="https://yandex.ru/maps/2/saint-petersburg/" target="_blank" class="btn btn-outline-light">Посмотреть на Яндекс.Картах</a></div>`;}
+function escapeGeo(v){const d=document.createElement('div');d.textContent=v??'';return d.innerHTML;}
