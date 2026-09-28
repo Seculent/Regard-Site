@@ -205,79 +205,11 @@
             <!-- Bootstrap Carousel -->
             <div id="projectsCarousel" class="carousel slide" data-bs-ride="carousel">
                 <!-- Индикаторы -->
-                <div class="carousel-indicators">
-                    <!-- AVANT: актуальный проект, временно скрыт. Не удалять; вернуть при повторной публикации. -->
-                    <!-- <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Квартал AVANT"></button> -->
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="ЖК «А101 Лаголово»"></button>
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="1" aria-label="ЖК «Курортный Квартал»"></button>
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="2" aria-label="ЖК «Новые Лаврики»"></button>
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="3" aria-label="ЖК «Астрид»"></button>
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="4" aria-label="ЖК «Новое Колпино»"></button>
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="5" aria-label="ЖК «Невская долина»"></button>
-                    <button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="6" aria-label="ЖК «UP-Квартал Воронцовский»"></button>
-                </div>
-                
-                <!-- Слайды -->
-                <div class="carousel-inner rounded-3 shadow-lg">
-                    <!-- AVANT: актуальный проект, временно скрыт. Не удалять; вернуть при повторной публикации. -->
-                    <!-- <div class="carousel-item active" data-bs-interval="5000">
-                        <img src="JPG/AVANT/AVANTPrev.jpg" class="d-block w-100 carousel-image" alt="Квартал AVANT">
-                        <div class="carousel-caption">
-                            <h3>Квартал AVANT</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="0"></div>
-                    </div> -->
-                    <div class="carousel-item active" data-bs-interval="5000" data-area="3200">
-                        <img src="JPG/LAG/LagPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «А101 Лаголово»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «А101 Лаголово»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="0"></div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000" data-area="3200">
-                        <img src="JPG/PES/PESPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «Курортный Квартал»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «Курортный Квартал»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="1"></div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000" data-area="3200">
-                        <img src="JPG/LAV/LAVPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «Новые Лаврики»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «Новые Лаврики»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="2"></div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000" data-area="3200">
-                        <img src="JPG/KOLP/KOLPPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «Астрид»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «Астрид»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="3"></div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000" data-area="87000">
-                        <img src="JPG/KKR/KKRPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «Новое Колпино»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «Новое Колпино»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="4"></div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000" data-area="3200">
-                        <img src="JPG/NVS/NVSPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «Невская долина»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «Невская долина»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="5"></div>
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000" data-area="3200">
-                        <img src="JPG/FSK/VRNPrev.jpg" class="d-block w-100 carousel-image" alt="ЖК «UP-Квартал Воронцовский»">
-                        <div class="carousel-caption">
-                            <h3>ЖК «UP-Квартал Воронцовский»</h3>
-                        </div>
-                        <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-index="6"></div>
-                    </div>
-                </div>
-                
+                <div class="carousel-indicators"></div>
+
+                <!-- Слайды формируются из content/projects.json -->
+                <div class="carousel-inner rounded-3 shadow-lg"></div>
+
                 <!-- Кнопки навигации -->
                 <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -346,80 +278,7 @@
                 
                 <!-- Список объектов -->
                 <div class="col-lg-4 col-md-5">
-                        <div class="objects-list d-flex flex-column gap-3">
-                        <!-- <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">Квартал AVANT</h3>
-                                    <p class="text-light mb-0 small">Пионерская улица, 53, Санкт-Петербург</p>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "А101 Лаголово"</h3>
-                                    <p class="text-light mb-0 small">Деревня Лаголово, Лаголовское сельское поселение, Ломоносовский район, Ленинградская область</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "Новые Лаврики"</h3>
-                                    <p class="text-light mb-0 small">Жилой комплекс Новые Лаврики, 1.3, Мурино, Всеволожский район, Ленинградская область</p>
-                                </div>
-                            </div>
-                        </div>                    
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "Курортный Квартал"</h3>
-                                    <p class="text-light mb-0 small">Поселок Песочный, Курортный район, Санкт-Петербург ул. Садовая 90</p>
-                                </div>
-                            </div>
-                        </div>                       
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "UP-Квартал Воронцовский"</h3>
-                                    <p class="text-light mb-0 small">деревня Новое Девяткино, Всеволожский район, Ленинградская область</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "Астрид"</h3>
-                                    <p class="text-light mb-0 small">Санкт-Петербург, внутригородское муниципальное образование Санкт-Петербурга город Колпино, проспект Ленина, земельный участок 60а</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "Невская долина"</h3>
-                                    <p class="text-light mb-0 small">Ленинградская область, Всеволожский муниципальный район, Свердловское городское поселение, деревня Новосаратовка</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="object-item bg-dark bg-opacity-50 rounded-3 p-3 border border-light border-opacity-25 cursor-pointer">
-                            <div class="d-flex align-items-start">
-                                <div class="object-marker marker-1 me-3 mt-1"></div>
-                                <div class="object-info">
-                                    <h3 class="mb-2 fs-5">ЖК "Красный Кирпичник"</h3>
-                                    <p class="text-light mb-0 small">Санкт-Петербург, город Колпино, Загородная улица, участок 33</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="objects-list d-flex flex-column gap-3"></div>
                 </div>
             </div>
         </div>
@@ -916,6 +775,7 @@ E-mail: project@regard-spb.ru
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="javascript/contact_section.js"></script>
     <script src="javascript/geography_map.js"></script>
+    <script src="javascript/content.js"></script>
     <script src="javascript/carousel.js"></script>
     <script src="javascript/news_section.js"></script>
     <script src="javascript/mobile-fix.js"></script>
