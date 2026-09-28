@@ -80,7 +80,7 @@ collections:
               - { label: "Дата", name: "date", widget: "string", hint: "Формат: ДД.ММ.ГГГГ" }
               - { label: "Заголовок", name: "title", widget: "string" }
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
-              - { label: "Полный текст", name: "fullText", widget: "text" }
+              - { label: "Полный текст", name: "fullText", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Основной текст новости. Можно использовать жирный и курсивный текст, ссылки и списки." }
               - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: true, hint: "Если выключить, новость останется в CMS, но перестанет отображаться на сайте." }
 
 

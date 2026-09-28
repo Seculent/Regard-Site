@@ -6,6 +6,20 @@ const config = {
     isExpanded: false
 };
 
+function renderNewsMarkdown(value) {
+    const source = typeof value === 'string' ? value : '';
+
+    // Безопасный fallback, если внешние библиотеки не загрузились.
+    if (!window.marked || !window.DOMPurify) {
+        const fallback = document.createElement('div');
+        fallback.textContent = source;
+        return fallback.innerHTML.replace(/\r?\n/g, '<br>');
+    }
+
+    const html = window.marked.parse(source, { breaks: true });
+    return window.DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
+}
+
 // Инициализация новостного раздела
 async function initNewsSection() {
     try {
@@ -70,7 +84,7 @@ function createNewsCard(news, index) {
                 <p>${news.excerpt}</p>
             </div>
             <div class="news-full" style="display: none;">
-                <p>${news.fullText}</p>
+                ${renderNewsMarkdown(news.fullText)}
             </div>
             <button class="read-more-btn mt-auto" onclick="toggleReadMore(this)">
                 Читать далее
