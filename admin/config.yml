@@ -1,0 +1,83 @@
+﻿locale: "ru"
+
+backend:
+  name: github
+  repo: Seculent/Regard-Site
+  branch: main
+
+  base_url: https://regard-cms-auth.akhmadeev93.workers.dev
+  auth_endpoint: auth
+
+media_folder: "JPG/uploads"
+public_folder: "/JPG/uploads"
+
+collections:
+  - label: "Объекты"
+    name: "projects_data"
+    files:
+      - label: "Все объекты"
+        name: "projects"
+        file: "content/projects.json"
+        format: "json"
+        fields:
+          - label: "Объекты"
+            name: "items"
+            widget: "list"
+            root: true
+            add_to_top: false
+            collapsed: true
+            summary: "{{fields.title}} — {{fields.id}}"
+            label_singular: "объект"
+            fields:
+              - { label: "ID", name: "id", widget: "string", hint: "Уникальный латинский идентификатор, например: lagolovo. После публикации без необходимости не менять." }
+              - { label: "Название", name: "title", widget: "string" }
+              - { label: "Опубликован", name: "published", widget: "boolean", default: true }
+              - { label: "Показывать в карусели", name: "showInCarousel", widget: "boolean", default: true }
+              - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true }
+              - { label: "Обложка", name: "preview", widget: "image", choose_url: false }
+              - { label: "Описание", name: "description", widget: "text", hint: "Сейчас описание хранится как HTML, чтобы сохранить существующее оформление сайта. В C3.3 сделаем удобный визуальный редактор." }
+              - label: "Галерея"
+                name: "images"
+                widget: "list"
+                label_singular: "фотографию"
+                field: { label: "Фото", name: "image", widget: "image", choose_url: false }
+              - label: "Карта"
+                name: "map"
+                widget: "object"
+                fields:
+                  - label: "Координаты"
+                    name: "coords"
+                    widget: "list"
+                    min: 2
+                    max: 2
+                    hint: "Сначала широта, затем долгота."
+                    field: { label: "Координата", name: "coordinate", widget: "number", value_type: "float" }
+                  - { label: "Адрес", name: "address", widget: "string" }
+                  - { label: "Название в списке карты", name: "listTitle", widget: "string", required: false }
+                  - { label: "Цвет метки", name: "markerColor", widget: "color", required: false, default: "#5c5b5b" }
+
+  - label: "Новости"
+    name: "news_data"
+    files:
+      - label: "Все новости"
+        name: "news"
+        file: "content/news.json"
+        format: "json"
+        fields:
+          - label: "Новости"
+            name: "items"
+            widget: "list"
+            root: true
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.date}} — {{fields.title}}"
+            label_singular: "новость"
+            fields:
+              - { label: "ID", name: "id", widget: "number", value_type: "int", hint: "Уникальный номер новости." }
+              - { label: "Дата", name: "date", widget: "string", hint: "Формат: ДД.ММ.ГГГГ" }
+              - { label: "Заголовок", name: "title", widget: "string" }
+              - { label: "Краткий текст", name: "excerpt", widget: "text" }
+              - { label: "Полный текст", name: "fullText", widget: "text" }
+              - { label: "Опубликована", name: "published", widget: "boolean", default: true }
+
+
