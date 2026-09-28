@@ -363,13 +363,10 @@ function updateMapSize() {
     }
 }
 
-// Запасной таймаут на случай если карта не загрузится
-setTimeout(() => {
-    const mapElement = document.getElementById('map');
-    if (mapElement && !mapElement.querySelector('.ymaps-2-1-79-map') && !isInitialized) {
-        showMapError('map');
-    }
-}, 5000);
+// Не используем фиксированный таймаут для определения ошибки загрузки.
+// На медленном соединении Yandex Maps API может быть готов позже 5 секунд,
+// а ymaps.ready(initContactMap) корректно дождётся готовности API.
+// Реальный fallback показывается только из catch внутри initContactMap().
 
 // Очищаем карту при размонтировании компонента (если используешь SPA)
 window.addEventListener('beforeunload', function() {
