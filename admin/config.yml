@@ -21,7 +21,6 @@ collections:
         format: "json"
         fields:
           - label: "Объекты"
-            name: "items"
             widget: "list"
             root: true
             add_to_top: false
@@ -65,7 +64,6 @@ collections:
         format: "json"
         fields:
           - label: "Новости"
-            name: "items"
             widget: "list"
             root: true
             add_to_top: true
@@ -79,5 +77,6 @@ collections:
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
               - { label: "Полный текст", name: "fullText", widget: "text" }
               - { label: "Опубликована", name: "published", widget: "boolean", default: true }
+
 
 
