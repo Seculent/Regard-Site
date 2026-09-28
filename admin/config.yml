@@ -32,7 +32,7 @@ collections:
             summary: "{{fields.title}} — {{fields.id}}"
             label_singular: "объект"
             fields:
-              - { label: "ID", name: "id", widget: "string", hint: "Уникальный латинский идентификатор, например: lagolovo. После публикации без необходимости не менять." }
+              - { label: "ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], hint: "Технический идентификатор объекта. После публикации НЕ МЕНЯТЬ. Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
               - { label: "Название", name: "title", widget: "string" }
               - { label: "Опубликован", name: "published", widget: "boolean", default: true }
               - { label: "Показывать в карусели", name: "showInCarousel", widget: "boolean", default: true }
@@ -76,7 +76,7 @@ collections:
             summary: "{{fields.date}} — {{fields.title}}"
             label_singular: "новость"
             fields:
-              - { label: "ID", name: "id", widget: "number", value_type: "int", hint: "Уникальный номер новости." }
+              - { label: "ID", name: "id", widget: "number", value_type: "int", min: 1, hint: "Технический номер новости. Должен быть уникальным. У существующей новости НЕ МЕНЯТЬ. Для новой новости укажите новый номер, который ещё не используется." }
               - { label: "Дата", name: "date", widget: "string", hint: "Формат: ДД.ММ.ГГГГ" }
               - { label: "Заголовок", name: "title", widget: "string" }
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
