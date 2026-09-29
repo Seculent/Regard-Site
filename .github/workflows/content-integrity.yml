@@ -1,0 +1,43 @@
+name: Content Integrity
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/**"
+      - "JPG/**"
+      - "scripts/**"
+      - ".github/workflows/content-integrity.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "content/**"
+      - "JPG/**"
+      - "scripts/**"
+      - ".github/workflows/content-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  content-check:
+    name: Validate site content
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: Run content integrity checks
+        run: node scripts/check-content.mjs
