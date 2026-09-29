@@ -326,9 +326,14 @@
                 if (!targetElement) return;
 
                 const navbarHeight = navbar.offsetHeight;
+                const navbarWillLeaveFlow = !navbar.classList.contains('fixed-top');
                 const rect = targetElement.getBoundingClientRect();
                 const absoluteTop = rect.top + window.scrollY;
-                const targetPosition = Math.max(0, absoluteTop - navbarHeight);
+                const layoutShiftCompensation = navbarWillLeaveFlow ? navbarHeight : 0;
+                const targetPosition = Math.max(
+                    0,
+                    absoluteTop - navbarHeight - layoutShiftCompensation
+                );
 
                 // Отменяем текущую плавную прокрутку, если она идёт
                 if ('scrollBehavior' in document.documentElement.style) {
