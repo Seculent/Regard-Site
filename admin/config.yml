@@ -35,7 +35,7 @@ collections:
             fields:
               - { label: "ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], hint: "Технический идентификатор объекта. После публикации НЕ МЕНЯТЬ. Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
               - { label: "Название", name: "title", widget: "string" }
-              - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: true, hint: "Главный переключатель объекта. Если выключить, объект будет полностью скрыт на сайте — и в карусели, и на карте." }
+              - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: false, hint: "Новый объект создаётся скрытым. Включите этот переключатель только когда объект полностью заполнен и готов к публикации. Если выключить, объект не показывается ни в карусели, ни на карте." }
               - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
               - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true, hint: "Показывает объект на карте. Работает только если объект опубликован и указаны координаты." }
               - { label: "Обложка", name: "preview", widget: "image", choose_url: false, hint: "Главное изображение объекта в карусели. Лучше использовать горизонтальное фото хорошего качества." }
@@ -58,7 +58,7 @@ collections:
                     widget: "list"
                     min: 2
                     max: 2
-                    hint: "Сначала широта, затем долгота."
+                    hint: "Сначала широта (от -90 до 90), затем долгота (от -180 до 180). Например для Санкт-Петербурга: 59.9386, 30.3141."
                     field: { label: "Координата", name: "coordinate", widget: "number", value_type: "float" }
                   - { label: "Адрес", name: "address", widget: "string" }
                   - { label: "Название в списке карты", name: "listTitle", widget: "string", required: false, hint: "Необязательно. Если оставить пустым, на карте будет использовано обычное название объекта." }
@@ -82,11 +82,11 @@ collections:
             label_singular: "новость"
             fields:
               - { label: "ID", name: "id", widget: "number", value_type: "int", min: 1, hint: "Технический номер новости. Должен быть уникальным. У существующей новости НЕ МЕНЯТЬ. Для новой новости укажите новый номер, который ещё не используется." }
-              - { label: "Дата", name: "date", widget: "string", hint: "Формат: ДД.ММ.ГГГГ" }
+              - { label: "Дата", name: "date", widget: "datetime", type: "date", format: "DD.MM.YYYY", default: "{{now}}", hint: "Выберите дату новости. В файле она сохранится в привычном формате ДД.ММ.ГГГГ." }
               - { label: "Заголовок", name: "title", widget: "string" }
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
               - { label: "Полный текст", name: "fullText", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Основной текст новости. Можно использовать жирный и курсивный текст, ссылки и списки." }
-              - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: true, hint: "Если выключить, новость останется в CMS, но перестанет отображаться на сайте." }
+              - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: false, hint: "Новая новость создаётся скрытой. Включите публикацию только после проверки заголовка, даты и текста. Если выключить, новость останется в CMS, но не будет отображаться на сайте." }
 
 
 
