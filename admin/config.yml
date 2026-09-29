@@ -38,7 +38,7 @@ collections:
               - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
               - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true, hint: "Показывает объект на карте. Работает только если объект опубликован и указаны координаты." }
               - { label: "Обложка", name: "preview", widget: "image", choose_url: false }
-              - { label: "Описание", name: "description", widget: "text", hint: "Сейчас описание хранится как HTML, чтобы сохранить существующее оформление сайта. В C3.3 сделаем удобный визуальный редактор." }
+              - { label: "Описание", name: "description", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Описание объекта в визуальном редакторе. Можно использовать жирный и курсивный текст, ссылки и списки." }
               - label: "Галерея"
                 name: "images"
                 widget: "list"
