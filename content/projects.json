@@ -184,5 +184,25 @@
       "address": "Деревня Новое Девяткино, Всеволожский район, Ленинградская область",
       "markerColor": "#5c5b5b"
     }
+  },
+  {
+    "id": "cms-test-object",
+    "title": "Тестовый объект CMS",
+    "published": false,
+    "showInCarousel": true,
+    "showOnMap": true,
+    "preview": "/JPG/uploads/cms-test-upload.jpg",
+    "description": "`Тестовый объект создан полностью через CMS.`\n**`Проверка RichText`**",
+    "images": [
+      "/JPG/uploads/cms-test-upload.jpg"
+    ],
+    "map": {
+      "coords": [
+        59.9386,
+        30.3141
+      ],
+      "address": "Тестовый адрес",
+      "markerColor": "#5c5b5b"
+    }
   }
 ]
