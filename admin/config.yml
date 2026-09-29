@@ -30,6 +30,7 @@ collections:
             add_to_top: false
             collapsed: true
             summary: "{{fields.title}} — {{fields.id}}"
+            thumbnail: "preview"
             label_singular: "объект"
             fields:
               - { label: "ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], hint: "Технический идентификатор объекта. После публикации НЕ МЕНЯТЬ. Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
@@ -37,16 +38,20 @@ collections:
               - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: true, hint: "Главный переключатель объекта. Если выключить, объект будет полностью скрыт на сайте — и в карусели, и на карте." }
               - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
               - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true, hint: "Показывает объект на карте. Работает только если объект опубликован и указаны координаты." }
-              - { label: "Обложка", name: "preview", widget: "image", choose_url: false }
+              - { label: "Обложка", name: "preview", widget: "image", choose_url: false, hint: "Главное изображение объекта в карусели. Лучше использовать горизонтальное фото хорошего качества." }
               - { label: "Описание", name: "description", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Описание объекта в визуальном редакторе. Можно использовать жирный и курсивный текст, ссылки и списки." }
-              - label: "Галерея"
+              - label: "Галерея объекта"
                 name: "images"
-                widget: "list"
-                label_singular: "фотографию"
-                field: { label: "Фото", name: "image", widget: "image", choose_url: false }
+                widget: "image"
+                multiple: true
+                min: 1
+                choose_url: false
+                hint: "Добавьте минимум одну фотографию. Можно выбрать несколько файлов сразу и менять их порядок перетаскиванием."
               - label: "Карта"
                 name: "map"
                 widget: "object"
+                collapsed: true
+                summary: "{{address}}"
                 fields:
                   - label: "Координаты"
                     name: "coords"
@@ -56,8 +61,8 @@ collections:
                     hint: "Сначала широта, затем долгота."
                     field: { label: "Координата", name: "coordinate", widget: "number", value_type: "float" }
                   - { label: "Адрес", name: "address", widget: "string" }
-                  - { label: "Название в списке карты", name: "listTitle", widget: "string", required: false }
-                  - { label: "Цвет метки", name: "markerColor", widget: "color", required: false, default: "#5c5b5b" }
+                  - { label: "Название в списке карты", name: "listTitle", widget: "string", required: false, hint: "Необязательно. Если оставить пустым, на карте будет использовано обычное название объекта." }
+                  - { label: "Цвет метки", name: "markerColor", widget: "color", required: false, default: "#5c5b5b", hint: "Необязательно. Если не выбирать цвет, используется стандартный серый." }
 
   - label: "Новости"
     name: "news_data"
