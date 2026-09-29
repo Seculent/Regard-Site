@@ -82,7 +82,7 @@
                 <img src="JPG/logo1.jpg" alt="Логотип компании ООО Регард - строительство и геодезический мониторинг" class="logo-img">
             </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Открыть меню">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -110,14 +110,14 @@
         </div>
     </nav>
 
-    <div class="modal fade pdf-modal-custom" id="pdfModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade pdf-modal-custom" id="pdfModal" tabindex="-1" aria-label="Брошюра компании" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body p-0">
-                    <iframe id="pdfViewer" 
+                    <iframe id="pdfViewer" title="Брошюра ООО «РЕГАРД»"
                         src="PDF/regard_brochure.pdf" 
                         width="100%" 
                         height="100%" 
@@ -131,6 +131,7 @@
         </div>
     </div>
 
+    <main>
     <section class="hero-section vh-100 d-flex align-items-center position-relative overflow-hidden">
         <div class="hero-background">
         <div class="hero-bg-image" style="background-image: url('JPG/regard_back1.jpg'); filter: blur(5px);"></div>
@@ -208,11 +209,11 @@
         </div>
     </section>
 
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-label="Просмотр сертификата" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content modal-content-custom">
                 <div class="modal-body p-4 text-center">
-                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                    <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Закрыть">&times;</button>
                     <img id="modalImage" class="modal-image-custom" src="" alt="Просмотр изображения">
                 </div>
             </div>
@@ -244,12 +245,12 @@
         </div>
     </section>
 
-    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="modalProjectTitle" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content bg-dark border border-light">
                 <div class="modal-header border-bottom border-secondary">
                     <h2 class="modal-title text-white fs-3" id="modalProjectTitle">Название проекта</h2>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body p-0">
                     <div class="row g-0">
@@ -266,10 +267,10 @@
                         <div class="col-md-6 bg-black">
                             <div class="position-relative">
                                 <img class="img-fluid w-100 gallery-main-image" id="modalGalleryImage" src="" alt="Галерея проекта" style="height: 400px; object-fit: cover;">
-                                <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-2 gallery-prev" style="z-index: 10;">
+                                <button class="btn btn-dark position-absolute top-50 start-0 translate-middle-y ms-2 gallery-prev" style="z-index: 10;" aria-label="Предыдущее изображение">
                                     <i class="fas fa-chevron-left"></i>
                                 </button>
-                                <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y me-2 gallery-next" style="z-index: 10;">
+                                <button class="btn btn-dark position-absolute top-50 end-0 translate-middle-y me-2 gallery-next" style="z-index: 10;" aria-label="Следующее изображение">
                                     <i class="fas fa-chevron-right"></i>
                                 </button>
                             </div>
@@ -507,6 +508,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <div class="container mt-5 pt-4 border-top" style="padding-bottom: 1rem;">
         <div class="row">
@@ -520,12 +522,12 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="privacyModal" tabindex="-1">
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content bg-dark text-light">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Политика конфиденциальности</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="privacyModalTitle">Политика конфиденциальности</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto; letter-spacing: 0.04rem;">
                     <div class="privacy-content">
@@ -568,12 +570,12 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content bg-dark text-light">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Пользовательское соглашение</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="termsModalTitle">Пользовательское соглашение</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body" style="max-height: 70vh; overflow-y: auto; letter-spacing: 0.04rem;">
                     <div class="terms-content">
@@ -675,12 +677,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="legalModal" tabindex="-1">
+    <div class="modal fade" id="legalModal" tabindex="-1" aria-labelledby="legalModalTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content bg-dark text-light">
                 <div class="modal-header border-secondary">
-                    <h5 class="modal-title">Реквизиты организации</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title" id="legalModalTitle">Реквизиты организации</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Скрытый блок для копирования (УНИКАЛЬНЫЙ ID) с правильным форматированием -->

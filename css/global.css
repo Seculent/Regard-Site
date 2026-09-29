@@ -143,3 +143,8 @@ body {
         scroll-behavior: auto !important;
     }
 }
+/* Accessibility: visible keyboard focus */
+:focus-visible {
+    outline: 3px solid #ffc107;
+    outline-offset: 3px;
+}

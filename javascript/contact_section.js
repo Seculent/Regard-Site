@@ -309,6 +309,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Добавляем эффект при наведении
             item.classList.add('clickable');
+            item.setAttribute('role', 'button');
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('aria-label', 'Скопировать: ' + textToCopy);
+            textElement.setAttribute('aria-live', 'polite');
+
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    item.click();
+                }
+            });
             
             // Добавляем обработчик клика
             textElement.addEventListener('click', function(e) {

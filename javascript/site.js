@@ -84,8 +84,25 @@
             document.body.removeChild(textArea);
         }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const liveRegion = document.createElement('div');
+            liveRegion.id = 'copyLiveRegion';
+            liveRegion.className = 'visually-hidden';
+            liveRegion.setAttribute('role', 'status');
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            document.body.appendChild(liveRegion);
+        });
         // Функция для показа уведомления (без alert)
         function showCopyNotification(message) {
+            const liveRegion = document.getElementById('copyLiveRegion');
+
+            if (liveRegion) {
+                liveRegion.textContent = '';
+                window.setTimeout(() => {
+                    liveRegion.textContent = message;
+                }, 0);
+            }
             // Создаем или находим контейнер для уведомлений
             let notificationContainer = document.getElementById('copyNotificationContainer');
             
@@ -188,6 +205,16 @@
             
             // Добавляем атрибут title для подсказки
             field.setAttribute('title', 'Нажмите для копирования');
+            field.setAttribute('role', 'button');
+            field.setAttribute('tabindex', '0');
+            field.setAttribute('aria-label', 'Скопировать: ' + field.textContent.trim());
+
+            field.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    field.click();
+                }
+            });
             
             // Для элементов без курсора по умолчанию
             if (!field.style.cursor) {
