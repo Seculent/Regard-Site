@@ -1,6 +1,15 @@
 let GEO_OBJECTS = [];
 let geoPlacemarks = [];
-ymaps.ready(initGeoMap);
+function registerGeoMapInit() {
+    if (typeof window.ymaps === 'undefined') {
+        window.addEventListener('regard:maps-ready', registerGeoMapInit, { once: true });
+        return;
+    }
+
+    window.ymaps.ready(initGeoMap);
+}
+
+registerGeoMapInit();
 
 function isValidGeoCoords(coords) {
     return Boolean(

@@ -5,7 +5,16 @@ let isInitialized = false;
 let isInFullscreen = false;
 let mapContainer = null;
 
-ymaps.ready(initContactMap);
+function registerContactMapInit() {
+    if (typeof window.ymaps === 'undefined') {
+        window.addEventListener('regard:maps-ready', registerContactMapInit, { once: true });
+        return;
+    }
+
+    window.ymaps.ready(initContactMap);
+}
+
+registerContactMapInit();
 
 function initContactMap() {
     try {

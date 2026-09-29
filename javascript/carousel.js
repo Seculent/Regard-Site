@@ -62,7 +62,7 @@ function renderProjectCarousel(projects, indicators, inner) {
     indicators.innerHTML = projects.map((p,i) => `<button type="button" data-bs-target="#projectsCarousel" data-bs-slide-to="${i}"${i===0?' class="active" aria-current="true"':''} aria-label="${escapeAttribute(p.title)}"></button>`).join('');
     inner.innerHTML = projects.map((p,i) => `
         <div class="carousel-item${i===0?' active':''}" data-bs-interval="5000">
-            <img src="${escapeAttribute(p.preview)}" class="d-block w-100 carousel-image" alt="${escapeAttribute(p.title)}">
+            <img src="${escapeAttribute(p.preview)}" class="d-block w-100 carousel-image" alt="${escapeAttribute(p.title)}"${i === 0 ? "" : ' loading="lazy"'}>
             <div class="carousel-caption"><h3>${escapeHtml(p.title)}</h3></div>
             <div class="carousel-click-overlay" data-bs-toggle="modal" data-bs-target="#projectModal" data-project-id="${escapeAttribute(p.id)}"></div>
         </div>`).join('');
@@ -73,7 +73,7 @@ function initProjectModal() {
     const title=document.getElementById('modalProjectTitle'), desc=document.getElementById('modalProjectDescription'), image=document.getElementById('modalGalleryImage'), thumbs=document.getElementById('modalGalleryThumbnails');
     let current=null, imageIndex=0, currentImages=[];
     modalEl.addEventListener('show.bs.modal', e => { current=projectsData.find(p=>p.id===e.relatedTarget?.dataset.projectId); if(current) showProject(); });
-    function showProject(){ currentImages=getProjectImages(current); if(!currentImages.length)return; imageIndex=0; title.textContent=current.title; desc.innerHTML=renderProjectMarkdown(current.description); image.src=currentImages[0]; image.alt=current.title; thumbs.innerHTML=''; currentImages.forEach((src,i)=>{const t=document.createElement('img');t.src=src;t.alt=`Миниатюра ${i+1}`;t.className='thumbnail'+(i===0?' active':'');t.onclick=()=>showImage(i);thumbs.appendChild(t);}); }
+    function showProject(){ currentImages=getProjectImages(current); if(!currentImages.length)return; imageIndex=0; title.textContent=current.title; desc.innerHTML=renderProjectMarkdown(current.description); image.src=currentImages[0]; image.alt=current.title; thumbs.innerHTML=''; currentImages.forEach((src,i)=>{const t=document.createElement('img');t.src=src;t.loading='lazy';t.alt=`Миниатюра ${i+1}`;t.className='thumbnail'+(i===0?' active':'');t.onclick=()=>showImage(i);thumbs.appendChild(t);}); }
     function showImage(i){if(!currentImages.length)return;imageIndex=(i+currentImages.length)%currentImages.length;image.src=currentImages[imageIndex];thumbs.querySelectorAll('.thumbnail').forEach((t,j)=>t.classList.toggle('active',j===imageIndex));}
     document.querySelector('.gallery-prev')?.addEventListener('click',()=>showImage(imageIndex-1));
     document.querySelector('.gallery-next')?.addEventListener('click',()=>showImage(imageIndex+1));
