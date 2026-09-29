@@ -20,10 +20,56 @@ function renderNewsMarkdown(value) {
     return window.DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
 }
 
+function isValidNewsDate(value) {
+    if (typeof value !== 'string' || !/^\d{2}\.\d{2}\.\d{4}$/.test(value)) return false;
+
+    const [day, month, year] = value.split('.').map(Number);
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    return (
+        date.getUTCFullYear() === year &&
+        date.getUTCMonth() === month - 1 &&
+        date.getUTCDate() === day
+    );
+}
+
+function isUsableNewsItem(news) {
+    return Boolean(
+        news &&
+        typeof news === 'object' &&
+        news.published === true &&
+        Number.isInteger(news.id) &&
+        news.id > 0 &&
+        isValidNewsDate(news.date) &&
+        typeof news.title === 'string' &&
+        news.title.trim() !== '' &&
+        typeof news.excerpt === 'string' &&
+        news.excerpt.trim() !== '' &&
+        typeof news.fullText === 'string' &&
+        news.fullText.trim() !== ''
+    );
+}
+
+function escapeNewsHtml(value) {
+    const element = document.createElement('div');
+    element.textContent = value ?? '';
+    return element.innerHTML;
+}
 // Инициализация новостного раздела
 async function initNewsSection() {
     try {
-        newsData = (await window.RegardContent.news()).filter(news => news.published !== false);
+        const allNews = await window.RegardContent.news();
+
+        if (!Array.isArray(allNews)) {
+            throw new Error('content/news.json должен содержать корневой JSON-массив');
+        }
+
+        const publishedCandidates = allNews.filter(news => news?.published === true);
+        newsData = publishedCandidates.filter(isUsableNewsItem);
+
+        if (newsData.length !== publishedCandidates.length) {
+            console.warn('Некорректные опубликованные новости исключены из раздела:', publishedCandidates.length - newsData.length);
+        }
     } catch (error) {
         console.error('Ошибка загрузки новостей:', error);
         return;
@@ -77,11 +123,11 @@ function createNewsCard(news, index) {
     card.style.animationDelay = `${index * 0.1}s`;
     
     card.innerHTML = `
-        <div class="news-date">${news.date}</div>
+        <div class="news-date">${escapeNewsHtml(news.date)}</div>
         <div class="news-content">
-            <h3 class="news-title-text">${news.title}</h3>
+            <h3 class="news-title-text">${escapeNewsHtml(news.title)}</h3>
             <div class="news-excerpt">
-                <p>${news.excerpt}</p>
+                <p>${escapeNewsHtml(news.excerpt)}</p>
             </div>
             <div class="news-full" style="display: none;">
                 ${renderNewsMarkdown(news.fullText)}
