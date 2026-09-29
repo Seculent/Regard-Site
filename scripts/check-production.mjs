@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDir, '..');
 
-const productionBase = 'https://regard-spb.ru';
+const productionBase = 'https://www.regard-spb.ru';
 
 const localProjectsPath = path.join(
     root,
@@ -144,7 +144,7 @@ console.log('=== PAGE IDENTITY ===');
 if (
     home &&
     home.body.includes(
-        '<link rel="canonical" href="https://regard-spb.ru/">'
+        '<link rel="canonical" href="https://www.regard-spb.ru/">'
     )
 ) {
     pass('homepage canonical URL');
@@ -164,7 +164,7 @@ if (
 if (
     robots &&
     robots.body.includes(
-        'https://regard-spb.ru/sitemap.xml'
+        'https://www.regard-spb.ru/sitemap.xml'
     )
 ) {
     pass('robots.txt references production sitemap');
@@ -175,7 +175,7 @@ if (
 if (
     sitemap &&
     sitemap.body.includes(
-        '<loc>https://regard-spb.ru/</loc>'
+        '<loc>https://www.regard-spb.ru/</loc>'
     )
 ) {
     pass('sitemap contains production homepage');

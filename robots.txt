@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://regard-spb.ru/sitemap.xml
+Sitemap: https://www.regard-spb.ru/sitemap.xml
