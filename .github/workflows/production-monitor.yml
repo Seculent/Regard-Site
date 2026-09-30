@@ -1,0 +1,84 @@
+name: Production Monitor
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-check:
+    name: Check production availability
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check public endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          check_200() {
+            local url="$1"
+
+            echo "Checking: $url"
+
+            status="$(
+              curl \
+                --silent \
+                --show-error \
+                --location \
+                --retry 2 \
+                --retry-delay 2 \
+                --connect-timeout 10 \
+                --max-time 20 \
+                --output /dev/null \
+                --write-out "%{http_code}" \
+                "$url"
+            )"
+
+            echo "HTTP $status"
+
+            if [[ "$status" != "200" ]]; then
+              echo "::error::Expected HTTP 200 from $url, got HTTP $status"
+              exit 1
+            fi
+          }
+
+          check_200 "https://www.regard-spb.ru/"
+          check_200 "https://www.regard-spb.ru/admin/"
+          check_200 "https://www.regard-spb.ru/content/projects.json"
+          check_200 "https://www.regard-spb.ru/content/news.json"
+          check_200 "https://www.regard-spb.ru/robots.txt"
+          check_200 "https://www.regard-spb.ru/sitemap.xml"
+
+      - name: Check 404 behaviour
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          url="https://www.regard-spb.ru/__regard_production_monitor_missing_page__"
+
+          echo "Checking: $url"
+
+          status="$(
+            curl \
+              --silent \
+              --show-error \
+              --location \
+              --connect-timeout 10 \
+              --max-time 20 \
+              --output /dev/null \
+              --write-out "%{http_code}" \
+              "$url"
+          )"
+
+          echo "HTTP $status"
+
+          if [[ "$status" != "404" ]]; then
+            echo "::error::Expected HTTP 404 from missing URL, got HTTP $status"
+            exit 1
+          fi
