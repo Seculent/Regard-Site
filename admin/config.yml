@@ -1,5 +1,13 @@
 locale: "ru"
 
+site_url: "https://www.regard-spb.ru/"
+display_url: "https://www.regard-spb.ru/"
+app_title: "РЕГАРД — управление сайтом"
+
+logo:
+  src: "/favicon_io/android-chrome-512x512.png"
+  show_in_header: true
+
 backend:
   name: github
   repo: Seculent/Regard-Site
@@ -28,12 +36,13 @@ collections:
             widget: "list"
             root: true
             add_to_top: false
-            collapsed: true
-            summary: "{{fields.title}} — {{fields.id}}"
+            collapsed: auto
+            comment: "Здесь находятся все объекты сайта. Для нового объекта нажмите «Добавить объект». Сначала заполните и проверьте данные, затем включите публикацию."
+            summary: "{{fields.title}}"
             thumbnail: "preview"
             label_singular: "объект"
             fields:
-              - { label: "ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], hint: "Технический идентификатор объекта. После публикации НЕ МЕНЯТЬ. Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
+              - { label: "Служебный ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], comment: "**Важно:** у уже опубликованного объекта этот ID не менять.", hint: "Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
               - { label: "Название", name: "title", widget: "string" }
               - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: false, hint: "Новый объект создаётся скрытым. Включите этот переключатель только когда объект полностью заполнен и готов к публикации. Если выключить, объект не показывается ни в карусели, ни на карте." }
               - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
@@ -50,6 +59,7 @@ collections:
               - label: "Карта"
                 name: "map"
                 widget: "object"
+                comment: "Данные для метки объекта на карте. Если объект не нужно показывать на карте, выключите переключатель «Показывать на карте» выше."
                 collapsed: true
                 summary: "{{address}}"
                 fields:
@@ -77,11 +87,12 @@ collections:
             widget: "list"
             root: true
             add_to_top: true
-            collapsed: true
+            collapsed: auto
+            comment: "Здесь находятся все новости сайта. Для новой новости нажмите «Добавить новость». Новая запись остаётся скрытой, пока не включён переключатель публикации."
             summary: "{{fields.date}} — {{fields.title}}"
             label_singular: "новость"
             fields:
-              - { label: "ID", name: "id", widget: "number", value_type: "int", min: 1, hint: "Технический номер новости. Должен быть уникальным. У существующей новости НЕ МЕНЯТЬ. Для новой новости укажите новый номер, который ещё не используется." }
+              - { label: "Служебный номер (ID)", name: "id", widget: "number", value_type: "int", min: 1, comment: "**Важно:** номер существующей новости не менять.", hint: "Для новой новости укажите новый уникальный номер, который ещё не используется." }
               - { label: "Дата", name: "date", widget: "datetime", type: "date", format: "DD.MM.YYYY", default: "{{now}}", hint: "Выберите дату новости. В файле она сохранится в привычном формате ДД.ММ.ГГГГ." }
               - { label: "Заголовок", name: "title", widget: "string" }
               - { label: "Краткий текст", name: "excerpt", widget: "text" }
