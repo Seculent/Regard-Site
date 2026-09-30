@@ -1,0 +1,32 @@
+# РЕГАРД — локальные и временные файлы
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Временные файлы редакторов
+*.swp
+*.swo
+*~
+
+# Остатки merge / patch
+*.orig
+*.rej
+
+# Временные файлы
+*.tmp
+*.temp
+
+# Локальные резервные копии
+*.bak
+*.backup
+*.backup.*
+*.before-*
+
+# Исторические локальные копии сайта
+/backup-old-version/
+
+# Локальные отчёты REGARD
+REGARD_*_SNAPSHOT.txt
+REGARD_*_AUDIT*.txt
+REGARD_*_RESULT.txt
