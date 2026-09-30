@@ -1,0 +1,103 @@
+locale: "ru"
+
+site_url: "https://www.regard-spb.ru/"
+display_url: "https://www.regard-spb.ru/"
+app_title: "РЕГАРД — управление сайтом"
+
+logo:
+  src: "/admin/assets/regard-cms-header.png"
+  show_in_header: true
+
+backend:
+  name: github
+  repo: Seculent/Regard-Site
+  branch: main
+
+  base_url: https://regard-cms-auth.akhmadeev93.workers.dev
+  auth_endpoint: auth
+
+media_folder: "JPG/uploads"
+public_folder: "/JPG/uploads"
+
+output:
+  omit_empty_optional_fields: true
+
+collections:
+  - label: "Объекты"
+    name: "projects_data"
+    files:
+      - label: "Все объекты"
+        name: "projects"
+        file: "content/projects.json"
+        format: "json"
+        fields:
+          - label: "Объекты"
+            name: "items"
+            widget: "list"
+            root: true
+            add_to_top: false
+            collapsed: auto
+            comment: "Здесь находятся все объекты сайта. Для нового объекта нажмите «Добавить объект». Сначала заполните и проверьте данные, затем включите публикацию."
+            summary: "{{fields.title}}"
+            thumbnail: "preview"
+            label_singular: "объект"
+            fields:
+              - { label: "Служебный ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], comment: "**Важно:** у уже опубликованного объекта этот ID не менять.", hint: "Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
+              - { label: "Название", name: "title", widget: "string" }
+              - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: false, hint: "Новый объект создаётся скрытым. Включите этот переключатель только когда объект полностью заполнен и готов к публикации. Если выключить, объект не показывается ни в карусели, ни на карте." }
+              - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
+              - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true, hint: "Показывает объект на карте. Работает только если объект опубликован и указаны координаты." }
+              - { label: "Обложка", name: "preview", widget: "image", choose_url: false, hint: "Главное изображение объекта в карусели. Лучше использовать горизонтальное фото хорошего качества." }
+              - { label: "Описание", name: "description", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Описание объекта в визуальном редакторе. Можно использовать жирный и курсивный текст, ссылки и списки." }
+              - label: "Галерея объекта"
+                name: "images"
+                widget: "image"
+                multiple: true
+                min: 1
+                choose_url: false
+                hint: "Добавьте минимум одну фотографию. Можно выбрать несколько файлов сразу и менять их порядок перетаскиванием."
+              - label: "Карта"
+                name: "map"
+                widget: "object"
+                comment: "Данные для метки объекта на карте. Если объект не нужно показывать на карте, выключите переключатель «Показывать на карте» выше."
+                collapsed: true
+                summary: "{{address}}"
+                fields:
+                  - label: "Координаты"
+                    name: "coords"
+                    widget: "list"
+                    min: 2
+                    max: 2
+                    hint: "Сначала широта (от -90 до 90), затем долгота (от -180 до 180). Например для Санкт-Петербурга: 59.9386, 30.3141."
+                    field: { label: "Координата", name: "coordinate", widget: "number", value_type: "float" }
+                  - { label: "Адрес", name: "address", widget: "string" }
+                  - { label: "Название в списке карты", name: "listTitle", widget: "string", required: false, hint: "Необязательно. Если оставить пустым, на карте будет использовано обычное название объекта." }
+                  - { label: "Цвет метки", name: "markerColor", widget: "color", required: false, default: "#5c5b5b", hint: "Необязательно. Если не выбирать цвет, используется стандартный серый." }
+
+  - label: "Новости"
+    name: "news_data"
+    files:
+      - label: "Все новости"
+        name: "news"
+        file: "content/news.json"
+        format: "json"
+        fields:
+          - label: "Новости"
+            name: "items"
+            widget: "list"
+            root: true
+            add_to_top: true
+            collapsed: auto
+            comment: "Здесь находятся все новости сайта. Для новой новости нажмите «Добавить новость». Новая запись остаётся скрытой, пока не включён переключатель публикации."
+            summary: "{{fields.date}} — {{fields.title}}"
+            label_singular: "новость"
+            fields:
+              - { label: "Служебный номер (ID)", name: "id", widget: "number", value_type: "int", min: 1, comment: "**Важно:** номер существующей новости не менять.", hint: "Для новой новости укажите новый уникальный номер, который ещё не используется." }
+              - { label: "Дата", name: "date", widget: "datetime", type: "date", format: "DD.MM.YYYY", default: "{{now}}", hint: "Выберите дату новости. В файле она сохранится в привычном формате ДД.ММ.ГГГГ." }
+              - { label: "Заголовок", name: "title", widget: "string" }
+              - { label: "Краткий текст", name: "excerpt", widget: "text" }
+              - { label: "Полный текст", name: "fullText", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Основной текст новости. Можно использовать жирный и курсивный текст, ссылки и списки." }
+              - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: false, hint: "Новая новость создаётся скрытой. Включите публикацию только после проверки заголовка, даты и текста. Если выключить, новость останется в CMS, но не будет отображаться на сайте." }
+
+
+
