@@ -44,22 +44,24 @@ collections:
             fields:
               - { label: "Служебный ID", name: "id", widget: "string", pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Используйте только строчные латинские буквы, цифры и дефисы. Например: novoe-kolpino'], comment: "**Важно:** у уже опубликованного объекта этот ID не менять.", hint: "Для нового объекта используйте строчные латинские буквы, цифры и дефисы, например: novoe-kolpino." }
               - { label: "Название", name: "title", widget: "string" }
-              - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: false, hint: "Новый объект создаётся скрытым. Включите этот переключатель только когда объект полностью заполнен и готов к публикации. Если выключить, объект не показывается ни в карусели, ни на карте." }
+              - { label: "Опубликован на сайте", name: "published", widget: "boolean", default: false, comment: "**Перед публикацией:** если объект показывается в карусели, заполните обложку, описание и галерею; если показывается на карте — координаты и адрес.", hint: "Пока переключатель выключен, объект остаётся черновиком и не показывается на сайте." }
               - { label: "Показывать в карусели объектов", name: "showInCarousel", widget: "boolean", default: true, hint: "Показывает объект в карусели на сайте. Работает только если включено «Опубликован на сайте»." }
               - { label: "Показывать на карте", name: "showOnMap", widget: "boolean", default: true, hint: "Показывает объект на карте. Работает только если объект опубликован и указаны координаты." }
-              - { label: "Обложка", name: "preview", widget: "image", choose_url: false, hint: "Главное изображение объекта в карусели. Лучше использовать горизонтальное фото хорошего качества." }
-              - { label: "Описание", name: "description", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Описание объекта в визуальном редакторе. Можно использовать жирный и курсивный текст, ссылки и списки." }
+              - { label: "Обложка", name: "preview", widget: "image", required: false, choose_url: false, hint: "Можно добавить позже, пока объект остаётся черновиком. Для показа в карусели нужна горизонтальная обложка хорошего качества." }
+              - { label: "Описание", name: "description", widget: "richtext", required: false, modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Можно дописать позже, пока объект скрыт. Для опубликованного объекта в карусели описание обязательно." }
               - label: "Галерея объекта"
                 name: "images"
                 widget: "image"
                 multiple: true
+                required: false
                 min: 1
                 choose_url: false
-                hint: "Добавьте минимум одну фотографию. Можно выбрать несколько файлов сразу и менять их порядок перетаскиванием."
+                hint: "В черновике галерею можно оставить пустой. Для показа объекта в карусели добавьте минимум одну фотографию."
               - label: "Карта"
                 name: "map"
                 widget: "object"
-                comment: "Данные для метки объекта на карте. Если объект не нужно показывать на карте, выключите переключатель «Показывать на карте» выше."
+                required: false
+                comment: "Этот блок можно отключить для черновика или объекта, который не показывается на карте. Если «Показывать на карте» включено перед публикацией, заполните координаты и адрес."
                 collapsed: true
                 summary: "{{address}}"
                 fields:
@@ -95,9 +97,9 @@ collections:
               - { label: "Служебный номер (ID)", name: "id", widget: "number", value_type: "int", min: 1, comment: "**Важно:** номер существующей новости не менять.", hint: "Для новой новости укажите новый уникальный номер, который ещё не используется." }
               - { label: "Дата", name: "date", widget: "datetime", type: "date", format: "DD.MM.YYYY", default: "{{now}}", hint: "Выберите дату новости. В файле она сохранится в привычном формате ДД.ММ.ГГГГ." }
               - { label: "Заголовок", name: "title", widget: "string" }
-              - { label: "Краткий текст", name: "excerpt", widget: "text" }
-              - { label: "Полный текст", name: "fullText", widget: "richtext", modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Основной текст новости. Можно использовать жирный и курсивный текст, ссылки и списки." }
-              - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: false, hint: "Новая новость создаётся скрытой. Включите публикацию только после проверки заголовка, даты и текста. Если выключить, новость останется в CMS, но не будет отображаться на сайте." }
+              - { label: "Краткий текст", name: "excerpt", widget: "text", required: false, hint: "Можно дописать позже, пока новость скрыта. Перед публикацией краткий текст обязателен." }
+              - { label: "Полный текст", name: "fullText", widget: "richtext", required: false, modes: ["rich_text"], buttons: ["bold", "italic", "link", "bulleted-list", "numbered-list", "quote"], editor_components: [], hint: "Можно дописать позже, пока новость скрыта. Перед публикацией полный текст обязателен." }
+              - { label: "Опубликована на сайте", name: "published", widget: "boolean", default: false, comment: "**Перед публикацией:** проверьте дату, заголовок, краткий и полный текст.", hint: "Пока переключатель выключен, новость остаётся черновиком и не отображается на сайте." }
 
 
 
