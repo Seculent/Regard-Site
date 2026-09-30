@@ -5,7 +5,7 @@ display_url: "https://www.regard-spb.ru/"
 app_title: "РЕГАРД — управление сайтом"
 
 logo:
-  src: "/favicon_io/android-chrome-512x512.png"
+  src: "/admin/assets/regard-cms-header.png"
   show_in_header: true
 
 backend:
