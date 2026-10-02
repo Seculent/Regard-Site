@@ -78,7 +78,11 @@ CMS может самостоятельно создать новый commit в 
 
 ## Текущий стабильный checkpoint
 
-`f415b4e Remove obsolete repository files`
+Текущий checkpoint всегда определяется из Git:
+
+    git log -1 --oneline
+
+Опубликованный `main` является source of truth.
 
 ## Roadmap
 
@@ -101,6 +105,6 @@ CMS может самостоятельно создать новый commit в 
 
 - C12 — Conversion / UX Improvement
 
-Текущий этап:
+Документация и сопровождение:
 
 - C14 — Maintenance / Documentation / Handoff
